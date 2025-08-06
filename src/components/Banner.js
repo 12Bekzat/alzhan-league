@@ -36,12 +36,12 @@ export default function HeroBanner() {
       <div style={{ zIndex: 2, maxWidth: '800px', padding: '0 20px' }}>
         <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Alzhan League</h1>
         <p style={{ fontSize: '1.25rem', marginBottom: '2rem' }}>
-          Официальный сайт Alzhan League — платформа для трансляций, новостей и взаимодействия с нашими болельщиками и партнёрами.
+          Здесь растут Чемпионы!
         </p>
         <a
           href="#stream"
           style={{
-            backgroundColor: '#ff3b3f',
+            backgroundColor: '#5d76fb',
             color: '#fff',
             padding: '0.75rem 2rem',
             borderRadius: '30px',

@@ -7,16 +7,16 @@ export default function AboutHistory() {
       style={{
         padding: '4rem 2rem',
         textAlign: 'center',
-        color: '#fff',
+        color: '#000',
       }}
     >
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Наша история</h2>
+      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', }}>Наша история</h2>
       <p
         style={{
           fontSize: '1.1rem',
           maxWidth: '800px',
           margin: '0 auto 3rem',
-          color: '#ccc',
+          color: '#555',
           lineHeight: '1.6',
         }}
       >
@@ -37,16 +37,16 @@ export default function AboutHistory() {
           style={{
             flex: '1 1 250px',
             maxWidth: '280px',
-            backgroundColor: '#242531',
+            backgroundColor: '#fff',
             padding: '2rem',
             borderRadius: '12px',
             boxShadow: '0 8px 25px rgba(0,0,0,0.4)',
             transition: 'transform 0.3s',
           }}
         >
-          <Flag size={48} color="#ff3b3f" style={{ marginBottom: '1rem' }} />
+          <Flag size={48} color="#5d76fb" style={{ marginBottom: '1rem' }} />
           <h3 style={{ fontSize: '1.4rem', marginBottom: '0.5rem' }}>Начало пути</h3>
-          <p style={{ color: '#aaa', lineHeight: '1.5' }}>
+          <p style={{ color: '#555', lineHeight: '1.5' }}>
             Первые шаги начались с локальных мероприятий и небольших турниров для молодых спортсменов.
           </p>
         </div>
@@ -55,16 +55,16 @@ export default function AboutHistory() {
           style={{
             flex: '1 1 250px',
             maxWidth: '280px',
-            backgroundColor: '#242531',
+            backgroundColor: '#fff',
             padding: '2rem',
             borderRadius: '12px',
             boxShadow: '0 8px 25px rgba(0,0,0,0.4)',
             transition: 'transform 0.3s',
           }}
         >
-          <Users size={48} color="#ff3b3f" style={{ marginBottom: '1rem' }} />
+          <Users size={48} color="#5d76fb" style={{ marginBottom: '1rem' }} />
           <h3 style={{ fontSize: '1.4rem', marginBottom: '0.5rem' }}>Сообщество</h3>
-          <p style={{ color: '#aaa', lineHeight: '1.5' }}>
+          <p style={{ color: '#555', lineHeight: '1.5' }}>
             Мы создали сообщество, которое поддерживает друг друга и двигается вперёд к общим целям.
           </p>
         </div>
@@ -73,16 +73,16 @@ export default function AboutHistory() {
           style={{
             flex: '1 1 250px',
             maxWidth: '280px',
-            backgroundColor: '#242531',
+            backgroundColor: '#fff',
             padding: '2rem',
             borderRadius: '12px',
             boxShadow: '0 8px 25px rgba(0,0,0,0.4)',
             transition: 'transform 0.3s',
           }}
         >
-          <HeartHandshake size={48} color="#ff3b3f" style={{ marginBottom: '1rem' }} />
+          <HeartHandshake size={48} color="#5d76fb" style={{ marginBottom: '1rem' }} />
           <h3 style={{ fontSize: '1.4rem', marginBottom: '0.5rem' }}>Вклад в будущее</h3>
-          <p style={{ color: '#aaa', lineHeight: '1.5' }}>
+          <p style={{ color: '#555', lineHeight: '1.5' }}>
             Сегодня фонд вдохновляет новые поколения и поддерживает масштабные проекты по всей стране.
           </p>
         </div>

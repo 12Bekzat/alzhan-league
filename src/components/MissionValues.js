@@ -1,4 +1,6 @@
 import React from 'react';
+import First from '../assets/ourmission.jpg'
+import Second from '../assets/values.jpg'
 
 export default function MissionValues() {
     return (
@@ -14,7 +16,7 @@ export default function MissionValues() {
                     }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=900&q=80"
+                        src={First}
                         alt="Миссия"
                         style={{
                             flex: '1 1 400px',
@@ -25,8 +27,8 @@ export default function MissionValues() {
                         }}
                     />
                     <div style={{ flex: '1 1 300px' }}>
-                        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#ff3b3f' }}>Наша миссия</h2>
-                        <p style={{ lineHeight: 1.6, color: '#ccc' }}>
+                        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#5d76fb' }}>Наша миссия</h2>
+                        <p style={{ lineHeight: 1.6, color: '#555' }}>
                             Наша миссия — вдохновлять молодёжь на спортивные достижения, объединять сообщества и создавать пространство для развития талантов. Мы верим, что спорт может изменить жизни и дать каждому шанс раскрыться.
                         </p>
                     </div>
@@ -42,7 +44,7 @@ export default function MissionValues() {
                     }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=900&q=80"
+                        src={Second}
                         alt="Ценности"
                         style={{
                             flex: '1 1 400px',
@@ -53,8 +55,8 @@ export default function MissionValues() {
                         }}
                     />
                     <div style={{ flex: '1 1 300px' }}>
-                        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#ff3b3f' }}>Наши ценности</h2>
-                        <p style={{ lineHeight: 1.6, color: '#ccc' }}>
+                        <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#5d76fb' }}>Наши ценности</h2>
+                        <p style={{ lineHeight: 1.6, color: '#555' }}>
                             Мы строим лигу на принципах честности, уважения и командного духа. Наша главная ценность — это люди: спортсмены, тренеры, болельщики и партнёры, которые вместе создают уникальное сообщество Alzhan League.
                         </p>
                     </div>

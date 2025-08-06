@@ -2,29 +2,34 @@ import React, { useState } from 'react';
 
 const teamMembers = [
   {
-    name: 'Айдар Ермеков',
-    role: 'Капитан команды',
+    name: 'Сайденов Анвар Галимуллаевич',
+    role: 'Председатель попечительского совета ОФ “Alzhan”',
     image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
   },
   {
-    name: 'Жанар Серикова',
-    role: 'Тренер',
+    name: 'Ахтанов Ерлан Кокенаевич',
+    role: 'Сооснователь ОФ “Alzhan”',
+    image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
+  },
+  {
+    name: 'Шакиров Марат Сагидович',
+    role: 'Директор ОФ “Alzhan”',
+    image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
+  },
+  {
+    name: 'Жасұланова Айкенже',
+    role: 'Руководитель отдела по работе со спонсорами и маркетингу',
     image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
   },
   {
-    name: 'Мадияр Тлеужанов',
-    role: 'Физиотерапевт',
-    image: 'https://images.unsplash.com/photo-1603415526960-f7e0328d6f87?auto=format&fit=crop&w=500&q=80',
+    name: 'Альфира Бекмамбетова',
+    role: 'Менеджер ОФ “Alzhan”',
+    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
   },
   {
-    name: 'Аружан Калиева',
-    role: 'PR-менеджер',
-    image: 'https://images.unsplash.com/photo-1614285374634-0d6e8d0ed71c?auto=format&fit=crop&w=500&q=80',
-  },
-  {
-    name: 'Санжар Бекмурзин',
-    role: 'Аналитик',
-    image: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=500&q=80',
+    name: 'Элла',
+    role: 'Менеджер ОФ “Alzhan”',
+    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
   },
 ];
 

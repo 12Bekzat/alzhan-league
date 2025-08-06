@@ -1,6 +1,6 @@
 import React from 'react';
 import { Phone, Mail, Instagram, Link as LinkIcon } from 'lucide-react'; // Или react-icons, если хочешь
-import Logo from '../assets/Aljan1-3_9R5tx.png'
+import Logo from '../assets/Logo.png'
 import Map from '../components/Map';
 
 export default function Contacts() {

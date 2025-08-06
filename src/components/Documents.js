@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const docs = [
-  'Устав Alzhan League',
-  'Положение об организации турниров',
-  'Реквизиты',
-  'Справка о гос. регистрации',
-  'Меморандум о сотрудничестве с партнёрами',
-];
-
-export default function Documents() {
+export default function Documents({ docs, documents, title }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <section className="documents">
-      <h2>Документы</h2>
+      {title && <h2>{title}</h2>}
       <div className="docs-list">
         {docs.map((doc, index) => (
-          <div
+          <a
+            download
             key={index}
-            className={`doc-card ${activeIndex === index ? 'active' : ''}`}
+            href={documents && documents[index]}
+            className={`doc-card ${activeIndex === index ? "active" : ""}`}
             onClick={() => setActiveIndex(index)}
           >
             {doc}
-          </div>
+          </a>
         ))}
       </div>
     </section>
