@@ -11,8 +11,14 @@ import NewsPage from './pages/News';
 import Projects from './pages/Projects';
 import { FaArrowDown, FaPhone } from 'react-icons/fa6';
 import Partners from './pages/Partners';
+import { FaDonate } from 'react-icons/fa';
+import Popup from './components/Popup';
+import { useState } from 'react';
+import KaspiDonateSection from './components/KaspiDonateSection';
+import ManageStreams from './pages/ManageStreams';
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <Router>
       <Header />
@@ -27,12 +33,25 @@ function App() {
           <Route path="/news" element={<NewsPage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/partners" element={<Partners />} />
+          <Route path="/secret/page/secret-streams-9257" element={<ManageStreams />} />
         </Routes>
       </div>
 
-      <a href='#socials' className="always">
-        <FaPhone size={20} color='white' />
-      </a>
+      <div className='fast-icons'>
+        <a className="always" 
+          href="https://wa.me/77017440384"
+          target="_blank"
+          rel="noopener noreferrer">
+          <FaPhone size={20} color='white' />
+        </a>
+        <div onClick={() => setIsOpen(true)} className="always">
+          <FaDonate size={20} color='white' />
+        </div>
+      </div>
+
+      <Popup isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <KaspiDonateSection />
+      </Popup>
 
       <Footer />
     </Router>

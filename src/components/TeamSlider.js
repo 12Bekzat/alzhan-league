@@ -17,17 +17,12 @@ const teamMembers = [
     image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
   },
   {
-    name: 'Жасұланова Айкенже',
-    role: 'Руководитель отдела по работе со спонсорами и маркетингу',
-    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
-  },
-  {
     name: 'Альфира Бекмамбетова',
     role: 'Менеджер ОФ “Alzhan”',
     image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
   },
   {
-    name: 'Элла',
+    name: 'Дюсенбина Элла',
     role: 'Менеджер ОФ “Alzhan”',
     image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
   },

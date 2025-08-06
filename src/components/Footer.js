@@ -24,7 +24,7 @@ export default function Footer() {
         </div>
         <div className="footer__content">
           <div className="footer__title">Контакты</div>
-          <div className="footer__text">info@alzhanleague.kz</div>
+          <div className="footer__text">kazbasket.fund@gmail.com</div>
           <div className="footer__icons" id="socials">
             <a target="_blank" href="https://www.instagram.com/alzhan.league?igsh=MWJhNHcyMGZweXpjZA==" className="footer__icon" rel="noreferrer">
               <FaInstagram size={30} color="white" />
@@ -32,8 +32,8 @@ export default function Footer() {
             <a target="_blank" href="https://www.instagram.com/alzhan.fund?igsh=NDI4NGtqZXFramVq" className="footer__icon" rel="noreferrer">
               <FaInstagram size={30} color="white" />
             </a>
-            <a target="_blank" href="https://vk.com/alzhan_league" className="footer__icon" rel="noreferrer">
-              <FaVk size={30} color="white" />
+            <a target="_blank" href="https://wa.me/77017440384" className="footer__icon" rel="noreferrer">
+              <FaWhatsapp size={30} color="white" />
             </a>
             <a target="_blank" href="https://youtube.com/@alzhankz?si=QUqhrpl2CGI77R5H" className="footer__icon" rel="noreferrer">
               <FaYoutube size={30} color="white" />

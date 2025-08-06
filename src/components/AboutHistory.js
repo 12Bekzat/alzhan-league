@@ -10,20 +10,7 @@ export default function AboutHistory() {
         color: '#000',
       }}
     >
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', }}>Наша история</h2>
-      <p
-        style={{
-          fontSize: '1.1rem',
-          maxWidth: '800px',
-          margin: '0 auto 3rem',
-          color: '#555',
-          lineHeight: '1.6',
-        }}
-      >
-        Фонд «Alzhan League» был создан для того, чтобы поддерживать молодёжь, вдохновлять на спортивные достижения
-        и формировать сильное сообщество. Мы начинали с локальных инициатив и за несколько лет выросли в мощную лигу,
-        которая объединяет тысячи людей по всей стране.
-      </p>
+      <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem', }}>Наша история</h2>
 
       <div
         style={{

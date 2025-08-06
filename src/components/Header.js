@@ -1,10 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../assets/Logo.png";
 import LanguageSelector from "./LanguageSelector";
 import { Link, NavLink } from "react-router-dom";
+import Popup from "./Popup";
+import Sponsor from '../pages/Sponsor';
 
 export const Header = () => {
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <div className="header">
       <div className="header__row">
@@ -62,7 +65,10 @@ export const Header = () => {
             Партнёры и спонсоры
           </NavLink>
           <LanguageSelector />
-          <Link to={'/sponsor'} className="main-button">Хочу стать спонсором</Link>
+          <div className="main-button" onClick={() => setIsOpen(true)}>Хочу стать спонсором</div>
+          <Popup isOpen={isOpen} onClose={() => setIsOpen(false)} >
+            <Sponsor />
+          </Popup>
         </div>
       </div>
     </div>

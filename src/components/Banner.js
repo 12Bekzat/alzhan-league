@@ -34,9 +34,9 @@ export default function HeroBanner() {
 
       {/* Контент поверх */}
       <div style={{ zIndex: 2, maxWidth: '800px', padding: '0 20px' }}>
-        <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Alzhan League</h1>
+        <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Здесь растут Чемпионы!</h1>
         <p style={{ fontSize: '1.25rem', marginBottom: '2rem' }}>
-          Здесь растут Чемпионы!
+          Здесь мы верим в силу спорта и командного духа. Каждый матч, каждая тренировка — это шаг к новым победам. Мы создаём условия, где талант раскрывается, а стремление стать лучше превращает игроков в настоящих чемпионов.
         </p>
         <a
           href="#stream"
@@ -49,8 +49,8 @@ export default function HeroBanner() {
             fontSize: '1.1rem',
             transition: 'background-color 0.3s ease',
           }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = '#ff5a5e')}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = '#ff3b3f')}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = '#4db8ff')}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = '#5d76fb')}
         >
           Смотреть трансляцию
         </a>

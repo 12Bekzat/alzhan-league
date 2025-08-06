@@ -1,65 +1,61 @@
 // src/pages/PartnersPage.jsx
-import React from 'react';
 import ERG from '../assets/erg logo.webp'
 import Kusto from '../assets/kusto png.png'
 import Zhebe from '../assets/zhebe logistics png.jpg'
-import ThanksERG from '../assets/thanks_erg.pdf'
-import ThanksKusto from '../assets/thanks_kusto.pdf'
+import ThanksERG from '../assets/thx-image-erg.png'
+import ThanksKusto from '../assets/thx-image-kusto.png'
+import React, { useState } from "react";
 
 const partners = [
   {
     name: 'ERG - Eurasian Resources Group',
     logo: ERG,
+    description: 'jhd jksahdjkhasjk hdjkashjdjhajs hjdhsaj djahsjdh jkasjd akjshdjkaskj',
     pdf: ThanksERG
   },
   {
     name: 'Kusto Group',
     logo: Kusto,
+    description: 'jhd jksahdjkhasjk hdjkashjdjhajs hjdhsaj djahsjdh jkasjd akjshdjkaskj',
     pdf: ThanksKusto
   },
   {
     name: 'Zhebe logistics',
+    description: 'jhd jksahdjkhasjk hdjkashjdjhajs hjdhsaj djahsjdh jkasjd akjshdjkaskj',
     logo: Zhebe,
   }
 ];
 
 export default function Partners() {
-  const categories = ['Все', 'Госструктуры', 'Бизнес', 'Частные лица'];
-  const [activeCategory, setActiveCategory] = React.useState('Все');
-
-  const filteredPartners = activeCategory === 'Все'
-    ? partners
-    : partners.filter((p) => p.category === activeCategory);
-
+  const [activeImage, setActiveImage] = useState(null);
   return (
-    <div className="game-stats-page light-theme">
-      <div className="container">
-        <h1 className="main-title">Партнёры и спонсоры</h1>
-
-        {/* Категории */}
-
-        {/* Сетка партнёров */}
-        <div className="partners-grid">
-          {filteredPartners.map((partner, i) => (
-            <div key={i} className="partner-card">
-              <img src={partner.logo} alt={partner.name} className="partner-logo" />
-              <h2 className="partner-name">{partner.name}</h2>
-              <p className="partner-category">{partner.category}</p>
-              <p className="partner-description">{partner.description}</p>
-              <blockquote className="partner-quote">{partner.quote}</blockquote>
-
-              {partner.pdf && (
-                <a target='_blank' href={partner.pdf}
-                    className="view-pdf-btn" rel="noreferrer"
-                    // onClick={() => setActivePdf(partner.pdf)}
-                  >
-                    📄 Благодарственное письмо
-                  </a>
-              )}
+    <>
+      <div className="sponsors-section">
+        <h2 className="section-title">Благодарим наших спонсоров</h2>
+        <div className="sponsors-grid">
+          {partners.map((sponsor, index) => (
+            <div key={index} className="sponsor-card">
+              <div className="sponsor-header">
+                <img src={sponsor.logo} alt={sponsor.name} className="sponsor-logo" />
+                <h3 className="sponsor-name">{sponsor.name}</h3>
+              </div>
+              {sponsor.pdf ? <img
+                src={sponsor.pdf}
+                alt={`Благодарственное письмо ${sponsor.name}`}
+                className="thank-image"
+                onClick={() => setActiveImage(sponsor.pdf)}
+              /> : <div className="thank-placeholder">
+                <span>Нет письма</span>
+              </div>}
             </div>
           ))}
         </div>
       </div>
-    </div>
+      {activeImage && (
+        <div className="lightbox" onClick={() => setActiveImage(null)}>
+          <img src={activeImage} alt="Увеличенное письмо" className="lightbox-image" />
+          <button className="close-btn" onClick={() => setActiveImage(null)}>✖</button>
+        </div>
+      )}</>
   );
 }

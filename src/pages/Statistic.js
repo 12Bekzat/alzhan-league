@@ -1,10 +1,25 @@
 // src/pages/GameStats.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Default from "../assets/default.jpg";
 import Documents from "../components/Documents";
 import Broadcast from "../components/Broadcast";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../utils/firebaseConfig";
 
 export default function GameStats() {
+  const [streams, setStreams] = useState([]);
+
+
+  const fetchStreams = async () => {
+    const querySnapshot = await getDocs(collection(db, "streams"));
+    const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    setStreams(data);
+  };
+
+  useEffect(() => {
+    fetchStreams();
+  }, []);
+
   const tableData = [
     {
       team: "Almaty Eagles",
@@ -118,7 +133,7 @@ export default function GameStats() {
         </div>
 
         {/* Встроенный YouTube-плеер */}
-        <Broadcast />
+        <Broadcast translations={streams} />
       </div>
     </div>
   );

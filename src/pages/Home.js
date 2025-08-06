@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Broadcast from '../components/Broadcast'
 import HeroBanner from '../components/Banner'
 import AboutSection from '../components/AboutSection'
+import BasketballNewsSection from '../components/BasketballNewsSection'
+import PartnersMini from '../components/PartnersMini'
 
 export default class Home extends Component {
     render() {
@@ -9,7 +11,9 @@ export default class Home extends Component {
             <>
                 <HeroBanner />
                 <AboutSection />
-                <Broadcast />
+                <BasketballNewsSection />
+                <Broadcast/>
+                <PartnersMini />
             </>
         )
     }

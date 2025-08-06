@@ -1,7 +1,6 @@
 import React from 'react';
 import { Phone, Mail, Instagram, Link as LinkIcon } from 'lucide-react'; // Или react-icons, если хочешь
 import Logo from '../assets/Logo.png'
-import Map from '../components/Map';
 
 export default function Contacts() {
     return (
@@ -21,31 +20,30 @@ export default function Contacts() {
                             <div className="contacts-item">
                                 <Phone size={18} />
                                 <span>Телефон</span>
-                                <p>+7 705 313 47 30</p>
+                                <p>+7 701 744 03 84</p>
                             </div>
 
                             <div className="contacts-item">
                                 <Mail size={18} />
                                 <span>Email</span>
-                                <p>mclucker13@gmail.com</p>
+                                <p>kazbasket.fund@gmail.com</p>
                             </div>
 
                             <div className="contacts-item">
                                 <Instagram size={18} />
                                 <span>Instagram</span>
-                                <p>https://www.instagram.com/alzhan.league/</p>
+                                <p>https://www.instagram.com/alzhan.league?igsh=MWJhNHcyMGZweXpjZA==</p>
                             </div>
 
                             <div className="contacts-item">
                                 <LinkIcon size={18} />
                                 <span>Еще ссылки</span>
-                                <p>https://www.instagram.com/alzhan.league/</p>
+                                <p>https://www.instagram.com/alzhan.fund?igsh=NDI4NGtqZXFramVq</p>
                             </div>
                         </div>
                     </div>
                 </section>
             </div>
-            <Map />
         </>
     );
 }
