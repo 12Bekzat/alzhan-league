@@ -115,17 +115,18 @@ body {
     align-items: center;
 
     img {
-      height: 86px;
+      height: 240px;
       object-fit: contain;
     }
 
     span {
       font-size: 24px;
       color: black;
+      display: none;
       font-weight: 600;
 
       p {
-        color: #5d76fb;
+        // color: #5d76fb;
       }
     }
   }
@@ -137,7 +138,7 @@ body {
   }
 
   &__link {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     padding: 12px 0;
@@ -582,6 +583,7 @@ body {
     }
 
   }
+
   .news-grid {
     .news-card {
       padding: 1rem;
@@ -1350,6 +1352,8 @@ body {
 
 .sponsors-section {
   padding: 3rem 1rem;
+  width: 100%;
+  max-width: 1300px;
   text-align: center;
 
   .section-title {
@@ -1361,22 +1365,33 @@ body {
 
   .sponsors-grid {
     display: flex;
+    flex-wrap: wrap;
+    width: 100%;
     gap: 2rem;
+    margin-bottom: 24px;
   }
 
   .sponsor-card {
     background: #ffffff;
     border-radius: 1rem;
-    min-width: 350px;
+    width: 100%;
     padding: 1.5rem;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 12px;
     transition: transform 0.2s ease;
 
     &:hover {
       transform: translateY(-4px);
+    }
+
+    .sponsor-line {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      align-items: flex-start;
     }
 
     .sponsor-header {
@@ -1398,6 +1413,37 @@ body {
         font-weight: 600;
       }
     }
+
+    .season-stats {
+      border-top: 1px solid #ddd;
+      padding-top: 12px;
+
+      h4 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      .season {
+        margin-bottom: 8px;
+
+        p {
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+
+        ul {
+          padding-left: 18px;
+          list-style-type: none;
+
+          li {
+            font-size: 13px;
+            line-height: 1.4;
+          }
+        }
+      }
+    }
+
 
     .sponsor-description {
       font-size: 0.95rem;
@@ -1658,7 +1704,8 @@ body {
       width: 100%;
       border-collapse: collapse;
 
-      th, td {
+      th,
+      td {
         padding: 0.8rem;
         text-align: left;
         border-bottom: 1px solid #ddd;
@@ -1734,9 +1781,9 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-

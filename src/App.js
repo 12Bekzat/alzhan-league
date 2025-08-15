@@ -16,6 +16,7 @@ import Popup from './components/Popup';
 import { useState } from 'react';
 import KaspiDonateSection from './components/KaspiDonateSection';
 import ManageStreams from './pages/ManageStreams';
+import "./utils/i18n";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false)
@@ -39,7 +40,7 @@ function App() {
 
       <div className='fast-icons'>
         <a className="always" 
-          href="https://wa.me/77017440384"
+          href="https://wa.me/77056670405"
           target="_blank"
           rel="noopener noreferrer">
           <FaPhone size={20} color='white' />

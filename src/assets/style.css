@@ -114,17 +114,15 @@ body {
   align-items: center;
 }
 .header__logo img {
-  height: 86px;
+  height: 240px;
   -o-object-fit: contain;
      object-fit: contain;
 }
 .header__logo span {
   font-size: 24px;
   color: black;
+  display: none;
   font-weight: 600;
-}
-.header__logo span p {
-  color: #5d76fb;
 }
 .header__links {
   display: flex;
@@ -132,7 +130,7 @@ body {
   align-items: baseline;
 }
 .header__link {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
   padding: 12px 0;
@@ -1199,6 +1197,8 @@ body {
 
 .sponsors-section {
   padding: 3rem 1rem;
+  width: 100%;
+  max-width: 1300px;
   text-align: center;
 }
 .sponsors-section .section-title {
@@ -1209,21 +1209,31 @@ body {
 }
 .sponsors-section .sponsors-grid {
   display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   gap: 2rem;
+  margin-bottom: 24px;
 }
 .sponsors-section .sponsor-card {
   background: #ffffff;
   border-radius: 1rem;
-  min-width: 350px;
+  width: 100%;
   padding: 1.5rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 12px;
   transition: transform 0.2s ease;
 }
 .sponsors-section .sponsor-card:hover {
   transform: translateY(-4px);
+}
+.sponsors-section .sponsor-card .sponsor-line {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: flex-start;
 }
 .sponsors-section .sponsor-card .sponsor-header {
   display: flex;
@@ -1242,6 +1252,30 @@ body {
 .sponsors-section .sponsor-card .sponsor-header .sponsor-name {
   font-size: 1.2rem;
   font-weight: 600;
+}
+.sponsors-section .sponsor-card .season-stats {
+  border-top: 1px solid #ddd;
+  padding-top: 12px;
+}
+.sponsors-section .sponsor-card .season-stats h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+.sponsors-section .sponsor-card .season-stats .season {
+  margin-bottom: 8px;
+}
+.sponsors-section .sponsor-card .season-stats .season p {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.sponsors-section .sponsor-card .season-stats .season ul {
+  padding-left: 18px;
+  list-style-type: none;
+}
+.sponsors-section .sponsor-card .season-stats .season ul li {
+  font-size: 13px;
+  line-height: 1.4;
 }
 .sponsors-section .sponsor-card .sponsor-description {
   font-size: 0.95rem;
@@ -1480,7 +1514,8 @@ body {
   width: 100%;
   border-collapse: collapse;
 }
-.streams-page .streams-table table th, .streams-page .streams-table table td {
+.streams-page .streams-table table th,
+.streams-page .streams-table table td {
   padding: 0.8rem;
   text-align: left;
   border-bottom: 1px solid #ddd;

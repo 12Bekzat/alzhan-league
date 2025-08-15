@@ -1,6 +1,6 @@
 import React from 'react';
-import First from '../assets/ourmission.jpg'
-import Second from '../assets/values.jpg'
+import First from '../assets/ourmss.jpg'
+import Second from '../assets/ourvals.jpg'
 
 export default function MissionValues() {
     return (

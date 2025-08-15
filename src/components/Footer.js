@@ -32,7 +32,7 @@ export default function Footer() {
             <a target="_blank" href="https://www.instagram.com/alzhan.fund?igsh=NDI4NGtqZXFramVq" className="footer__icon" rel="noreferrer">
               <FaInstagram size={30} color="white" />
             </a>
-            <a target="_blank" href="https://wa.me/77017440384" className="footer__icon" rel="noreferrer">
+            <a target="_blank" href="https://wa.me/77056670405" className="footer__icon" rel="noreferrer">
               <FaWhatsapp size={30} color="white" />
             </a>
             <a target="_blank" href="https://youtube.com/@alzhankz?si=QUqhrpl2CGI77R5H" className="footer__icon" rel="noreferrer">
