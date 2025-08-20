@@ -4,22 +4,28 @@ import Kusto from '../assets/kusto png.png'
 import Zhebe from '../assets/zhebe logistics png.png'
 import Federation from '../assets/federation.png'
 import PBK from '../assets/pbk.png'
+import InfiniteMarquee from './InfiniteMarquee'
 
 const partners = [
     {
-        logo: ERG,
+        src: ERG,
+        alt: ''
     },
     {
-        logo: Kusto,
+        src: Kusto,
+        alt: ''
     },
     {
-        logo: Zhebe,
+        src: Zhebe,
+        alt: ''
     },
     {
-        logo: Federation,
+        src: Federation,
+        alt: ''
     },
     {
-        logo: PBK,
+        src: PBK,
+        alt: ''
     }
 ];
 
@@ -27,12 +33,13 @@ export default function PartnersMini() {
     return (
         <div className='partners-mini'>
             <div className='partners-mini__container'>
-            <div className='title'>Нас поддержали</div>
-            <div className='partners-mini__cards'>
-                {partners.map((item, index) => <div className='partners-mini__card'>
-                    <img src={item.logo} alt="" />
-                </div>)}
-            </div>
+                <div className='title'>Нас поддержали</div>
+                <InfiniteMarquee
+                    images={partners}
+                    height={180}    // подгони под вашу картинку
+                    gap={180}
+                    duration={28} // быстрее/медленнее
+                />
             </div>
         </div>
     )

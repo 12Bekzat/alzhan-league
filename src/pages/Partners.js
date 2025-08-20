@@ -8,6 +8,9 @@ import ThanksERG from '../assets/thx-image-erg.png'
 import ThanksKusto from '../assets/thx-image-kusto.png'
 import ThanksZhebe from '../assets/thanks-zhebe.png'
 import React, { useState } from "react";
+import CompanySpoiler from '../components/CompanySpoiler'
+import SeasonsAccordion from '../components/SeasonAccordion'
+import TabPanel from '../components/TabPanel'
 
 const partners = [
   {
@@ -83,57 +86,54 @@ const friends = [
 export default function Partners() {
   const [activeImage, setActiveImage] = useState(null);
   return (
-    <>
+    <div className='back'>
+      <div className='back-img' />
       <div className="sponsors-section">
-        <div className="sponsors-grid">
-          {partners.map((sponsor, index) => (
-            <div key={index} className="sponsor-card">
-              <div className='sponsor-line'>
-                <div className="sponsor-header">
-                  <img src={sponsor.logo} alt={sponsor.name} className="sponsor-logo" />
-                  <h3 className="sponsor-name">{sponsor.name}</h3>
-                  <p className="sponsor-description">{sponsor.description}</p>
-                </div>
-                {sponsor.pdf ? <img
-                  src={sponsor.pdf}
-                  alt={`Благодарственное письмо ${sponsor.name}`}
-                  className="thank-image"
-                  onClick={() => setActiveImage(sponsor.pdf)}
-                /> : <div className="thank-placeholder">
-                  <span>Нет письма</span>
-                </div>}
-              </div>
-              <div className='sponsor-line'>
-                <div className="season-stats">
-                  <h4>Сезоны участия</h4>
-                  {sponsor.seasons.map((sn, inddd) => <div className="season" key={inddd}>
+        <TabPanel headerStyle={{ borderBottom: 'none' }} isSecond={true} tabs={[
+          {
+            label: 'Спонсоры',
+            content: <div className="sponsors-grid">
+              {partners.map((sponsor, index) => (
+                <CompanySpoiler
+                  logo={sponsor.logo}
+                  name={sponsor.name}
+                  summary={sponsor.description}
+                  defaultOpen={false}
+                >
+                  <SeasonsAccordion seasons={sponsor.seasons} />
+                  {sponsor.pdf ? <img
+                    src={sponsor.pdf}
+                    alt={`Благодарственное письмо ${sponsor.name}`}
+                    className="thank-image"
+                    onClick={() => setActiveImage(sponsor.pdf)}
+                  /> : <div className="thank-placeholder">
+                    <span>Нет письма</span>
+                  </div>}
+                </CompanySpoiler>
+              ))}
+            </div>
+          },
+          {
+            label: 'Партнеры',
+            content: <div className="sponsors-grid">
+              {friends.map((sponsor, index) => (
+                <CompanySpoiler
+                  logo={sponsor.logo}
+                  name={sponsor.name}
+                  defaultOpen={false}
+                >
+                </CompanySpoiler>
+              ))}
+            </div>
+          }]
+        } />
 
-                    <p><strong>{sn.title}</strong></p>
-                    <ul>
-                      {sn.elems.map((el, cnt) => <li key={cnt}>{el}</li>)}
-                    </ul>
-                  </div>)}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="sponsors-grid">
-          {friends.map((sponsor, index) => (
-            <div key={index} className="sponsor-card">
-              <div className="sponsor-header">
-                <img src={sponsor.logo} alt={sponsor.name} className="sponsor-logo" />
-                <h3 className="sponsor-name">{sponsor.name}</h3>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
       {activeImage && (
         <div className="lightbox" onClick={() => setActiveImage(null)}>
           <img src={activeImage} alt="Увеличенное письмо" className="lightbox-image" />
           <button className="close-btn" onClick={() => setActiveImage(null)}>✖</button>
         </div>
-      )}</>
+      )}</div>
   );
 }

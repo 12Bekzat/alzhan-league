@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function Documents({ docs, documents, title, filters }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [years, setYears] = useState('');
+  const [years, setYears] = useState('2025');
 
   return (
     <section className="documents">

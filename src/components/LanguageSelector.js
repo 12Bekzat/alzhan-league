@@ -18,8 +18,8 @@ export default function LanguageSelector() {
         {active.toUpperCase()}
       </button>
       <div class="dropdown-content" style={{ minWidth: 50 }}>
-        {languages.map((item) => (
-          <div className="child" id="top" href="#" onClick={() => change(item)}>
+        {languages.map((item, ind) => (
+          <div className="child" id="top" href="#" onClick={() => change(item)} key={ind}>
             {item.toUpperCase()}
           </div>
         ))}
