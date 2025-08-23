@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
-export default function TabPanel({ tabs }) {
+export default function TabPanel({ tabs, headerStyle, isSecond }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <div className="tab-panel">
       {/* Заголовки вкладок */}
-      <div className="tab-header">
+      <div className="tab-header" style={headerStyle}>
         {tabs.map((tab, index) => (
           <button
             key={index}
-            className={`tab-btn ${activeIndex === index ? "active" : ""}`}
+            className={`${isSecond ? 'tab-btn-second' : 'tab-btn'} ${activeIndex === index ? "active" : ""}`}
             onClick={() => setActiveIndex(index)}
           >
             {tab.label}

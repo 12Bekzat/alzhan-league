@@ -20,7 +20,7 @@ export default function Contacts() {
                             <div className="contacts-item">
                                 <Phone size={18} />
                                 <span>Телефон</span>
-                                <p>+7 701 744 03 84</p>
+                                <p>+7 705 667 0405</p>
                             </div>
 
                             <div className="contacts-item">

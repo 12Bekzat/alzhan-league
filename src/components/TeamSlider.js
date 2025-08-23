@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const teamMembers = [
   {
@@ -53,7 +54,7 @@ export default function TeamSlider() {
       <h2>Наша команда</h2>
       <div className="slider-container">
         <button className="nav-button" onClick={prevSlide}>
-          ‹
+          <FaArrowLeft size={16} />
         </button>
 
         <div className="slider-wrapper">
@@ -76,7 +77,7 @@ export default function TeamSlider() {
         </div>
 
         <button className="nav-button" onClick={nextSlide}>
-          ›
+          <FaArrowRight size={16} />
         </button>
       </div>
     </section>

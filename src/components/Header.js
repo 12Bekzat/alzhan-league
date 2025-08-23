@@ -62,7 +62,7 @@ export const Header = () => {
               "header__link " + (isActive ? "active" : "")
             }
           >
-            Партнёры и спонсоры
+            Cпонсоры
           </NavLink>
           <LanguageSelector />
           <div className="main-button" onClick={() => setIsOpen(true)}>Хочу стать спонсором</div>

@@ -1,5 +1,5 @@
 import './assets/style.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import { Header } from './components/Header';
 import Footer from './components/Footer';
@@ -16,14 +16,16 @@ import Popup from './components/Popup';
 import { useState } from 'react';
 import KaspiDonateSection from './components/KaspiDonateSection';
 import ManageStreams from './pages/ManageStreams';
+import "./utils/i18n";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false)
+  
   return (
     <Router>
       <Header />
 
-      <div className='main'>
+      <div className={'main'}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -39,7 +41,7 @@ function App() {
 
       <div className='fast-icons'>
         <a className="always" 
-          href="https://wa.me/77017440384"
+          href="https://wa.me/77056670405"
           target="_blank"
           rel="noopener noreferrer">
           <FaPhone size={20} color='white' />

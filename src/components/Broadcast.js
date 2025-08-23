@@ -1,6 +1,6 @@
 import React from "react";
 import Documents from "./Documents";
-import DefaultBroadcast from "../assets/default.avif";
+import DefaultBroadcast from "../assets/broadcast.jpg";
 
 export default function Broadcast({ translations }) {
   return (
@@ -38,6 +38,7 @@ export default function Broadcast({ translations }) {
                 style={{ width: "100%", height: "100%" }}
               ></iframe> :
                 <div className="no-streams-placeholder">
+                  <img src={DefaultBroadcast} alt="" />
                   <div className="icon">📺</div>
                   <h3>Пока нет трансляций</h3>
                   <p>Следите за обновлениями — скоро здесь появятся новые матчи!</p>

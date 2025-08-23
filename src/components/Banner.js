@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function HeroBanner() {
+  const { t } = useTranslation()
+  
   return (
     <div
       style={{
@@ -34,7 +37,7 @@ export default function HeroBanner() {
 
       {/* Контент поверх */}
       <div style={{ zIndex: 2, maxWidth: '800px', padding: '0 20px' }}>
-        <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Здесь растут Чемпионы!</h1>
+        <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>{ t('BannerTitle') }</h1>
         <p style={{ fontSize: '1.25rem', marginBottom: '2rem' }}>
           Здесь мы верим в силу спорта и командного духа. Каждый матч, каждая тренировка — это шаг к новым победам. Мы создаём условия, где талант раскрывается, а стремление стать лучше превращает игроков в настоящих чемпионов.
         </p>
