@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useMtgame } from "../hooks/useMtgame";
 
 /** Колонки, которые показываем (можешь включать/выключать) */
 const COLUMNS = [
@@ -69,13 +70,13 @@ export default function TeamsStatsTable({
   src,              // путь до json-файла (альтернатива передаче data)
   limit = 30,       // показывать первые N
   initialSort = { key: "points", dir: "desc" }, // сортировка по умолчанию
-  title = "Суммарная статистика — Команды",
+  title = "Статистика",
 }) {
-  const [rows, setRows] = React.useState([]);
-  const [sort, setSort] = React.useState(initialSort);
+  const [rows, setRows] = useState([]);
+  const [sort, setSort] = useState(initialSort);
 
   // загрузка из файла, если data не передали пропсом
-  React.useEffect(() => {
+  useEffect(() => {
     let cancelled = false;
     async function load() {
       if (data && data.length) {
@@ -95,7 +96,7 @@ export default function TeamsStatsTable({
   }, [data, src]);
 
   // сортировка
-  const sorted = React.useMemo(() => {
+  const sorted = useMemo(() => {
     const arr = [...rows];
     const { key, dir } = sort || {};
     if (key) {

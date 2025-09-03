@@ -2612,4 +2612,202 @@ body {
   -o-object-fit: cover;
      object-fit: cover;
   z-index: -1;
+}
+
+/* Контейнеры */
+.sf-wrap {
+  background: #f3f6fa;
+  padding: 24px 24px 32px;
+  border-radius: 18px;
+}
+
+.sf-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.sf-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+}
+
+/* Хлебные крошки + селект сезона */
+.sf-breadcrumbs {
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.sf-breadcrumbs span {
+  color: #0f172a;
+}
+
+.sf-seasonSelect {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sf-seasonLabel {
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.sf-selectShell {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 8px 36px 8px 12px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+}
+
+.sf-selectShell select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.sf-caret {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid #0f172a;
+  pointer-events: none;
+}
+
+/* Вкладки (этапы) */
+.sf-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.sf-tab {
+  background: transparent;
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  padding: 10px 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.sf-active {
+  color: #5C6BFF !important;
+}
+
+.sf-active::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -6px;
+  height: 3px;
+  border-radius: 3px;
+  background: #5C6BFF;
+}
+
+.sf-tabWithDrop {
+  position: relative;
+}
+
+.sf-chev {
+  margin-left: 8px;
+  transition: transform 0.17s ease;
+}
+
+.sf-open .sf-chev {
+  transform: rotate(180deg);
+}
+
+/* Дропдаун регионов */
+.sf-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 300px;
+  max-height: 420px;
+  overflow: auto;
+  background: #0f172a;
+  color: #e5e7eb;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.32);
+  padding: 10px 8px;
+  z-index: 50;
+}
+
+.sf-dropItem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, transform 0.05s ease;
+}
+
+.sf-dropItem:hover, .sf-focused {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sf-selected {
+  background: rgba(11, 92, 255, 0.28);
+  color: #fff;
+}
+
+/* Пилюли пола */
+.sf-pillsRow {
+  display: flex;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.sf-pill {
+  background: #0f172a;
+  color: #e5e7eb;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.12);
+}
+
+.sf-pill:hover {
+  transform: translateY(-1px);
+}
+
+.sf-pillActive {
+  background: #5C6BFF;
+  color: #ffffff;
+  box-shadow: 0 2px 14px rgba(11, 92, 255, 0.35);
+}
+
+/* Доп-зона под будущие фильтры */
+.sf-extra {
+  margin-top: 18px;
 }/*# sourceMappingURL=style.css.map */

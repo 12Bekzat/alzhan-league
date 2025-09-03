@@ -1,15 +1,15 @@
 // src/pages/GameStats.jsx
-import React, { useEffect, useState } from "react";
-import Default from "../assets/default.jpg";
-import Documents from "../components/Documents";
-import Broadcast from "../components/Broadcast";
+import React, { useCallback, useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebaseConfig";
 import TeamsStatsTable from "../components/TeamsStatsTable";
+import { useMtgame } from "../hooks/useMtgame";
+import StatsFilterPanel from "../components/StatsFilterPanel";
 
 export default function GameStats() {
   const [streams, setStreams] = useState([]);
 
+  const { useTournamentGames } = useMtgame()
 
   const fetchStreams = async () => {
     const querySnapshot = await getDocs(collection(db, "streams"));
@@ -504,31 +504,18 @@ export default function GameStats() {
     }
   ]
 
+  const handleChange = useCallback(({ stage, gender, season, region }) => {
+    // здесь конвертируешь выбранные значения в параметры твоих запросов
+    // и дергаешь загрузку статистики
+    // например: fetchStats({ stage, gender, season, region })
+    console.log("filters:", { stage, gender, season, region });
+  }, []);
+
   return (
     <div className="game-stats-page">
       <div className="container">
-        <h1 className="main-title">Статистика игр / Онлайн трансляции</h1>
-
+        <StatsFilterPanel onChange={handleChange} />
         <TeamsStatsTable data={tableData} limit={30} />
-
-        {/* Секция с карточками игроков */}
-        {/* <div className="players-section">
-          <h2 className="section-title">Игроки</h2>
-          <div className="players-grid">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="player-card">
-                <img src={Default} alt="Player" className="player-image" />
-                <h3 className="player-name">Игрок #{i + 1}</h3>
-                <p className="player-info">Возраст: 23</p>
-                <p className="player-info">Позиция: Нападающий</p>
-                <p className="player-info">Голы: {5 + i}</p>
-              </div>
-            ))}
-          </div>
-        </div> */}
-
-        {/* Встроенный YouTube-плеер */}
-        <Broadcast translations={streams} />
       </div>
     </div>
   );
