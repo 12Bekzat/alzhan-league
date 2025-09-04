@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { FaGlobe, FaInstagram } from "react-icons/fa";
 
 /**
  * Пропсы:
@@ -12,6 +13,7 @@ export default function CompanySpoiler({
   logo,
   name,
   summary,
+  socials,
   children,
   defaultOpen = false,
 }) {
@@ -63,6 +65,11 @@ export default function CompanySpoiler({
 
   const toggle = () => setOpen((v) => !v);
 
+  const ICONS = {
+    instagram: FaInstagram,
+    web: FaGlobe,
+  };
+
   return (
     <div className={`spoiler ${open ? "spoiler--open" : ""}`}>
       <div
@@ -98,6 +105,25 @@ export default function CompanySpoiler({
         aria-label={`Подробнее о компании ${name}`}
       >
         {children && <div className="spoiler__content-inner">{children}</div>}
+        {socials && (
+          <div className="socials-wrap">
+            {socials.map((s, i) => {
+              const Icon = ICONS[s.social] ?? FaGlobe;
+              return (
+                <a
+                  key={i}
+                  href={s.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="socials-item"
+                  title={s.social}
+                >
+                  <Icon className="socials-icon" />
+                </a>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

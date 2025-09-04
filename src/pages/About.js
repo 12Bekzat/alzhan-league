@@ -34,7 +34,7 @@ export default function About() {
       <AboutHistory />
       <MissionValues />
       <TeamSlider />
-      <TabPanel tabs={[
+      {/* <TabPanel tabs={[
         {
           label: 'Учредительные и регистрационные документы',
           content: <Documents
@@ -85,7 +85,7 @@ export default function About() {
           />
           </>
         }]
-      } />
+      } /> */}
     </>
   );
 }

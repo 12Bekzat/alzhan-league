@@ -17,6 +17,7 @@ import { useState } from 'react';
 import KaspiDonateSection from './components/KaspiDonateSection';
 import ManageStreams from './pages/ManageStreams';
 import "./utils/i18n";
+import Documents from './pages/Documents';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,6 +36,7 @@ function App() {
           <Route path="/news" element={<NewsPage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/partners" element={<Partners />} />
+          <Route path="/documents" element={<Documents />} />
           <Route path="/secret/page/secret-streams-9257" element={<ManageStreams />} />
         </Routes>
       </div>
