@@ -13,6 +13,8 @@ import SeasonsAccordion from "../components/SeasonAccordion";
 import TabPanel from "../components/TabPanel";
 import KZMap from "../components/KZMap";
 import ObjectInteractive from "../components/ObjectInteractive";
+import MapKazakhstan from "../components/MapKazakhstan";
+import mapImg from "../assets/map-kz-removebg-preview.png"; // положи свой PNG/SVG
 
 const partners = [
   {
@@ -82,7 +84,10 @@ const partners = [
     seasons: [
       {
         title: "Сезон 2024-2025 ",
-        elems: ["Житикара – 12 команд мальчиков, 8 команд девочек"],
+        elems: [
+          "Житикара – 12 команд мальчиков, 8 команд девочек",
+          "Возраст: 5-6 классы мальчики и девочки",
+        ],
       },
       {
         title: "Благодарственное письмо",
@@ -109,7 +114,10 @@ const partners = [
     seasons: [
       {
         title: "Сезон 2024-2025 ",
-        elems: ["Абайская обл. - 12 команд мальчиков, 8 команд девочек"],
+        elems: [
+          "Абайская обл. - 12 команд мальчиков, 8 команд девочек",
+          "Возраст: 5-6 классы мальчики и девочки",
+        ],
       },
       {
         title: "Благодарственное письмо",
@@ -220,9 +228,7 @@ export default function Partners() {
                       name={sponsor.name}
                       socials={sponsor.socials}
                       defaultOpen={false}
-                    >
-                      <span className=""></span>
-                    </CompanySpoiler>
+                    ></CompanySpoiler>
                   ))}
                 </div>
               ),
@@ -231,15 +237,56 @@ export default function Partners() {
               label: "На карте",
               content: (
                 <div className="sponsors-grid">
-                  <ObjectInteractive
-                    title="Объект с интерактивными областями"
-                    viewBox="0 0 800 560"
-                    regions={regions}
-                    markers={markers}
-                    enablePlaceMarker={true}
-                    onPlaceMarker={handlePlaceMarker}
-                    onRegionClick={(r) => console.log("region:", r)}
-                    onMarkerClick={(m) => console.log("marker:", m)}
+                  <MapKazakhstan
+                    mapSrc={mapImg}
+                    aspectRatio={9 / 21} // под широкую панораму
+                    markers={[
+                      {
+                        id: 1,
+                        x: 24,
+                        y: 28,
+                        count: 2,
+                        title: "Костанайская обл.",
+                      },
+                      {
+                        id: 2,
+                        x: 29,
+                        y: 34,
+                        count: 1,
+                        title: "Акмолинская обл.",
+                      },
+                      {
+                        id: 3,
+                        x: 62,
+                        y: 31,
+                        count: 9,
+                        title: "Павлодарская обл.",
+                      },
+                      { id: 4, x: 73, y: 24, count: 4, title: "ВКО" },
+                      { id: 5, x: 69, y: 40, count: 2, title: "СКО" },
+                      {
+                        id: 6,
+                        x: 83,
+                        y: 73,
+                        count: 1,
+                        title: "Мангистауская обл.",
+                      },
+                      {
+                        id: 7,
+                        x: 53,
+                        y: 58,
+                        count: 1,
+                        title: "Кызылординская обл.",
+                      },
+                      {
+                        id: 8,
+                        x: 44,
+                        y: 78,
+                        count: 1,
+                        title: "Туркестанская обл.",
+                      },
+                    ]}
+                    onMarkerClick={(m) => console.log("marker", m)}
                   />
                 </div>
               ),

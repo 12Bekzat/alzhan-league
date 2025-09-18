@@ -12,7 +12,6 @@ export const Gallery = ({ images }) => {
 
   return (
     <div className="project-gallery">
-      <h3 className="gallery-title">Фотоотчёт</h3>
       <div className="main-photo">
         <img src={getPhotoByFile(active)} alt="selected" className="main-image" />
       </div>

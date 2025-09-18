@@ -88,7 +88,7 @@ export default function DocumentsPanel({
           {/* ПРАВАЯ КОЛОНКА — ДОКУМЕНТЫ */}
           <div className="docs-right">
             <ul className="docs-docList">
-              {activeItems.map((it, i) => (
+              {activeItems.filter(x => (x?.season && x?.season === season) || season === 'Все' || !x?.season).map((it, i) => (
                 <li key={it.id ?? i}>
                   <button
                     type="button"

@@ -92,6 +92,27 @@ export default function CompanySpoiler({
             <div className="spoiler__name">{name}</div>
             {summary && <div className="spoiler__summary">{summary}</div>}
           </div>
+          {socials && (
+            <div className="socials-content">
+              <div className="socials-wrap">
+                {socials.map((s, i) => {
+                  const Icon = ICONS[s.social] ?? FaGlobe;
+                  return (
+                    <a
+                      key={i}
+                      href={s.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="socials-item"
+                      title={s.social}
+                    >
+                      <Icon className="socials-icon" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         {children && <span className="spoiler__chevron" aria-hidden="true" />}
@@ -105,25 +126,6 @@ export default function CompanySpoiler({
         aria-label={`Подробнее о компании ${name}`}
       >
         {children && <div className="spoiler__content-inner">{children}</div>}
-        {socials && (
-          <div className="socials-wrap">
-            {socials.map((s, i) => {
-              const Icon = ICONS[s.social] ?? FaGlobe;
-              return (
-                <a
-                  key={i}
-                  href={s.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="socials-item"
-                  title={s.social}
-                >
-                  <Icon className="socials-icon" />
-                </a>
-              );
-            })}
-          </div>
-        )}
       </div>
     </div>
   );

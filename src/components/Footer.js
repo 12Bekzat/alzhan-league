@@ -5,7 +5,7 @@ import Logo from "../assets/Aljan1-3_9R5tx.png";
 import { FaInstagram, FaTelegram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import { FaVk } from "react-icons/fa6";
 
-export default function Footer() {
+export default function   Footer() {
   return (
     <div className="footer">
       <div className="footer__row">

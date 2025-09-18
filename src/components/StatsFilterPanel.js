@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const STAGES = [
-  { key: "superfinal",  label: "Суперфинал" },
   { key: "regional",    label: "Региональный этап", hasDropdown: true },
+  { key: "superfinal",  label: "Суперфинал" },
 ];
 
 const GENDERS = [
@@ -24,10 +24,10 @@ const REGIONS = [
 export default function StatsFilterPanel({
   seasons = ["2024", "2024-2025"],
   defaultSeason = "2024-2025",
-  defaultStage = "superfinal",
-  defaultGender = "boys",
+  defaultStage = null,
+  defaultGender = null,
   defaultRegion = null,
-  defaultCourse = 'begin',
+  defaultCourse = null,
   onChange,
 }) {
   const [stage, setStage]   = useState(defaultStage);
@@ -150,7 +150,7 @@ export default function StatsFilterPanel({
         </div>
 
         {/* Пол */}
-        <div className="sf-pillsRow">
+        {stage && <div className="sf-pillsRow">
           {COURSES.map(g => (
             <button
               key={g.key}
@@ -161,8 +161,8 @@ export default function StatsFilterPanel({
               {g.label}
             </button>
           ))}
-        </div>
-        <div className="sf-pillsRow">
+        </div>}
+        {course && <div className="sf-pillsRow">
           {GENDERS.map(g => (
             <button
               key={g.key}
@@ -173,7 +173,7 @@ export default function StatsFilterPanel({
               {g.label}
             </button>
           ))}
-        </div>
+        </div>}
 
         {/* Зона под доп. фильтры (возраст, турнир и т.д.) */}
         <div className="sf-extra"></div>

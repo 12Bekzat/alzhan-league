@@ -1,6 +1,6 @@
 import React from "react";
 import Documents from "./Documents";
-import DefaultBroadcast from "../assets/broadcast.jpg";
+import DefaultBroadcast from "../assets/brodcast-default.jpg";
 
 export default function Broadcast({ translations }) {
   return (

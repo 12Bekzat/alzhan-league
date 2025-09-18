@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FaGlasses } from "react-icons/fa";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export default function SeasonsAccordion({ seasons, sponsor, setActiveImage }) {
   const [open, setOpen] = useState(null);
@@ -20,7 +22,10 @@ export default function SeasonsAccordion({ seasons, sponsor, setActiveImage }) {
           </button>
           <div
             className="seasons-acc__panel"
-            style={{ height: open === i ? "auto" : 0 }}
+            style={{
+              height: open === i ? "auto" : 0,
+              opacity: open === i ? "1" : 0,
+            }}
           >
             {!s?.isPdf ? (
               <ul className="seasons-acc__list">
@@ -31,12 +36,19 @@ export default function SeasonsAccordion({ seasons, sponsor, setActiveImage }) {
                 ))}
               </ul>
             ) : (
-              <img
-                src={sponsor.pdf}
-                alt={`Благодарственное письмо ${sponsor.name}`}
-                className="thank-image"
-                onClick={() => setActiveImage(sponsor.pdf)}
-              />
+              <div className="thank-container">
+                <img
+                  src={sponsor.pdf}
+                  alt={`Благодарственное письмо ${sponsor.name}`}
+                  className="thank-image"
+                />
+                <div
+                  className="thank-icon"
+                  onClick={() => setActiveImage(sponsor.pdf)}
+                >
+                  <FaMagnifyingGlass size={16} color="fff" />
+                </div>
+              </div>
             )}
           </div>
         </div>

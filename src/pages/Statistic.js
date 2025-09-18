@@ -523,6 +523,7 @@ export default function GameStats() {
           content: (
             <div className="game-stats-page">
               <div className="container">
+                <div className="main-title">Статистика игр</div>
                 <StatsFilterPanel onChange={handleChange} />
                 <TeamsStatsTable data={tableData} limit={30} />
               </div>
