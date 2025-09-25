@@ -30,16 +30,13 @@ export default function HeroBanner() {
           left: 0,
           width: '100%',
           height: '100%',
-          background: 'linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.7))',
           zIndex: 1,
         }}
       />
 
       {/* Контент поверх */}
       <div style={{ zIndex: 2, maxWidth: '800px', padding: '0 20px' }}>
-        <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>{ t('BannerTitle') }</h1>
         <p style={{ fontSize: '1.25rem', marginBottom: '2rem' }}>
-          Здесь мы верим в силу спорта и командного духа. Каждый матч, каждая тренировка — это шаг к новым победам. Мы создаём условия, где талант раскрывается, а стремление стать лучше превращает игроков в настоящих чемпионов.
         </p>
         <a
           href="#stream"

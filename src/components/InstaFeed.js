@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // ожидаемый формат поста
 // { id, imageUrl, caption, date, likes, comments, permalink, author }
@@ -6,6 +6,11 @@ import { useMemo, useState } from "react";
 export default function InstaFeed({ posts = [] }) {
   const [view, setView] = useState("mosaic"); // mosaic | magazine | timeline
   const [lightbox, setLightbox] = useState(null);
+
+  useEffect(() => {
+    console.log(posts);
+    
+  }, [])
 
   const sorted = useMemo(
     () => [...posts],
