@@ -141,31 +141,26 @@ export default function NewFooter({
             <div className="lf__contacts">
               {address && <div className="lf__meta-row">{address}</div>}
               <div className="lf__meta-row">
-                {phone && (
-                  <a
-                    className="lf__link"
-                    href={`tel:${phone.replace(/\s+/g, "")}`}
-                  >
-                    {phone}
-                  </a>
-                )}
-                {email && (
-                  <>
-                    <span className="lf__dot">•</span>
-                    <a className="lf__link" href={`mailto:${email}`}>
-                      {email}
-                    </a>
-                  </>
-                )}
               </div>
             </div>
 
             <div className="lf__legal">
-              <a className="lf__link" href={privacyHref}>
-                Политика конфиденциальности
-              </a>
+              {phone && (
+                <a
+                  className="lf__link"
+                  href={`tel:${phone.replace(/\s+/g, "")}`}
+                >
+                  {phone}
+                </a>
+              )}
               <span className="lf__dot">•</span>
-              <span className="lf__muted">{copyright}</span>
+              {email && (
+                <>
+                  <a className="lf__link" href={`mailto:${email}`}>
+                    {email}
+                  </a>
+                </>
+              )}
             </div>
 
             {!!socials.length && (

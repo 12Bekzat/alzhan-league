@@ -25,20 +25,48 @@ import "./utils/i18n";
 import Documents from "./pages/Documents";
 import NewFooter from "./components/NewFooter";
 import Logo from "./assets/Aljan1-3_9R5tx.png";
+import LogoColor from "./assets/Logo.png";
 import bg from "./assets/footer-bg.jpg";
-import ERG from './assets/erg logo.png'
-import Kusto from './assets/kusto png.png'
-import Zhebe from './assets/zhebe logistics png.png'
-import Federation from './assets/federation.png'
-import PBK from './assets/pbk.png'
-import Politics from './assets/politics.docx'
+import ERG from "./assets/erg logo.png";
+import Kusto from "./assets/kusto png.png";
+import Zhebe from "./assets/zhebe logistics png.png";
+import Federation from "./assets/federation.png";
+import PBK from "./assets/pbk.png";
+import Politics from "./assets/politics.docx";
+import SiteHeader from "./components/NewHeader";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Router>
-      <Header />
+      <SiteHeader
+        logoSrc={LogoColor}
+        logoAlt="Alzhan League"
+        logoHref="/"
+        email="contact@sdasbl.com"
+        phone="(819) 527-0722"
+        socials={{
+          facebook: "#",
+          instagram: "#",
+          tiktok: "#",
+          x: "#",
+          youtube: "#",
+          vk: "#",
+        }}
+        linksLeft={[
+          { label: "Главная", href: "/" },
+          { label: "О лиге", href: "/about" },
+          { label: "Статистика игр", href: "/statistics" },
+          { label: "Проекты и мероприятия", href: "/projects" },
+        ]}
+        linksRight={[
+          { label: "Новости / Актуально", href: "/news" },
+          { label: "Контакты", href: "/contacts" },
+          { label: "Документы", href: "/documents" },
+          { label: "Спонсоры", href: "/partners" },
+        ]}
+      />
 
       <div className={"main"}>
         <Routes>

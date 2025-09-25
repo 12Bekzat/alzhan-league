@@ -516,73 +516,82 @@ export default function GameStats() {
   }, []);
 
   return (
-    <TabPanel
-      tabs={[
-        {
-          label: "Матчи",
-          content: (
-            <div className="game-stats-page">
-              <div className="container">
-                <div className="main-title">Статистика игр</div>
-                <StatsFilterPanel onChange={handleChange} />
-                <TeamsStatsTable data={tableData} limit={30} />
-              </div>
-            </div>
-          ),
-        },
-        {
-          label: "Таблица",
-          content: (
-            <>
+    <>
+      <div className="docs-wrap" style={{ paddingBottom: 0 }}>
+        <div className="docs-header">
+          <div className="docs-breadcrumbs">
+            Главная — <span>Статистика игр</span>
+          </div>
+        </div>
+      </div>
+      <TabPanel
+        tabs={[
+          {
+            label: "Матчи",
+            content: (
               <div className="game-stats-page">
                 <div className="container">
+                  <div className="main-title">Статистика игр</div>
                   <StatsFilterPanel onChange={handleChange} />
                   <TeamsStatsTable data={tableData} limit={30} />
                 </div>
               </div>
-            </>
-          ),
-        },
-        {
-          label: "Плей-офф",
-          content: (
-            <>
-              <div className="game-stats-page">
-                <div className="container">
-                  <StatsFilterPanel onChange={handleChange} />
-                  <TeamsStatsTable data={tableData} limit={30} />
+            ),
+          },
+          {
+            label: "Таблица",
+            content: (
+              <>
+                <div className="game-stats-page">
+                  <div className="container">
+                    <StatsFilterPanel onChange={handleChange} />
+                    <TeamsStatsTable data={tableData} limit={30} />
+                  </div>
                 </div>
-              </div>
-            </>
-          ),
-        },
-        {
-          label: "Статистика",
-          content: (
-            <>
-              <div className="game-stats-page">
-                <div className="container">
-                  <StatsFilterPanel onChange={handleChange} />
-                  <TeamsStatsTable data={tableData} limit={30} />
+              </>
+            ),
+          },
+          {
+            label: "Плей-офф",
+            content: (
+              <>
+                <div className="game-stats-page">
+                  <div className="container">
+                    <StatsFilterPanel onChange={handleChange} />
+                    <TeamsStatsTable data={tableData} limit={30} />
+                  </div>
                 </div>
-              </div>
-            </>
-          ),
-        },
-        {
-          label: "Лидеры",
-          content: (
-            <>
-              <div className="game-stats-page">
-                <div className="container">
-                  <StatsFilterPanel onChange={handleChange} />
-                  <TeamsStatsTable data={tableData} limit={30} />
+              </>
+            ),
+          },
+          {
+            label: "Статистика",
+            content: (
+              <>
+                <div className="game-stats-page">
+                  <div className="container">
+                    <StatsFilterPanel onChange={handleChange} />
+                    <TeamsStatsTable data={tableData} limit={30} />
+                  </div>
                 </div>
-              </div>
-            </>
-          ),
-        },
-      ]}
-    />
+              </>
+            ),
+          },
+          {
+            label: "Лидеры",
+            content: (
+              <>
+                <div className="game-stats-page">
+                  <div className="container">
+                    <StatsFilterPanel onChange={handleChange} />
+                    <TeamsStatsTable data={tableData} limit={30} />
+                  </div>
+                </div>
+              </>
+            ),
+          },
+        ]}
+      />
+    </>
   );
 }

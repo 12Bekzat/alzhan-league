@@ -16,7 +16,7 @@ const data = [
   },
   {
     region: "Костанайская область (Житикара)",
-    manager: "Жан Тулубаев 1329",
+    manager: "Жан Тулубаев",
     phone: "+7 701 726 1329",
   },
   {
@@ -36,7 +36,7 @@ const data = [
   },
   {
     region: "Абайская область (Семей)",
-    manager: "Талгат Нурсаинович 6083",
+    manager: "Талгат Нурсаинович",
     phone: "+7 747 445 6083",
   },
 ];
@@ -44,6 +44,13 @@ const data = [
 export default function Contacts() {
   return (
     <>
+    <div className="docs-wrap" style={{ paddingBottom: 0}}>
+        <div className="docs-header">
+          <div className="docs-breadcrumbs">
+            Главная — <span>Контакты</span>
+          </div>
+        </div>
+      </div>
       <div className="container">
         <section className="contacts">
           <h2>Контакты</h2>
@@ -72,7 +79,7 @@ export default function Contacts() {
                 <Instagram size={18} />
                 <span>Instagram</span>
                 <p>
-                  https://www.instagram.com/alzhan.league?igsh=MWJhNHcyMGZweXpjZA==
+                  https://www.instagram.com/alzhan.league
                 </p>
               </div>
             </div>

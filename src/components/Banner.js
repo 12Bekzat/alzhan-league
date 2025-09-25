@@ -9,10 +9,10 @@ export default function HeroBanner() {
       style={{
         position: 'relative',
         width: '100%',
-        height: '800px',
-        backgroundImage: 'url(https://fs.mtgame.ru/2IFfEEAmcCw.png)',
+        height: '900px',
+        backgroundImage: 'url(./main-banner.jpg)',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'top',
         color: '#fff',
         display: 'flex',
         flexDirection: 'column',

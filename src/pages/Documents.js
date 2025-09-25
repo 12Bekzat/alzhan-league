@@ -12,6 +12,16 @@ export default function Documents() {
           title: "Устав Alzhan League",
           href: "#",
         },
+        {
+          id: "r1",
+          title: "Концепция Деятельности Общественного Фонда",
+          href: "#",
+        },
+        {
+          id: "r1",
+          title: "Принципы деятельности фонда",
+          href: "#",
+        },
       ],
     },
     {
@@ -92,7 +102,13 @@ export default function Documents() {
         },
       ],
     },
-    { id: "judges", title: "Полиграфия и фирменный стиль ", items: [] },
+    { id: "judges", title: "Полиграфия и фирменный стиль ", items: [
+      {
+          id: "r1",
+          title: "Полиграфия и фирменный стиль",
+          href: "#",
+        },
+    ] },
   ];
 
   return (

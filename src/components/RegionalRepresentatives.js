@@ -7,7 +7,7 @@ function telHref(phone) {
 }
 
 export default function RegionalRepresentatives({
-  title = "Региональный представитель",
+  title = "Региональные представители",
   items = [], // [{ region, manager, phone, email }]
   className = "",
 }) {

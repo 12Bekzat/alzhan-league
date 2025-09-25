@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Documents from "./Documents";
 import DefaultBroadcast from "../assets/brodcast-default.jpg";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../utils/firebaseConfig";
 
 export default function Broadcast({ translations }) {
+  const [streams, setStreams] = useState([])
+
+  const fetchStreams = async () => {
+      const querySnapshot = await getDocs(collection(db, "streams"));
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setStreams(data);
+      console.log('data', data);
+    };
+  
+    useEffect(() => {
+      fetchStreams();
+    }, []);
+  
   return (
     <>
       <div className="container" style={{ margin: "50px 0" }}>
         <div className="title">Онлайн трансляция</div>
-        {translations && <Documents docs={translations.map(stream => stream?.title)} />}
+        {streams.length && <Documents docs={streams.map(stream => stream?.title)} />}
         <div
           id="stream"
           style={{
@@ -29,7 +47,7 @@ export default function Broadcast({ translations }) {
             }}
           >
             {
-              translations?.length > 0 ? <iframe
+              streams?.length ? <iframe
                 src="https://www.youtube.com/embed/ВАШ_ID_ТРАНСЛЯЦИИ"
                 title="YouTube Live Stream"
                 frameBorder="0"

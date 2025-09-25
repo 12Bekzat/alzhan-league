@@ -9,15 +9,12 @@ export default function KaspiDonateSection() {
       <div className="kaspi-content">
         <h2 className="donate-title">Поддержите наш фонд</h2>
         <p className="donate-text">
-          Ваши пожертвования помогают нам развивать спорт, организовывать турниры и поддерживать молодёжные инициативы.
-          Сканируйте QR-код через приложение <strong>Kaspi</strong> для быстрого перевода.
+          Поддержите школьную баскетбольную лигу «Alzhan». Каждый ваш взнос —
+          это новые мячи, форма и возможность для школьников бесплатно играть в
+          Лиге. Просто отсканируйте QR-код и сделайте донат
         </p>
         <div className="qr-container">
           <img src={qrImage} alt="Kaspi QR" className="qr-image" />
-          <img src={qrLog} alt="" className="qr-logo" />
-          <div className="qr-title">ОФ "Alzhan"</div>
-          <div className="qr-title">Способы оплаты</div>
-          <img src={qrGold} alt="" className="qr-gold" />
         </div>
         {/* <button className="donate-btn">Скопировать номер</button> */}
       </div>

@@ -15,6 +15,7 @@ import KZMap from "../components/KZMap";
 import ObjectInteractive from "../components/ObjectInteractive";
 import MapKazakhstan from "../components/MapKazakhstan";
 import mapImg from "../assets/map-kz-removebg-preview.png"; // положи свой PNG/SVG
+import SpeakersTestimonials from "../components/Speakers";
 
 const partners = [
   {
@@ -129,7 +130,7 @@ const partners = [
 const friends = [
   {
     name: "Федерация школьного спорта Казахстана",
-    logo: Federation,
+    logo: Pbk,
     socials: [
       {
         social: "instagram",
@@ -143,7 +144,7 @@ const friends = [
   },
   {
     name: "Профессиональный баскетбольный клуб «Астана»",
-    logo: Pbk,
+    logo: Federation,
     socials: [
       {
         social: "instagram",
@@ -179,134 +180,87 @@ export default function Partners() {
   };
 
   return (
-    <div className="back">
-      <div className="sponsors-section">
-        <TabPanel
-          headerStyle={{ borderBottom: "none" }}
-          tabs={[
-            {
-              label: "Спонсоры",
-              content: (
-                <div className="sponsors-grid">
-                  {partners.map((sponsor, index) => (
-                    <CompanySpoiler
-                      logo={sponsor.logo}
-                      name={sponsor.name}
-                      summary={sponsor.description}
-                      socials={sponsor.socials}
-                      defaultOpen={false}
-                    >
-                      <SeasonsAccordion
-                        seasons={sponsor.seasons}
-                        sponsor={sponsor}
-                        setActiveImage={(img) => setActiveImage(img)}
-                      />
-                      {/* {sponsor.pdf ? (
-                        <img
-                          src={sponsor.pdf}
-                          alt={`Благодарственное письмо ${sponsor.name}`}
-                          className="thank-image"
-                          onClick={() => setActiveImage(sponsor.pdf)}
-                        />
-                      ) : (
-                        <div className="thank-placeholder">
-                          <span>Нет письма</span>
-                        </div>
-                      )} */}
-                    </CompanySpoiler>
-                  ))}
-                </div>
-              ),
-            },
-            {
-              label: "Партнеры",
-              content: (
-                <div className="sponsors-grid">
-                  {friends.map((sponsor, index) => (
-                    <CompanySpoiler
-                      logo={sponsor.logo}
-                      name={sponsor.name}
-                      socials={sponsor.socials}
-                      defaultOpen={false}
-                    ></CompanySpoiler>
-                  ))}
-                </div>
-              ),
-            },
-            {
-              label: "На карте",
-              content: (
-                <div className="sponsors-grid">
-                  <MapKazakhstan
-                    mapSrc={mapImg}
-                    aspectRatio={9 / 21} // под широкую панораму
-                    markers={[
-                      {
-                        id: 1,
-                        x: 24,
-                        y: 28,
-                        count: 2,
-                        title: "Костанайская обл.",
-                      },
-                      {
-                        id: 2,
-                        x: 29,
-                        y: 34,
-                        count: 1,
-                        title: "Акмолинская обл.",
-                      },
-                      {
-                        id: 3,
-                        x: 62,
-                        y: 31,
-                        count: 9,
-                        title: "Павлодарская обл.",
-                      },
-                      { id: 4, x: 73, y: 24, count: 4, title: "ВКО" },
-                      { id: 5, x: 69, y: 40, count: 2, title: "СКО" },
-                      {
-                        id: 6,
-                        x: 83,
-                        y: 73,
-                        count: 1,
-                        title: "Мангистауская обл.",
-                      },
-                      {
-                        id: 7,
-                        x: 53,
-                        y: 58,
-                        count: 1,
-                        title: "Кызылординская обл.",
-                      },
-                      {
-                        id: 8,
-                        x: 44,
-                        y: 78,
-                        count: 1,
-                        title: "Туркестанская обл.",
-                      },
-                    ]}
-                    onMarkerClick={(m) => console.log("marker", m)}
-                  />
-                </div>
-              ),
-            },
-          ]}
-        />
-      </div>
-      {activeImage && (
-        <div className="lightbox" onClick={() => setActiveImage(null)}>
-          <span></span>
-          <img
-            src={activeImage}
-            alt="Увеличенное письмо"
-            className="lightbox-image"
-          />
-          <button className="close-btn" onClick={() => setActiveImage(null)}>
-            ✖
-          </button>
+    <><div className="docs-wrap" style={{ paddingBottom: 0 }}>
+      <div className="docs-header">
+        <div className="docs-breadcrumbs">
+          Главная — <span>Спонсоры</span>
         </div>
-      )}
-    </div>
+      </div>
+    </div><div className="back">
+        <div className="sponsors-section">
+          <TabPanel
+            headerStyle={{ borderBottom: "none" }}
+            tabs={[
+              {
+                label: "Спонсоры",
+                content: (
+                  <div className="sponsors-grid">
+                    {partners.map((sponsor, index) => (
+                      <CompanySpoiler
+                        logo={sponsor.logo}
+                        name={sponsor.name}
+                        summary={sponsor.description}
+                        socials={sponsor.socials}
+                        defaultOpen={false}
+                      >
+                        <SeasonsAccordion
+                          seasons={sponsor.seasons}
+                          sponsor={sponsor}
+                          setActiveImage={(img) => setActiveImage(img)} />
+                        {/* {sponsor.pdf ? (
+                                  <img
+                                    src={sponsor.pdf}
+                                    alt={`Благодарственное письмо ${sponsor.name}`}
+                                    className="thank-image"
+                                    onClick={() => setActiveImage(sponsor.pdf)}
+                                  />
+                                ) : (
+                                  <div className="thank-placeholder">
+                                    <span>Нет письма</span>
+                                  </div>
+                                )} */}
+                      </CompanySpoiler>
+                    ))}
+                  </div>
+                ),
+              },
+              {
+                label: "Партнеры",
+                content: (
+                  <div className="sponsors-grid">
+                    {friends.map((sponsor, index) => (
+                      <CompanySpoiler
+                        logo={sponsor.logo}
+                        name={sponsor.name}
+                        socials={sponsor.socials}
+                        defaultOpen={false}
+                      ></CompanySpoiler>
+                    ))}
+                  </div>
+                ),
+              },
+              {
+                label: "Оценка деятельности",
+                content: (
+                  <div className="sponsors-grid">
+                    <SpeakersTestimonials />
+                  </div>
+                ),
+              },
+            ]} />
+        </div>
+        {activeImage && (
+          <div className="lightbox" onClick={() => setActiveImage(null)}>
+            <span></span>
+            <img
+              src={activeImage}
+              alt="Увеличенное письмо"
+              className="lightbox-image" />
+            <button className="close-btn" onClick={() => setActiveImage(null)}>
+              ✖
+            </button>
+          </div>
+        )}
+      </div></>
   );
 }

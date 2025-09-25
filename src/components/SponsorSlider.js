@@ -1,180 +1,139 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
+/**
+ * AutoSlider – lightweight, dependency-free carousel
+ * - Auto-rotates
+ * - Pause on hover / focus
+ * - Keeps a fixed aspect ratio so slides don't jump
+ * - Images are object-fit 'cover' by default (can switch to 'contain')
+ *
+ * Props:
+ * images: string[] – required list of image urls
+ * intervalMs?: number – autoplay interval (default 3500)
+ * transitionMs?: number – slide animation duration (default 500)
+ * aspectRatio?: string – CSS aspect-ratio (default "21 / 5")
+ * objectFit?: 'cover' | 'contain' – how images scale (default 'cover')
+ * rounded?: boolean – rounded corners (default true)
+ */
 export default function SponsorSlider({
-  slides = [], // [{img, alt, href}]
-  autoplayDelay = 4500,
-  transitionMs = 600,
-  showArrows = true,
-  showDots = true,
-  height = 240,
-  borderRadius = 24,
+  images,
+  intervalMs = 3500,
+  transitionMs = 500,
+  aspectRatio = "21 / 5",
+  objectFit = "cover",
+  showButtons = false,
+  showDots = false,
+  rounded = true,
 }) {
-  const trackRef = useRef(null);
+  const [index, setIndex] = useState(0);
+  const [isPaused, setPaused] = useState(false);
   const timerRef = useRef(null);
-  const [index, setIndex] = useState(1); // из-за клонов
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [paused, setPaused] = useState(false);
 
-  // делаем бесконечную ленту: [last, ...slides, first]
-  const loopSlides = useMemo(() => {
-    if (!slides.length) return [];
-    const first = slides[0];
-    const last = slides[slides.length - 1];
-    return [last, ...slides, first];
-  }, [slides]);
-
-  // автоплей справа->налево (следующий слайд — сдвиг влево)
+  // preload once to avoid flicker on first rotation
   useEffect(() => {
-    if (!slides.length) return;
-    const start = () => {
-      clearInterval(timerRef.current);
-      timerRef.current = setInterval(() => {
-        if (!paused) goNext();
-      }, autoplayDelay);
-    };
-    start();
-    return () => clearInterval(timerRef.current);
-  }, [autoplayDelay, paused, slides.length]);
+    images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, [images]);
 
-  // пауза, если вкладка скрыта
+  // autoplay
   useEffect(() => {
-    const onVis = () => setPaused(document.hidden);
-    document.addEventListener("visibilitychange", onVis);
-    return () => document.removeEventListener("visibilitychange", onVis);
-  }, []);
+    if (isPaused || images.length <= 1) return;
+    timerRef.current && clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setIndex((i) => (i + 1) % images.length);
+    }, intervalMs);
+    return () => timerRef.current && clearInterval(timerRef.current);
+  }, [images.length, intervalMs, isPaused]);
 
-  const goNext = () => {
-    if (isAnimating || !slides.length) return;
-    setIsAnimating(true);
-    setIndex((i) => i + 1);
-  };
+  // allow keyboard focus to pause
+  const pauseHandlers = useMemo(
+    () => ({
+      onMouseEnter: () => setPaused(true),
+      onMouseLeave: () => setPaused(false),
+      onFocus: () => setPaused(true),
+      onBlur: () => setPaused(false),
+    }),
+    []
+  );
 
-  const goPrev = () => {
-    if (isAnimating || !slides.length) return;
-    setIsAnimating(true);
-    setIndex((i) => i - 1);
-  };
-
-  // после анимации перескакиваем с клонов на реальные края без дергания
-  const handleTransitionEnd = () => {
-    setIsAnimating(false);
-    if (index === loopSlides.length - 1) {
-      // были на клоне первого -> прыгаем на реальный первый
-      setIndex(1);
-      disableTransitionOnce();
-    }
-    if (index === 0) {
-      // были на клоне последнего -> прыгаем на реальный последний
-      setIndex(loopSlides.length - 2);
-      disableTransitionOnce();
-    }
-  };
-
-  // на один кадр убираем transition, чтобы “телепортнуть” слайд
-  const disableTransitionOnce = () => {
-    const el = trackRef.current;
-    if (!el) return;
-    el.style.transition = "none";
-    // force reflow
-    // eslint-disable-next-line no-unused-expressions
-    el.offsetHeight;
-    el.style.transition = "";
-  };
-
-  // свайп (тач/мышь)
-  const startPos = useRef(null);
-  const onPointerDown = (e) => {
-    startPos.current = { x: e.clientX ?? e.touches?.[0]?.clientX, active: true };
-    setPaused(true);
-  };
-  const onPointerMove = (e) => {
-    if (!startPos.current?.active) return;
-    const x = e.clientX ?? e.touches?.[0]?.clientX;
-    const dx = x - startPos.current.x;
-    // если тянем влево — следующий; вправо — предыдущий
-    if (Math.abs(dx) > 40) {
-      startPos.current.active = false;
-      dx < 0 ? goNext() : goPrev();
-    }
-  };
-  const onPointerUp = () => {
-    startPos.current = null;
-    setPaused(false);
-  };
-
-  const widthPercent = 100 * loopSlides.length;
-  const translatePercent = (-100 / loopSlides.length) * index;
+  const goTo = (i) => setIndex(i % images.length);
+  const next = () => setIndex((i) => (i + 1) % images.length);
+  const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
 
   return (
     <div
-      className="sponsor-slider"
-      style={{ height, borderRadius }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onTouchStart={onPointerDown}
-      onTouchMove={onPointerMove}
-      onTouchEnd={onPointerUp}
-      onMouseDown={(e) => { e.preventDefault(); onPointerDown(e); }}
-      onMouseMove={onPointerMove}
-      onMouseUp={onPointerUp}
-      role="region"
-      aria-label="Слайдер спонсоров"
-      tabIndex={0}
+      className={"aslider" + (rounded ? " aslider--rounded" : "")}
+      {...pauseHandlers}
     >
-      {showArrows && (
-        <>
-          <button className="nav prev" aria-label="Предыдущий" onClick={goPrev} />
-          <button className="nav next" aria-label="Следующий" onClick={goNext} />
-        </>
-      )}
-
       <div
-        className={`track ${isAnimating ? "animating" : ""}`}
-        ref={trackRef}
-        style={{
-          width: `${widthPercent}%`,
-          transform: `translateX(${translatePercent}%)`,
-          transitionDuration: isAnimating ? `${transitionMs}ms` : undefined,
-        }}
-        onTransitionEnd={handleTransitionEnd}
+        className="aslider__viewport"
+        style={{ aspectRatio }}
+        aria-roledescription="carousel"
+        aria-label="Image slider"
       >
-        {loopSlides.map((s, i) => (
-          <a
-            key={`${s.href || s.img}-${i}`}
-            className="slide"
-            href={s.href || "#"}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={s.alt || "Спонсор"}
-          >
-            {/* декоративный блю-оверлей и маска логотипов по центру, если нужно — можно вставить текст */}
-            <img src={s.img} />
-            <span className="overlay" />
-          </a>
-        ))}
+        <div
+          className="aslider__track"
+          style={{
+            width: `${images.length * 100}%`,
+            transform: `translateX(-${index * (100 / images.length)}%)`,
+            transitionDuration: `${transitionMs}ms`,
+          }}
+        >
+          {images.map((src, i) => (
+            <div
+              className="aslider__slide"
+              key={i}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${images.length}`}
+            >
+              <img
+                src={src}
+                alt="slide"
+                draggable={false}
+                style={{ objectFit }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Controls */}
+        {showButtons && images.length > 1 && (
+          <>
+            <button
+              className="aslider__nav aslider__nav--prev"
+              onClick={prev}
+              aria-label="Previous slide"
+            >
+              ‹
+            </button>
+            <button
+              className="aslider__nav aslider__nav--next"
+              onClick={next}
+              aria-label="Next slide"
+            >
+              ›
+            </button>
+          </>
+        )}
       </div>
 
-      {showDots && slides.length > 1 && (
-        <div className="dots">
-          {slides.map((_, i) => {
-            const realIndex = index === 0
-              ? slides.length - 1
-              : index === loopSlides.length - 1
-              ? 0
-              : index - 1;
-            return (
-              <button
-                key={i}
-                className={`dot ${i === realIndex ? "active" : ""}`}
-                aria-label={`Слайд ${i + 1}`}
-                onClick={() => {
-                  if (isAnimating) return;
-                  setIsAnimating(true);
-                  setIndex(i + 1);
-                }}
-              />
-            );
-          })}
+      {showDots && images.length > 1 && (
+        <div className="aslider__dots" role="tablist">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              className={
+                "aslider__dot" + (i === index ? " aslider__dot--active" : "")
+              }
+              onClick={() => goTo(i)}
+              role="tab"
+              aria-selected={i === index}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
         </div>
       )}
     </div>

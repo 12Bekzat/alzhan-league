@@ -27,6 +27,26 @@ const teamMembers = [
     role: 'Менеджер ОФ “Alzhan”',
     image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
   },
+  {
+    name: 'Пыряева Наталья Васильевна',
+    role: 'Региональный менеджер г. Рудный',
+    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
+  },
+  {
+    name: 'Бойко Владислав Вячеславович',
+    role: 'Региональный менеджер г. Лисаковск',
+    image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
+  },
+  {
+    name: 'Сыздыков Жанат Куатович',
+    role: 'Региональный менеджер г. Павлодар',
+    image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
+  },
+  {
+    name: 'Бегаришева Алина Дисемалиевна ',
+    role: 'Региональный менеджер г. Хромтау',
+    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
+  },
 ];
 
 export default function TeamSlider() {
@@ -52,6 +72,9 @@ export default function TeamSlider() {
   return (
     <section className="team-slider">
       <h2>Наша команда</h2>
+      <p className="">
+        Лига «Alzhan» — это команда людей, которые работают на результат. Мы отвечаем за организацию турниров, развитие проекта и создание условий, где дети растут чемпионами. 
+      </p>
       <div className="slider-container">
         <button className="nav-button" onClick={prevSlide}>
           <FaArrowLeft size={16} />
