@@ -38,7 +38,7 @@ export default function HeroBanner() {
       <div style={{ zIndex: 2, maxWidth: '800px', padding: '0 20px' }}>
         <p style={{ fontSize: '1.25rem', marginBottom: '2rem' }}>
         </p>
-        <a
+        {/* <a
           href="#stream"
           style={{
             backgroundColor: '#5d76fb',
@@ -53,7 +53,7 @@ export default function HeroBanner() {
           onMouseLeave={(e) => (e.target.style.backgroundColor = '#5d76fb')}
         >
           Смотреть трансляцию
-        </a>
+        </a> */}
       </div>
     </div>
   );
