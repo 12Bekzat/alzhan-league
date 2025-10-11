@@ -91,8 +91,8 @@ export default function TeamSlider() {
               <div className="card" key={index}>
                 <img src={member.image} alt={member.name} />
                 <div className="card-content">
-                  <h3>{member.name}</h3>
-                  <p>{member.role}</p>
+                  <span className='h3'>{member.name}</span>
+                  <span className='p'>{member.role}</span>
                 </div>
               </div>
             ))}

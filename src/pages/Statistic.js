@@ -1,519 +1,150 @@
 // src/pages/GameStats.jsx
-import React, { useCallback, useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../utils/firebaseConfig";
+import React, { useCallback, useMemo, useState } from "react";
 import TeamsStatsTable from "../components/TeamsStatsTable";
-import { useMtgame } from "../hooks/useMtgame";
 import StatsFilterPanel from "../components/StatsFilterPanel";
 import TabPanel from "../components/TabPanel";
+import { useMtgame } from "../hooks/useMtgame";
+import { GROUPS, makeStatParams } from "../utils/filterConfig";
 
 export default function GameStats() {
-  const [streams, setStreams] = useState([]);
+  const [filters, setFilters] = useState({
+    stage: "regular",  // regular | playoff
+    gender: "mixed",   // пример
+    season: "2024/25", // пример
+    region: "all",     // пример
+    leagueId: 3,       // твоя лига
+    tournamentId: undefined, // можно подхватывать из селектора турниров
+  });
 
-  const { useTournamentGames } = useMtgame();
+  const {
+    useLeagueTournaments,
+    useTournamentGames,
+    useTournamentTableTeams,
+    useTournamentPlayoffs,
+    usePlayoffGames,
+    useBasketballStatistic,
+  } = useMtgame();
 
-  const fetchStreams = async () => {
-    const querySnapshot = await getDocs(collection(db, "streams"));
-    const data = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
+  // 1) Подтягиваем турниры лиги (можно дать пользователю выбрать из выпадашки)
+  const { data: tournaments, status: tStatus } = useLeagueTournaments(filters.leagueId);
+
+  // Пример: если в фильтре не выбран турнир — подставим первый «под сезон/регион»
+  const resolvedTournamentId = useMemo(() => {
+    if (filters.tournamentId) return filters.tournamentId;
+    if (!tournaments) return undefined;
+    // тут можешь отфильтровать по season/region/gender:
+    // const t = tournaments.find(t => t.season === filters.season && t.region === filters.region);
+    const t = tournaments?.[0];
+    return t?.id;
+  }, [filters.tournamentId, tournaments /*, filters.season, filters.region*/]);
+
+  // 2) Матчи по турниру
+  const { data: gamesData, status: gamesStatus } = useTournamentGames(resolvedTournamentId, 1, 200);
+
+  // 3) Турнирная таблица (команды турнира)
+  const { data: tableTeams, status: tableStatus } = useTournamentTableTeams(resolvedTournamentId);
+
+  // 4) Плей-офф: сетки и игры
+  const { data: playoffs, status: poStatus } = useTournamentPlayoffs(resolvedTournamentId);
+  const playoffId = playoffs?.[0]?.id; // при необходимости — селектор сетки
+  const { data: playoffGames, status: poGamesStatus } = usePlayoffGames(playoffId);
+
+  // 5) Агрегированная статистика для вкладок «Статистика» и «Лидеры»
+  //    Группировка по игрокам турнира (как в примере из справочника)
+  const statParams = useMemo(() => {
+    return makeStatParams({
+      tournamentId: resolvedTournamentId,
+      leagueId: filters.leagueId,
+      groupBy: GROUPS.PLAYERS_IN_TOURNAMENT, // tournament_team_user
+      perGame: true,
+      // Пример сортировки: ORDER BY points DESC — см. свой сервер, какое поле принимает order_by
+      // orderBy: "-points"
+    });
+  }, [resolvedTournamentId, filters.leagueId]);
+
+  const { data: statsAgg, status: statsStatus, error: statsError } = useBasketballStatistic(statParams);
+
+  // Маппинг данных API -> формат таблицы
+  const tableFromTeams = useMemo(() => {
+    if (!tableTeams) return [];
+    // Преобразуй к формату твоего TeamsStatsTable
+    return tableTeams.map((t, i) => ({
+      rank: i + 1,
+      name: t?.team?.name || t?.name,
+      city: t?.team?.city || t?.city || "",
+      logo: t?.team?.logo || t?.logo || null,
+      stats: {
+        // адаптируй под поля API (примерные поля, зависят от твоего ответа)
+        Очки: t.points_total ?? 0,
+        Подборы: t.rebounds_total ?? 0,
+        Передачи: t.assists_total ?? 0,
+        "Игровое время (мин)": t.minutes_total ?? 0,
+      },
     }));
-    setStreams(data);
-  };
+  }, [tableTeams]);
 
-  useEffect(() => {
-    fetchStreams();
+  const tableFromGames = useMemo(() => {
+    if (!gamesData) return [];
+    // сверстай как тебе удобно (матчи в строках или агрегировать)
+    return gamesData.map((g, i) => ({
+      rank: i + 1,
+      name: `${g.team_home?.name || "Команда A"} — ${g.team_away?.name || "Команда B"}`,
+      city: g.city || "",
+      logo: g.team_home?.logo || null,
+      stats: {
+        Очки: `${g.score_home ?? "-"} : ${g.score_away ?? "-"}`,
+        "Дата матча": g.start_datetime?.slice(0, 10) || "",
+      },
+    }));
+  }, [gamesData]);
+
+  const tableFromPlayoff = useMemo(() => {
+    if (!playoffGames) return [];
+    return playoffGames.map((g, i) => ({
+      rank: i + 1,
+      name: `${g.team_home?.name || "A"} — ${g.team_away?.name || "B"}`,
+      city: g.round_name || "Playoff",
+      logo: g.team_home?.logo || null,
+      stats: {
+        Очки: `${g.score_home ?? "-"} : ${g.score_away ?? "-"}`,
+        Раунд: g.round_name || "",
+      },
+    }));
+  }, [playoffGames]);
+
+  const tableFromAggregated = useMemo(() => {
+    if (!statsAgg) return [];
+    // Пример: ответ по игрокам турнира -> строки таблицы
+    return statsAgg.map((row, i) => ({
+      rank: i + 1,
+      name: row?.user_name || row?.player_name || "Игрок",
+      city: row?.team_name || "",
+      logo: row?.team_logo || null,
+      stats: {
+        Очки: row.points ?? 0,
+        Подборы: row.rebounds ?? 0,
+        Передачи: row.assists ?? 0,
+        Перехваты: row.steals ?? 0,
+        Блокшоты: row.blocks ?? 0,
+        "2 очковых": row.twos_made ?? 0,
+        "% 2 очковых": row.twos_pct ?? 0,
+        "3 очковых": row.threes_made ?? 0,
+        "% 3 очковых": row.threes_pct ?? 0,
+        штрафных: row.fts_made ?? 0,
+        "% штрафных": row.fts_pct ?? 0,
+        "Эффектив.": row.efficiency ?? 0,
+        "Игровое время (мин)": row.minutes ?? 0,
+      },
+    }));
+  }, [statsAgg]);
+
+  const handleChange = useCallback((next) => {
+    // next приходит из StatsFilterPanel, например { stage, gender, season, region, tournamentId }
+    setFilters((prev) => ({ ...prev, ...next }));
   }, []);
 
-  const tableData = [
-    {
-      rank: 1,
-      name: "Школа-лицей г. Аксу",
-      city: "Аксу",
-      logo: null,
-      stats: {
-        Очки: 1211,
-        Подборы: 1155,
-        Передачи: 144,
-        Блокшоты: 57,
-        Перехваты: 295,
-        Потери: 549,
-        "2 очковых": 467,
-        "% 2 очковых": 35.3,
-        "3 очковых": 54,
-        "% 3 очковых": 17.4,
-        штрафных: 115,
-        "% штрафных": 35.8,
-        Фолы: 265,
-        "Фолы соперника": 278,
-        "Эффектив.": 1011,
-        "Игровое время (мин)": 5000,
-      },
-    },
-    {
-      rank: 2,
-      name: "Гимназия № 2",
-      city: "Хромтау",
-      logo: "https://fs.mtgame.ru/c21fefc1-6519-4565-a0bc-8395e2fa993f.jpeg",
-      stats: {
-        Очки: 1020,
-        Подборы: 1045,
-        Передачи: 17,
-        Блокшоты: 45,
-        Перехваты: 327,
-        Потери: 673,
-        "2 очковых": 383,
-        "% 2 очковых": 29.3,
-        "3 очковых": 49,
-        "% 3 очковых": 15,
-        штрафных: 107,
-        "% штрафных": 29.5,
-        Фолы: 318,
-        "Фолы соперника": 387,
-        "Эффектив.": 395,
-        "Игровое время (мин)": 5214,
-      },
-    },
-    {
-      rank: 3,
-      name: "СОШИТ им. А. Байтұрсынұлы",
-      city: "Павлодар",
-      logo: "https://fs.mtgame.ru/1b0dcdb8-e817-4ca7-8318-5edbe9c976ba.jpeg",
-      stats: {
-        Очки: 919,
-        Подборы: 1030,
-        Передачи: 62,
-        Блокшоты: 41,
-        Перехваты: 301,
-        Потери: 444,
-        "2 очковых": 337,
-        "% 2 очковых": 28.3,
-        "3 очковых": 53,
-        "% 3 очковых": 16.8,
-        штрафных: 86,
-        "% штрафных": 31.2,
-        Фолы: 273,
-        "Фолы соперника": 240,
-        "Эффектив.": 573,
-        "Игровое время (мин)": 4519,
-      },
-    },
-    {
-      rank: 4,
-      name: "3 школа",
-      city: "Рудный",
-      logo: "https://fs.mtgame.ru/6bb2e3d8-9e83-4a1f-90d6-f2b0df824a2b.jpeg",
-      stats: {
-        Очки: 889,
-        Подборы: 694,
-        Передачи: 89,
-        Блокшоты: 41,
-        Перехваты: 283,
-        Потери: 405,
-        "2 очковых": 357,
-        "% 2 очковых": 35.8,
-        "3 очковых": 23,
-        "% 3 очковых": 17.1,
-        штрафных: 106,
-        "% штрафных": 37.9,
-        Фолы: 324,
-        "Фолы соперника": 263,
-        "Эффектив.": 608,
-        "Игровое время (мин)": 3822,
-      },
-    },
-    {
-      rank: 5,
-      name: 'КГУ "Иртышская СОШ №4"',
-      city: "Павлодар",
-      logo: null,
-      stats: {
-        Очки: 821,
-        Подборы: 501,
-        Передачи: 21,
-        Блокшоты: 15,
-        Перехваты: 247,
-        Потери: 181,
-        "2 очковых": 345,
-        "% 2 очковых": 43.1,
-        "3 очковых": 18,
-        "% 3 очковых": 14.6,
-        штрафных: 77,
-        "% штрафных": 38.3,
-        Фолы: 109,
-        "Фолы соперника": 169,
-        "Эффектив.": 800,
-        "Игровое время (мин)": 2193,
-      },
-    },
-    {
-      rank: 6,
-      name: "СОПШДО №17, Павлодар",
-      city: "Павлодар",
-      logo: "https://fs.mtgame.ru/1000181217.jpg",
-      stats: {
-        Очки: 803,
-        Подборы: 926,
-        Передачи: 46,
-        Блокшоты: 29,
-        Перехваты: 286,
-        Потери: 412,
-        "2 очковых": 317,
-        "% 2 очковых": 25.4,
-        "3 очковых": 28,
-        "% 3 очковых": 16.2,
-        штрафных: 85,
-        "% штрафных": 35.5,
-        Фолы: 260,
-        "Фолы соперника": 216,
-        "Эффектив.": 408,
-        "Игровое время (мин)": 4200,
-      },
-    },
-    {
-      rank: 7,
-      name: "Қыран",
-      city: "Павлодар",
-      logo: "https://fs.mtgame.ru/75185949-98fc-4913-9ccc-881ac6086efd.jpeg",
-      stats: {
-        Очки: 801,
-        Подборы: 670,
-        Передачи: 58,
-        Блокшоты: 30,
-        Перехваты: 139,
-        Потери: 192,
-        "2 очковых": 296,
-        "% 2 очковых": 39.7,
-        "3 очковых": 51,
-        "% 3 очковых": 17.7,
-        штрафных: 56,
-        "% штрафных": 30.9,
-        Фолы: 134,
-        "Фолы соперника": 161,
-        "Эффектив.": 722,
-        "Игровое время (мин)": 2598,
-      },
-    },
-    {
-      rank: 8,
-      name: "СОШЛ#20",
-      city: "Актобе",
-      logo: null,
-      stats: {
-        Очки: 700,
-        Подборы: 293,
-        Передачи: 91,
-        Блокшоты: 2,
-        Перехваты: 145,
-        Потери: 122,
-        "2 очковых": 275,
-        "% 2 очковых": 47.1,
-        "3 очковых": 34,
-        "% 3 очковых": 24.2,
-        штрафных: 48,
-        "% штрафных": 39.6,
-        Фолы: 111,
-        "Фолы соперника": 118,
-        "Эффектив.": 629,
-        "Игровое время (мин)": 1999,
-      },
-    },
-    {
-      rank: 9,
-      name: "Қандыағаш 5 ЖББОМ",
-      city: "Хромтау",
-      logo: "https://fs.mtgame.ru/1000132994.jpg",
-      stats: {
-        Очки: 688,
-        Подборы: 313,
-        Передачи: 24,
-        Блокшоты: 10,
-        Перехваты: 168,
-        Потери: 165,
-        "2 очковых": 304,
-        "% 2 очковых": 47.5,
-        "3 очковых": 7,
-        "% 3 очковых": 28,
-        штрафных: 59,
-        "% штрафных": 32.2,
-        Фолы: 65,
-        "Фолы соперника": 145,
-        "Эффектив.": 640,
-        "Игровое время (мин)": 1587,
-      },
-    },
-    {
-      rank: 10,
-      name: "Гимназия #5",
-      city: "Рудный",
-      logo: null,
-      stats: {
-        Очки: 688,
-        Подборы: 467,
-        Передачи: 97,
-        Блокшоты: 19,
-        Перехваты: 107,
-        Потери: 208,
-        "2 очковых": 257,
-        "% 2 очковых": 46.8,
-        "3 очковых": 40,
-        "% 3 очковых": 23.2,
-        штрафных: 54,
-        "% штрафных": 48.6,
-        Фолы: 182,
-        "Фолы соперника": 109,
-        "Эффектив.": 616,
-        "Игровое время (мин)": 2200,
-      },
-    },
-    {
-      rank: 11,
-      name: "КГУ СОШ 18 (Дикие панды)",
-      city: "Павлодар",
-      logo: "https://fs.mtgame.ru/b7f3bb34-a22f-4134-be63-c92bc97bc326.jpeg",
-      stats: {
-        Очки: 687,
-        Подборы: 959,
-        Передачи: 62,
-        Блокшоты: 37,
-        Перехваты: 287,
-        Потери: 513,
-        "2 очковых": 285,
-        "% 2 очковых": 24.9,
-        "3 очковых": 17,
-        "% 3 очковых": 8.8,
-        штрафных: 66,
-        "% штрафных": 23.6,
-        Фолы: 213,
-        "Фолы соперника": 267,
-        "Эффектив.": 328,
-        "Игровое время (мин)": 4315,
-      },
-    },
-    {
-      rank: 12,
-      name: "ОСШ №25",
-      city: "Актобе",
-      logo: "https://fs.mtgame.ru/pravila-basketbola.jpeg",
-      stats: {
-        Очки: 642,
-        Подборы: 407,
-        Передачи: 73,
-        Блокшоты: 21,
-        Перехваты: 204,
-        Потери: 257,
-        "2 очковых": 261,
-        "% 2 очковых": 38.8,
-        "3 очковых": 22,
-        "% 3 очковых": 22.4,
-        штрафных: 54,
-        "% штрафных": 38.5,
-        Фолы: 119,
-        "Фолы соперника": 127,
-        "Эффектив.": 526,
-        "Игровое время (мин)": 2000,
-      },
-    },
-    {
-      rank: 13,
-      name: "КГУ «Средняя школа имени Николая Островского» Девочки",
-      city: "Павлодар",
-      logo: "https://fs.mtgame.ru/WhatsAppImage2024-10-14at15.25.43.jpeg",
-      stats: {
-        Очки: 605,
-        Подборы: 333,
-        Передачи: 104,
-        Блокшоты: 4,
-        Перехваты: 200,
-        Потери: 271,
-        "2 очковых": 270,
-        "% 2 очковых": 36.9,
-        "3 очковых": 1,
-        "% 3 очковых": 8.3,
-        штрафных: 62,
-        "% штрафных": 24.7,
-        Фолы: 165,
-        "Фолы соперника": 204,
-        "Эффектив.": 353,
-        "Игровое время (мин)": 2812,
-      },
-    },
-    {
-      rank: 14,
-      name: "Wolfs Basketball team",
-      city: "Рудный",
-      logo: null,
-      stats: {
-        Очки: 592,
-        Подборы: 529,
-        Передачи: 53,
-        Блокшоты: 20,
-        Перехваты: 198,
-        Потери: 367,
-        "2 очковых": 215,
-        "% 2 очковых": 31.8,
-        "3 очковых": 30,
-        "% 3 очковых": 19.2,
-        штрафных: 72,
-        "% штрафных": 31.7,
-        Фолы: 210,
-        "Фолы соперника": 199,
-        "Эффектив.": 274,
-        "Игровое время (мин)": 3224,
-      },
-    },
-    {
-      rank: 15,
-      name: "гимназия #5",
-      city: "Рудный",
-      logo: null,
-      stats: {
-        Очки: 583,
-        Подборы: 455,
-        Передачи: 24,
-        Блокшоты: 27,
-        Перехваты: 94,
-        Потери: 254,
-        "2 очковых": 224,
-        "% 2 очковых": 34,
-        "3 очковых": 14,
-        "% 3 очковых": 20.5,
-        штрафных: 93,
-        "% штрафных": 32.8,
-        Фолы: 175,
-        "Фолы соперника": 241,
-        "Эффектив.": 317,
-        "Игровое время (мин)": 2638,
-      },
-    },
-    {
-      rank: 16,
-      name: "ГИМНАЗИЯ#5",
-      city: "Рудный",
-      logo: null,
-      stats: {
-        Очки: 569,
-        Подборы: 490,
-        Передачи: 96,
-        Блокшоты: 19,
-        Перехваты: 262,
-        Потери: 273,
-        "2 очковых": 228,
-        "% 2 очковых": 33.4,
-        "3 очковых": 19,
-        "% 3 очковых": 12.9,
-        штрафных: 56,
-        "% штрафных": 28.8,
-        Фолы: 173,
-        "Фолы соперника": 163,
-        "Эффектив.": 370,
-        "Игровое время (мин)": 2400,
-      },
-    },
-    {
-      rank: 17,
-      name: "КГУ СОШ №20",
-      city: "Актобе",
-      logo: null,
-      stats: {
-        Очки: 557,
-        Подборы: 292,
-        Передачи: 66,
-        Блокшоты: 2,
-        Перехваты: 231,
-        Потери: 145,
-        "2 очковых": 268,
-        "% 2 очковых": 40.1,
-        "3 очковых": 2,
-        "% 3 очковых": 6.8,
-        штрафных: 15,
-        "% штрафных": 22.3,
-        Фолы: 49,
-        "Фолы соперника": 68,
-        "Эффектив.": 544,
-        "Игровое время (мин)": 1398,
-      },
-    },
-    {
-      rank: 18,
-      name: "Средняя школа - лицей №27 - 7-8 класс",
-      city: "Актобе",
-      logo: "https://fs.mtgame.ru/WhatsAppImage2024-01-16at12.16.22_n5etD.jpeg",
-      stats: {
-        Очки: 552,
-        Подборы: 377,
-        Передачи: 86,
-        Блокшоты: 13,
-        Перехваты: 106,
-        Потери: 140,
-        "2 очковых": 213,
-        "% 2 очковых": 45,
-        "3 очковых": 29,
-        "% 3 очковых": 23.3,
-        штрафных: 38,
-        "% штрафных": 33.3,
-        Фолы: 105,
-        "Фолы соперника": 102,
-        "Эффектив.": 560,
-        "Игровое время (мин)": 1575,
-      },
-    },
-    {
-      rank: 19,
-      name: 'КГУ "Общеобразовательная школа 1" города Лисаковска. Девушки',
-      city: "Лисаковск",
-      logo: "https://fs.mtgame.ru/IMG_20240119_094120.jpg",
-      stats: {
-        Очки: 530,
-        Подборы: 350,
-        Передачи: 40,
-        Блокшоты: 9,
-        Перехваты: 180,
-        Потери: 180,
-        "2 очковых": 253,
-        "% 2 очковых": 37.5,
-        "3 очковых": 0,
-        "% 3 очковых": 0,
-        штрафных: 24,
-        "% штрафных": 22.2,
-        Фолы: 63,
-        "Фолы соперника": 107,
-        "Эффектив.": 457,
-        "Игровое время (мин)": 2000,
-      },
-    },
-    {
-      rank: 20,
-      name: "MD M",
-      city: "Рудный",
-      logo: null,
-      stats: {
-        Очки: 523,
-        Подборы: 321,
-        Передачи: 47,
-        Блокшоты: 15,
-        Перехваты: 149,
-        Потери: 129,
-        "2 очковых": 174,
-        "% 2 очковых": 42,
-        "3 очковых": 43,
-        "% 3 очковых": 20,
-        штрафных: 46,
-        "% штрафных": 38,
-        Фолы: 135,
-        "Фолы соперника": 96,
-        "Эффектив.": 400,
-        "Игровое время (мин)": 1800,
-      },
-    },
-  ];
-
-  const handleChange = useCallback(({ stage, gender, season, region }) => {
-    // здесь конвертируешь выбранные значения в параметры твоих запросов
-    // и дергаешь загрузку статистики
-    // например: fetchStats({ stage, gender, season, region })
-    console.log("filters:", { stage, gender, season, region });
-  }, []);
+  // Можно показать индикаторы загрузки/ошибки
+  const loadingBlock = (s) => s === "loading" ? <div className="mt-16">Загрузка…</div> : null;
 
   return (
     <>
@@ -524,6 +155,7 @@ export default function GameStats() {
           </div>
         </div>
       </div>
+
       <TabPanel
         tabs={[
           {
@@ -532,8 +164,13 @@ export default function GameStats() {
               <div className="game-stats-page">
                 <div className="container">
                   <div className="main-title">Статистика игр</div>
-                  <StatsFilterPanel onChange={handleChange} />
-                  <TeamsStatsTable data={tableData} limit={30} />
+                  <StatsFilterPanel
+                    onChange={handleChange}
+                    tournaments={tournaments}
+                    value={filters}
+                  />
+                  {loadingBlock(gamesStatus)}
+                  <TeamsStatsTable data={tableFromGames} limit={30} />
                 </div>
               </div>
             ),
@@ -541,53 +178,65 @@ export default function GameStats() {
           {
             label: "Таблица",
             content: (
-              <>
-                <div className="game-stats-page">
-                  <div className="container">
-                    <StatsFilterPanel onChange={handleChange} />
-                    <TeamsStatsTable data={tableData} limit={30} />
-                  </div>
+              <div className="game-stats-page">
+                <div className="container">
+                  <StatsFilterPanel
+                    onChange={handleChange}
+                    tournaments={tournaments}
+                    value={filters}
+                  />
+                  {loadingBlock(tableStatus)}
+                  <TeamsStatsTable data={tableFromTeams} limit={30} />
                 </div>
-              </>
+              </div>
             ),
           },
           {
             label: "Плей-офф",
             content: (
-              <>
-                <div className="game-stats-page">
-                  <div className="container">
-                    <StatsFilterPanel onChange={handleChange} />
-                    <TeamsStatsTable data={tableData} limit={30} />
-                  </div>
+              <div className="game-stats-page">
+                <div className="container">
+                  <StatsFilterPanel
+                    onChange={handleChange}
+                    tournaments={tournaments}
+                    value={filters}
+                  />
+                  {loadingBlock(poStatus) || loadingBlock(poGamesStatus)}
+                  <TeamsStatsTable data={tableFromPlayoff} limit={30} />
                 </div>
-              </>
+              </div>
             ),
           },
           {
             label: "Статистика",
             content: (
-              <>
-                <div className="game-stats-page">
-                  <div className="container">
-                    <StatsFilterPanel onChange={handleChange} />
-                    <TeamsStatsTable data={tableData} limit={30} />
-                  </div>
+              <div className="game-stats-page">
+                <div className="container">
+                  <StatsFilterPanel
+                    onChange={handleChange}
+                    tournaments={tournaments}
+                    value={filters}
+                  />
+                  {loadingBlock(statsStatus)}
+                  <TeamsStatsTable data={tableFromAggregated} limit={30} />
                 </div>
-              </>
+              </div>
             ),
           },
           {
             label: "Лидеры",
             content: (
-              <>
-                <div className="game-stats-page">
-                  <div className="container">
-                    <StatsFilterPanel onChange={handleChange} />
-                    <TeamsStatsTable data={tableData} limit={30} />
-                  </div>
+              <div className="game-stats-page">
+                <div className="container">
+                  <StatsFilterPanel
+                    onChange={handleChange}
+                    tournaments={tournaments}
+                    value={filters}
+                  />
+                  {loadingBlock(statsStatus)}
+                  <TeamsStatsTable data={tableFromAggregated} limit={30} />
                 </div>
-              </>
+              </div>
             ),
           },
         ]}

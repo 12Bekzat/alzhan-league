@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 const BallIcon = () => (
   <svg viewBox="0 0 48 48" width="24" height="24" aria-hidden>
     <circle cx="24" cy="24" r="22" fill="#ff7a00" stroke="#fff" strokeWidth="3" />
-    <path d="M3 24h42M24 3v42M8 8c11 7 21 7 32 0M8 40c11-7 21-7 32 0" stroke="#fff" strokeWidth="3" fill="none"/>
+    <path d="M3 24h42M24 3v42M8 8c11 7 21 7 32 0M8 40c11-7 21-7 32 0"
+          stroke="#fff" strokeWidth="3" fill="none"/>
   </svg>
 );
 
@@ -17,7 +18,7 @@ export default function GeoMapImage({
   const [openId, setOpenId] = useState(null);
   const wrapRef = useRef(null);
 
-  // close on outside click / Esc
+  // закрытие по Esc и клику вне карты
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && setOpenId(null);
     const onClick = (e) => {
@@ -33,7 +34,11 @@ export default function GeoMapImage({
   }, []);
 
   return (
-    <section className="gmi" aria-label={title} ref={wrapRef}>
+    <section
+      className={`gmi ${openId ? "has-open" : ""}`}
+      aria-label={title}
+      ref={wrapRef}
+    >
       <header className="gmi__head">
         <h2 className="gmi__title">{title}</h2>
         <p className="gmi__desc">{description}</p>
@@ -42,49 +47,74 @@ export default function GeoMapImage({
       <div className="gmi__map">
         <img className="gmi__img" src={mapSrc} alt="Карта Казахстана" />
 
-        {points.map((p) => (
-          <div
-            key={p.id}
-            className="gmi__pinWrap"
-            style={{ left: p.x + "%", top: p.y + "%" }}
-          >
-            <button
-              className="gmi__pin"
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpenId((id) => (id === p.id ? null : p.id));
+        {points.map((p) => {
+          const isOpen = openId === p.id;
+          return (
+            <div
+              key={p.id}
+              className={`gmi__pinWrap ${isOpen ? "is-open" : ""}`}
+              style={{
+                left: p.x + "%",
+                top: p.y + "%",
+                zIndex: isOpen ? 99 : 1, // открытая метка поверх остальных
               }}
-              aria-label={p.name}
-              aria-expanded={openId === p.id}
             >
-              <BallIcon />
-              {p.count != null && <span className="gmi__badge">{p.count}</span>}
-            </button>
+              <button
+                className="gmi__pin"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenId((id) => (id === p.id ? null : p.id));
+                }}
+                onMouseDown={(e) => e.stopPropagation()}
+                aria-label={p.name}
+                aria-expanded={isOpen}
+              >
+                <BallIcon />
+                {p.count != null && <span className="gmi__badge">{p.count}</span>}
+              </button>
 
-            {openId === p.id && (
-              <div className="gmi__popup" role="dialog" aria-label={`Информация: ${p.name}`}>
-                <div className="gmi__popHead">
-                  <div className="gmi__popTitle">{p.name}</div>
-                  <button className="gmi__close" onClick={() => setOpenId(null)} aria-label="Закрыть">×</button>
+              {isOpen && (
+                <div
+                  className="gmi__popup"
+                  role="dialog"
+                  aria-label={`Информация: ${p.name}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="gmi__popHead">
+                    <div className="gmi__popTitle">{p.name}</div>
+                    <button
+                      className="gmi__close"
+                      onClick={() => setOpenId(null)}
+                      aria-label="Закрыть"
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <ul className="gmi__list">
+                    {p.sponsor && (
+                      <li>
+                        <span>Спонсор:</span> {p.sponsor}
+                      </li>
+                    )}
+                    {p.seasons && (
+                      <li>
+                        <span>Сезон:</span> {p.seasons}
+                      </li>
+                    )}
+                    {p.count != null && (
+                      <li>
+                        <span>Общее количество команд:</span> {p.count}
+                      </li>
+                    )}
+                  </ul>
+                  {p.link && (
+                    <img className="gmi__popupImg" src={p.link} alt="Фото" />
+                  )}
                 </div>
-                <ul className="gmi__list">
-                  {p.sponsor && (
-                    <li><span>Спонсор:</span> {p.sponsor}</li>
-                  )}
-                  {p.seasons && (
-                    <li><span>Сезон:</span> {p.seasons}</li>
-                  )}
-                  {p.count != null && (
-                    <li><span>Общее количество команд:</span> {p.count}</li>
-                  )}
-                </ul>
-                {p.link && (
-                  <img className="gmi__img" src={p.link} alt="images" />
-                )}
-              </div>
-            )}
-          </div>
-        ))}
+              )}
+            </div>
+          );
+        })}
       </div>
     </section>
   );

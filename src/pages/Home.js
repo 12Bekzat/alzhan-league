@@ -16,6 +16,8 @@ import Event3 from "../assets/event3.jpg";
 import Event4 from "../assets/event4.jpg";
 import Event5 from "../assets/event5.jpg";
 import ContactRibbonForm from "../components/ContactRibbon";
+import PlayerHero from "../components/PlayerHero";
+import OnePlayer from '../assets/one-person.png'
 
 const banners = [
   "https://nbf.kz/_images/main_banner/202_1635787648_0.jpg",
@@ -52,10 +54,30 @@ export default function Home() {
       <Broadcast />
       {/* <PartnersMini /> */}
       <QuoteHero photo={Man} />
-      <AlzhanFacts />
+      <PlayerHero
+        bg="/assets/bgs/court.jpg"
+        photo={OnePlayer}
+        number={15}
+        firstName="СУПЕРФИНАЛ"
+        lastName="ХРОМТАУ"
+        team="ALZHAN LEAGUE"
+        stats={[
+          { label: "детей", value: 2000 },
+          { label: "школ", value: 100, highlight: true },
+          { label: "регионов Казахстана", value: 7 },
+        ]}
+        lastGame={{
+          left: { logo: "/logos/bucks.svg", pts: 119 },
+          right: { logo: "/logos/bulls.svg", pts: 112 },
+        }}
+        video={{
+          thumb: "/assets/video-thumb.jpg",
+          url: "https://www.youtube.com/embed/ysz5S6PUM-U",
+        }}
+      />
       <EventHighlight
         title="Суперфинал Alzhan"
-        subtitle="Лучшие моменты"
+        subtitle=""
         videoId="rrCVtRid1rE"
         previews={previews}
         albumUrl="https://vk.com/album-224328985_307135460"

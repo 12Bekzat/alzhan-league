@@ -23,6 +23,8 @@ import AboutBanner from "../components/AboutBanner";
 import AlzhanTimeline from "../components/AlzhanTimeline";
 import GeoMapImage from "../components/GeoMap";
 import kzMap from "../assets/kz.svg";
+import AlzhanFacts from "../components/StatsCount";
+import AlzhanTimelineAuto from "../components/AlzhanTimelIneAuto";
 
 const defaultPoints = [
   {
@@ -104,7 +106,7 @@ export default function About() {
                 <div className='history__text'></div>
             </div>
         </div> */}
-      <div className="docs-wrap" style={{ paddingBottom: 0}}>
+      <div className="docs-wrap" style={{ paddingBottom: 0 }}>
         <div className="docs-header">
           <div className="docs-breadcrumbs">
             Главная — <span>О лиге</span>
@@ -133,7 +135,9 @@ export default function About() {
         </div>
       </section>
 
-      <AlzhanTimeline />
+      <AlzhanFacts />
+
+      <AlzhanTimelineAuto />
 
       <GeoMapImage mapSrc={kzMap} points={defaultPoints} />
 

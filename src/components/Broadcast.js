@@ -47,19 +47,25 @@ export default function Broadcast({ translations }) {
             }}
           >
             {
-              streams?.length ? <iframe
-                src="https://www.youtube.com/embed/ВАШ_ID_ТРАНСЛЯЦИИ"
-                title="YouTube Live Stream"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{ width: "100%", height: "100%" }}
-              ></iframe> :
-                <div className="no-streams-placeholder">
+              // streams?.length ? <iframe
+              //   src="https://www.youtube.com/embed/ВАШ_ID_ТРАНСЛЯЦИИ"
+              //   title="YouTube Live Stream"
+              //   frameBorder="0"
+              //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              //   allowFullScreen
+              //   style={{ width: "100%", height: "100%" }}
+              // ></iframe> :
+                streams?.length ? <div className="no-streams-placeholder">
                   <img src={DefaultBroadcast} alt="" />
                   <div className="icon">📺</div>
                   <h3>Пока нет трансляций</h3>
                   <p>Следите за обновлениями — скоро здесь появятся новые матчи!</p>
+                </div> :
+                <div className="no-streams-placeholder">
+                  <img src={DefaultBroadcast} alt="" />
+                  <div className="icon">📺</div>
+                  <h3>Пока нет трансляций</h3>
+                  <span className="doc-card">Смотреть завершённые трансляции</span>
                 </div>
             }
           </div>

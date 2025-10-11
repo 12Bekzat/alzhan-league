@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const SocialIcon = ({ name }) => {
   const p = { fill: "currentColor" };
@@ -57,6 +58,25 @@ const SocialIcon = ({ name }) => {
           />
         </svg>
       );
+    case "whatsapp":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden>
+          <path
+            {...p}
+            d="M20.52 3.48A11.77 11.77 0 0 0 12.04 1C6.06 1 1.2 5.86 1.2 11.84c0 2.1.55 4.08 1.6 5.83L1 23l5.5-1.7a10.6 10.6 0 0 0 5.54 1.53h.01c5.98 0 10.84-4.86 10.84-10.84 0-2.9-1.13-5.62-3.17-7.66zM12.05 20.3a8.45 8.45 0 0 1-4.3-1.18l-.31-.18-3.26.99.98-3.17-.2-.33a8.46 8.46 0 1 1 15.78-4.1c0 4.67-3.8 8.47-8.47 8.47zm4.85-6.35c-.26-.13-1.54-.76-1.78-.84-.24-.09-.41-.13-.58.13-.17.26-.67.84-.82 1.01-.15.17-.3.2-.56.07-.26-.13-1.08-.4-2.06-1.28-.76-.68-1.28-1.52-1.44-1.78-.15-.26-.02-.4.11-.53.12-.12.26-.31.39-.46.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.46-.06-.13-.58-1.41-.8-1.93-.21-.5-.43-.43-.58-.43h-.5c-.17 0-.46.06-.7.32-.24.26-.92.9-.92 2.2s.94 2.55 1.08 2.73c.13.17 1.85 2.83 4.48 3.97.63.27 1.13.42 1.51.54.64.2 1.22.17 1.68.1.51-.08 1.54-.63 1.76-1.24.22-.61.22-1.14.15-1.24-.06-.1-.24-.16-.5-.28z"
+          />
+        </svg>
+      );
+
+    case "phone":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden>
+          <path
+            {...p}
+            d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.85 22 2 13.15 2 2a1 1 0 0 1 1-1H6.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"
+          />
+        </svg>
+      );
     default:
       return null;
   }
@@ -75,6 +95,10 @@ export default function SiteHeader({
 }) {
   const [open, setOpen] = useState(false);
   const [shadow, setShadow] = useState(false);
+
+  function isExternal(href = "") {
+    return /^https?:\/\//i.test(href);
+  }
 
   useEffect(() => {
     const onScroll = () => setShadow(window.scrollY > 4);
@@ -116,7 +140,7 @@ export default function SiteHeader({
               className="sh__social"
               aria-label={k}
             >
-              <SocialIcon name={k} />
+              <SocialIcon name={k.replace(/\d/g, "")} />
             </a>
           ))}
         </div>
@@ -128,14 +152,33 @@ export default function SiteHeader({
           className="sh__links sh__links--left"
           aria-label="Главная навигация слева"
         >
-          {linksLeft.map((l, i) => (
-            <a key={i} className="sh__link" href={l.href}>
-              {l.label}
-            </a>
-          ))}
+          {linksLeft.map((l, i) =>
+            isExternal(l.href) ? (
+              <a
+                key={i}
+                className="sh__link"
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <NavLink
+                key={i}
+                to={l.href}
+                end={l.href === "/"} // чтобы Главная активировалась только на /
+                className={({ isActive }) =>
+                  "sh__link " + (isActive ? "is-active" : "")
+                }
+              >
+                {l.label}
+              </NavLink>
+            )
+          )}
         </nav>
 
-        <span className="" ></span>
+        <span />
 
         <a href={logoHref} className="sh__logo" aria-label="Home">
           {logoSrc ? (
@@ -149,11 +192,37 @@ export default function SiteHeader({
           className="sh__links sh__links--right"
           aria-label="Главная навигация справа"
         >
-          {linksRight.map((l, i) => (
-            <a key={i} className="sh__link" href={l.href}>
-              {l.label}
-            </a>
-          ))}
+          {linksRight.map((l, i) =>
+            l.click ? (
+              <button
+                key={i}
+                className="sh__link sh__link--btn"
+                onClick={l.click}
+              >
+                {l.label}
+              </button>
+            ) : isExternal(l.href) ? (
+              <a
+                key={i}
+                className="sh__link"
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <NavLink
+                key={i}
+                to={l.href}
+                className={({ isActive }) =>
+                  "sh__link " + (isActive ? "is-active" : "")
+                }
+              >
+                {l.label}
+              </NavLink>
+            )
+          )}
         </nav>
 
         <button

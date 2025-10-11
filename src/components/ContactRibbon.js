@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import Ball from '../assets/basketball-ball-variant.png'
 
 export default function ContactRibbonForm({
   title = "Свяжитесь с нами",
@@ -64,7 +65,7 @@ export default function ContactRibbonForm({
   return (
     <section className="crf" aria-label="Форма связи">
       {/* Decorative curve */}
-      <svg
+      {/* <svg
         className="crf__curve"
         viewBox="0 0 1200 300"
         preserveAspectRatio="none"
@@ -72,11 +73,15 @@ export default function ContactRibbonForm({
       >
         <path d="M10,40 C160,100 270,140 430,120 C630,90 760,190 900,160 C1030,130 1080,120 1190,60" />
         <circle cx="770" cy="120" r="10" />
-      </svg>
+      </svg> */}
 
       <div className="crf__left">
         <h2 className="crf__title">{title}</h2>
         <p className="crf__subtitle">{subtitle}</p>
+      </div>
+
+      <div className="crf__icon">
+        <img src={Ball} alt="dasd" />
       </div>
 
       <form className="crf__form" onSubmit={submit}>

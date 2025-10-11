@@ -51,12 +51,12 @@ const formatNum = (n, decimals = 0) =>
     maximumFractionDigits: decimals,
   });
 
-function Counter({ value, suffix = "", label, trigger, size = "lg" }) {
+function Counter({ value, suffix = "", label, trigger, size = "lg", place = 'left', isFormat = true }) {
   const display = useCountUp(value, trigger, { duration: 1400 });
   return (
-    <div className={`af__item af__item--${size}`}>
+    <div className={`af__item af__item--${size} af__item--${place}`}>
       <div className="af__num">
-        {formatNum(display)}
+        {isFormat ? formatNum(display) : display}
         {suffix && <span className="af__suffix">{suffix}</span>}
       </div>
       <div className="af__label">{label}</div>
@@ -104,17 +104,21 @@ export default function AlzhanFacts() {
             value={1740}
             label="комплектов баскетбольной формы"
             trigger={seen2}
+            isFormat={false}
+            place="center"
             size="xl"
           />
           <Counter
             value={450}
             label="баскетбольных мячей"
+            place="center"
             trigger={seen2}
             size="xl"
           />
           <Counter
             value={250}
             label="разминочных футболок"
+            place="center"
             trigger={seen2}
             size="xl"
           />

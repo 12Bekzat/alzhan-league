@@ -32,6 +32,7 @@ import Kusto from "./assets/kusto png.png";
 import Zhebe from "./assets/zhebe logistics png.png";
 import Federation from "./assets/federation.png";
 import PBK from "./assets/pbk.png";
+import PBKAstana from "./assets/pbc_astana.png";
 import Politics from "./assets/politics.docx";
 import SiteHeader from "./components/NewHeader";
 
@@ -44,27 +45,30 @@ function App() {
         logoSrc={LogoColor}
         logoAlt="Alzhan League"
         logoHref="/"
-        email="contact@sdasbl.com"
-        phone="(819) 527-0722"
+        email="alzhan.fund@gmail.com"
+        phone="+7 (707) 164 57-57"
         socials={{
-          facebook: "#",
-          instagram: "#",
-          tiktok: "#",
-          x: "#",
-          youtube: "#",
+          instagram: "https://www.instagram.com/alzhan.fund",
+          instagram2: "https://www.instagram.com/alzhan.league",
+          youtube: "https://youtube.com/@alzhankz",
           vk: "#",
+          phone: "tel:+77071645757",
+          whatsapp: "https://wa.me/77071645757",
         }}
         linksLeft={[
-          { label: "Главная", href: "/" },
           { label: "О лиге", href: "/about" },
           { label: "Статистика игр", href: "/statistics" },
-          { label: "Проекты и мероприятия", href: "/projects" },
+          { label: "Галерея", href: "/projects" },
         ]}
         linksRight={[
-          { label: "Новости / Актуально", href: "/news" },
-          { label: "Контакты", href: "/contacts" },
-          { label: "Документы", href: "/documents" },
+          { label: "Новости", href: "/news" },
           { label: "Спонсоры", href: "/partners" },
+          {
+            label: "Пожертвовать",
+            click: () => {
+              setIsOpen(true);
+            },
+          },
         ]}
       />
 
@@ -84,20 +88,6 @@ function App() {
             element={<ManageStreams />}
           />
         </Routes>
-      </div>
-
-      <div className="fast-icons">
-        <a
-          className="always"
-          href="https://wa.me/77056670405"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaPhone size={20} color="white" />
-        </a>
-        <div onClick={() => setIsOpen(true)} className="always">
-          <FaDonate size={20} color="white" />
-        </div>
       </div>
 
       <Popup isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -122,11 +112,11 @@ function App() {
           },
           {
             href: "https://pbcastana.kz/ru/",
-            src: PBK,
+            src: PBKAstana,
           },
           {
             href: "https://ssports.kz/ru",
-            src: Federation,
+            src: PBK,
           },
         ]}
         sections={[
@@ -167,13 +157,13 @@ function App() {
         ]}
         orgText="Школьная Баскетбольная Лига «Alzhan» — это крупнейший социально-спортивный проект Казахстана, который объединяет школьников разных регионов страны и не имеет аналогов в национальном школьном спорте. Главная цель проекта — развитие баскетбола среди учащихся общеобразовательных школ, создание единого движения, где спорт становится частью культуры подростков и их повседневной жизни. "
         address="© 2014-2025 Alzhan Basketball Fund. Все права защищены "
-        phone="+7 705 667 0405"
-        email="kazbasket.fund@gmail.com"
+        phone="+7 (707) 164 57-57"
+        email="alzhan.fund@gmail.com"
         privacyHref={Politics}
         socials={[
           {
             type: "instagram",
-            href: "https://www.instagram.com/alzhan.league?igsh=MWJhNHcyMGZweXpjZA==",
+            href: "https://www.instagram.com/alzhan.league",
           },
           { type: "tiktok", href: "#" },
           { type: "whatsapp", href: "https://wa.me/77056670405" },
