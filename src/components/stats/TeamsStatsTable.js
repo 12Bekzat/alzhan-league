@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useMtgame } from "../hooks/useMtgame";
+import { useMtgame } from "../../hooks/useMtgame";
 
 /** Колонки, которые показываем (можешь включать/выключать) */
 const COLUMNS = [

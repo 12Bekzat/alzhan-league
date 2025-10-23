@@ -11,9 +11,9 @@ const GENDERS = [
 ];
 
 const COURSES = [
-  { key: "begin", label: "5-6 классы" },
-  { key: "middle",  label: "7-8 классы"  },
-  { key: "adult",  label: "9-11 классы"  },
+  { key: "5-6", label: "5-6 классы" },
+  { key: "7-8",  label: "7-8 классы"  },
+  { key: "9-11",  label: "9-11 классы"  },
 ];
 
 // Статический список регионов — при желании подмени на данные из API
@@ -23,6 +23,7 @@ const REGIONS = [
 
 export default function StatsFilterPanel({
   seasons = ["2024", "2024-2025"],
+  tournaments = null,
   defaultSeason = "2024-2025",
   defaultStage = null,
   defaultGender = null,
@@ -90,7 +91,7 @@ export default function StatsFilterPanel({
                 <option key={s} value={s}>{s}</option>
               ))}
             </select>
-            <span className="sf-caret" />
+            <span className="sf-caret" style={{ opacity: 0 }}/>
         </div>
       </div>
 
@@ -150,7 +151,7 @@ export default function StatsFilterPanel({
         </div>
 
         {/* Пол */}
-        {stage && <div className="sf-pillsRow">
+        {(region || stage === 'superfinal') && !open && <div className="sf-pillsRow">
           {COURSES.map(g => (
             <button
               key={g.key}

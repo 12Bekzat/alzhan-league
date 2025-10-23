@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import Ball from '../assets/basketball-ball-variant.png'
+import Ball from "../assets/basketball-ball-variant.png";
+import emailjs from "emailjs-com";
 
 export default function ContactRibbonForm({
   title = "Свяжитесь с нами",
@@ -8,9 +9,9 @@ export default function ContactRibbonForm({
   onSubmit,
 }) {
   const [form, setForm] = useState({
-    fio: "",
-    email: "",
-    phone: "",
+    name: "",
+    user_email: "",
+    user_phone: "",
     agree: false,
   });
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
@@ -37,23 +38,46 @@ export default function ContactRibbonForm({
   const onPhoneInput = (e) => {
     const formatted = formatPhone(e.target.value);
     e.target.value = formatted;
-    setForm((f) => ({ ...f, phone: formatted }));
+    setForm((f) => ({ ...f, user_phone: formatted }));
   };
 
   const valid = useMemo(() => {
-    const emailOk = /.+@.+\..+/.test(form.email.trim());
-    const fioOk = form.fio.trim().length >= 3;
-    const phoneOk = form.phone.replace(/\D/g, "").length >= 11;
+    const emailOk = /.+@.+\..+/.test(form.user_email?.trim());
+    const fioOk = form.name?.trim()?.length >= 3;
+    const phoneOk = form.user_phone?.replace(/\D/g, "")?.length >= 11;
     return emailOk && fioOk && phoneOk && form.agree;
   }, [form]);
 
+
+  const sendEmail = () => {
+    emailjs
+      .send(
+        "service_3zp03cr",      // ID вашего сервиса из EmailJS
+        "template_xic563c",     // ID шаблона письма
+        form,
+        "mdmpwDIRnuWqY6H4W"  // Публичный ключ из EmailJS
+      )
+      .then(
+        (result) => {
+          console.log("Email sent:", result.text);
+        },
+        (error) => {
+          console.error("Ошибка:", error.text);
+        }
+      );
+  }
   const submit = async (e) => {
     e.preventDefault();
     if (!valid || status === "sending") return;
     setStatus("sending");
     try {
-      if (onSubmit) await onSubmit(form);
-      else await new Promise((r) => setTimeout(r, 800));
+      if (onSubmit) {
+        await onSubmit(form);
+      }
+      else await new Promise((r) => { 
+        setTimeout(r, 800)
+      });
+      sendEmail()
       setStatus("success");
       setForm({ fio: "", email: "", phone: "", agree: false });
     } catch (err) {
@@ -88,9 +112,9 @@ export default function ContactRibbonForm({
         <input
           className="crf__input"
           type="text"
-          name="fio"
+          name="name"
           placeholder="ФИО"
-          value={form.fio}
+          value={form.name}
           onChange={handleChange}
           autoComplete="name"
           required
@@ -98,9 +122,9 @@ export default function ContactRibbonForm({
         <input
           className="crf__input"
           type="email"
-          name="email"
+          name="user_email"
           placeholder="Email"
-          value={form.email}
+          value={form.user_email}
           onChange={handleChange}
           autoComplete="email"
           required
@@ -112,9 +136,9 @@ export default function ContactRibbonForm({
           <input
             className="crf__input crf__input--phone"
             type="tel"
-            name="phone"
+            name="user_phone"
             placeholder="+7 (777) 777-77-77"
-            value={form.phone}
+            value={form.user_phone}
             onChange={handleChange}
             onInput={onPhoneInput}
             inputMode="tel"

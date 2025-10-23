@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const DEFAULT_BASE_URL = "https://mtgame.ru/api/v1";
+const ALZHAN_ID = 108;
 
 function qs(params) {
   if (!params) return "";
@@ -22,9 +23,9 @@ async function getJson(url, signal) {
   return res.json();
 }
 
-function useCancelableFetch(url) {
+export function useCancelableFetch(url) {
   const [data, setData] = useState(null);
-  const [status, setStatus] = useState("idle");   // idle | loading | success | error
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [error, setError] = useState(null);
   const cacheRef = useRef({});
 
@@ -70,23 +71,37 @@ export function useMtgame(baseUrl = DEFAULT_BASE_URL) {
 
     // ---------- ЛИГА / ТУРНИРЫ ----------
     const useLeagueTournaments = (leagueId) =>
-      useCancelableFetch(leagueId ? u(`/league/${leagueId}/tournaments/`) : undefined);
+      useCancelableFetch(u(`/league/${leagueId || ALZHAN_ID}/tournaments/`));
 
-    const useTournamentGames = (tournamentId, page = 1, size = 200) =>
-      useCancelableFetch(tournamentId ? u(`/tournament/${tournamentId}/games/`, { page, size }) : undefined);
+    const useTournamentGames = ({ page = 1, size = 9, tournamentId = null }) =>
+      useCancelableFetch(
+        u(`/tournament/${tournamentId || ALZHAN_ID}/games/`, { page, size })
+      );
 
     // ---------- ИГРА: СОСТАВЫ, ЛОГИ, СТАТИСТИКА ----------
     const useGameUsers = (gameId) =>
-      useCancelableFetch(gameId ? u(`/tournament_basketball_game/${gameId}/users/`) : undefined);
+      useCancelableFetch(
+        gameId ? u(`/tournament_basketball_game/${gameId}/users/`) : undefined
+      );
 
     const useGameLogs = (gameId) =>
-      useCancelableFetch(gameId ? u(`/tournament_basketball_game/${gameId}/logs/`) : undefined);
+      useCancelableFetch(
+        gameId ? u(`/tournament_basketball_game/${gameId}/logs/`) : undefined
+      );
 
     const useGameUserStatistic = (gameId) =>
-      useCancelableFetch(gameId ? u(`/tournament_basketball_game/${gameId}/user_statistic/`) : undefined);
+      useCancelableFetch(
+        gameId
+          ? u(`/tournament_basketball_game/${gameId}/user_statistic/`)
+          : undefined
+      );
 
     const useGameTeamStatistic = (gameId) =>
-      useCancelableFetch(gameId ? u(`/tournament_basketball_game/${gameId}/team_statistic/`) : undefined);
+      useCancelableFetch(
+        gameId
+          ? u(`/tournament_basketball_game/${gameId}/team_statistic/`)
+          : undefined
+      );
 
     // ---------- АГРЕГИРОВАННАЯ СТАТИСТИКА ----------
     // params: group_by, per_game, tournament_id, league_id, tournament_team_id, team_id,
@@ -96,30 +111,54 @@ export function useMtgame(baseUrl = DEFAULT_BASE_URL) {
 
     // ---------- КОМАНДЫ / ПЛЕЙ-ОФФ ----------
     const useTournamentTableTeams = (tournamentId) =>
-      useCancelableFetch(tournamentId ? u(`/tournament/${tournamentId}/teams/`) : undefined);
+      useCancelableFetch(
+        u(`/tournament/${tournamentId || ALZHAN_ID}/teams/`)
+      );
 
     const useTournamentPlayoffs = (tournamentId) =>
-      useCancelableFetch(tournamentId ? u(`/tournament/${tournamentId}/playoff/`) : undefined);
+      useCancelableFetch(
+        u(`/tournament/${tournamentId || ALZHAN_ID}/playoff/`)
+      );
 
     const usePlayoffGames = (playoffId) =>
-      useCancelableFetch(playoffId ? u(`/tournament_playoff/${playoffId}/games/`) : undefined);
+      useCancelableFetch(
+        playoffId ? u(`/tournament_playoff/${playoffId}/games/`) : undefined
+      );
 
     // ---------- ДАННЫЕ ПО КОМАНДЕ / ИГРОКАМ ----------
     const useTournamentTeam = (tournamentTeamId) =>
-      useCancelableFetch(tournamentTeamId ? u(`/tournament_team/${tournamentTeamId}/`) : undefined);
+      useCancelableFetch(
+        tournamentTeamId
+          ? u(`/tournament_team/${tournamentTeamId}/`)
+          : undefined
+      );
 
     const useTournamentTeamUsers = (tournamentTeamId) =>
-      useCancelableFetch(tournamentTeamId ? u(`/tournament_team/${tournamentTeamId}/users/`) : undefined);
+      useCancelableFetch(
+        tournamentTeamId
+          ? u(`/tournament_team/${tournamentTeamId}/users/`)
+          : undefined
+      );
 
     const useTournamentTeamUser = (tournamentTeamUserId) =>
-      useCancelableFetch(tournamentTeamUserId ? u(`/tournament_team_user/${tournamentTeamUserId}/`) : undefined);
+      useCancelableFetch(
+        tournamentTeamUserId
+          ? u(`/tournament_team_user/${tournamentTeamUserId}/`)
+          : undefined
+      );
 
     // ---------- ЛИГА: ИГРОК ----------
     const useLeaguePlayer = (leaguePlayerId) =>
-      useCancelableFetch(leaguePlayerId ? u(`/league_player/${leaguePlayerId}/`) : undefined);
+      useCancelableFetch(
+        leaguePlayerId ? u(`/league_player/${leaguePlayerId}/`) : undefined
+      );
 
     const useLeaguePlayerTournamentUsers = (leaguePlayerId) =>
-      useCancelableFetch(leaguePlayerId ? u(`/league_player/${leaguePlayerId}/tournament_users/`) : undefined);
+      useCancelableFetch(
+        leaguePlayerId
+          ? u(`/league_player/${leaguePlayerId}/tournament_users/`)
+          : undefined
+      );
 
     return {
       url: u,

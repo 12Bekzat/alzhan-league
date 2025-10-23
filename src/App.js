@@ -51,20 +51,20 @@ function App() {
           instagram: "https://www.instagram.com/alzhan.fund",
           instagram2: "https://www.instagram.com/alzhan.league",
           youtube: "https://youtube.com/@alzhankz",
-          vk: "#",
+          vk: "https://vk.com/alzhan_league",
           phone: "tel:+77071645757",
           whatsapp: "https://wa.me/77071645757",
         }}
         linksLeft={[
-          { label: "О лиге", href: "/about" },
-          { label: "Статистика игр", href: "/statistics" },
-          { label: "Галерея", href: "/projects" },
+          { label: "Кто мы на площадке", href: "/about" },
+          { label: "Цифры не врут", href: "/statistics" },
+          { label: "Наши моменты", href: "/projects" },
         ]}
         linksRight={[
-          { label: "Новости", href: "/news" },
-          { label: "Спонсоры", href: "/partners" },
+          { label: "Свежие победы", href: "/news" },
+          { label: "Те, кто с нами", href: "/partners" },
           {
-            label: "Пожертвовать",
+            label: "Поддержи игру!",
             click: () => {
               setIsOpen(true);
             },

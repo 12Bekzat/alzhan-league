@@ -17,7 +17,8 @@ import Event4 from "../assets/event4.jpg";
 import Event5 from "../assets/event5.jpg";
 import ContactRibbonForm from "../components/ContactRibbon";
 import PlayerHero from "../components/PlayerHero";
-import OnePlayer from '../assets/one-person.png'
+import OnePlayer from "../assets/one-person.png";
+import { useToast } from "../components/ToastProvider";
 
 const banners = [
   "https://nbf.kz/_images/main_banner/202_1635787648_0.jpg",
@@ -34,7 +35,11 @@ const items = [
 const previews = [Event1, Event2, Event3, Event4, Event5];
 
 export default function Home() {
-  const handleSubmit = () => {};
+  const toast = useToast();
+
+  const handleSubmit = () => {
+    toast.success({ title: "Готово", message: "Изменения сохранены", duration: 3 });
+  };
 
   return (
     <>
