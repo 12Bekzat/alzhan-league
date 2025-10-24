@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useMtgame } from "../../hooks/useMtgame";
 import MatchesBoard from "./MatchBoard";
 
-export default function GameBoard() {
+export default function GameBoard({ tournament }) {
   const { useTournamentGames } = useMtgame();
 
   const [page, setPage] = useState(1);
@@ -10,7 +10,7 @@ export default function GameBoard() {
   const { data, status } = useTournamentGames({
     page,
     size: 9,
-    tournamentId: null,
+    tournamentId: tournament?.id,
   });
 
   useEffect(() => {

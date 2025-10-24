@@ -1,10 +1,10 @@
 import { useMtgame } from "../../hooks/useMtgame";
 import PlayoffBracket from "./PlayoffBracket";
 
-export default function PlayoffBoard() {
-  const { useTournamentPlayoffs } = useMtgame();
+export default function PlayoffBoard({ tournament }) {
+  const { usePlayoffGames } = useMtgame();
 
-  const { data, status } = useTournamentPlayoffs();
+  const { data, status } = usePlayoffGames(tournament?.id);
 
   const stages = [
     {

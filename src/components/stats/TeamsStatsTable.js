@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useMtgame } from "../../hooks/useMtgame";
 
 /** Колонки, которые показываем (можешь включать/выключать) */
 const COLUMNS = [
@@ -9,12 +8,12 @@ const COLUMNS = [
   { key: "blocks",      label: "Блокшоты" },
   { key: "steals",      label: "Перехваты" },
   { key: "turnovers",   label: "Потери" },
-  { key: "fg2_made",    label: "2 очковых" },
-  { key: "fg2_pct",     label: "% 2 очковых", fmt: v => fmtPct(v) },
-  { key: "fg3_made",    label: "3 очковых" },
-  { key: "fg3_pct",     label: "% 3 очковых", fmt: v => fmtPct(v) },
-  { key: "ft_made",     label: "Штрафных" },
-  { key: "ft_pct",      label: "% штрафных", fmt: v => fmtPct(v) },
+  { key: "two_points_made",    label: "2 очковых" },
+  { key: "two_point_percent",     label: "% 2 очковых", fmt: v => fmtPct(v) },
+  { key: "three_points_made",    label: "3 очковых" },
+  { key: "three_point_percent",     label: "% 3 очковых", fmt: v => fmtPct(v) },
+  { key: "free_throws_made",     label: "Штрафных" },
+  { key: "free_throw_percent",      label: "% штрафных", fmt: v => fmtPct(v) },
   { key: "fouls",       label: "Фолы" },
   { key: "opponent_fouls", label: "Фолы соперника" },
   { key: "efficiency",  label: "Эффектив." },
@@ -28,12 +27,12 @@ const RU_TO_KEY = {
   "Блокшоты": "blocks",
   "Перехваты": "steals",
   "Потери": "turnovers",
-  "2 очковых": "fg2_made",
-  "% 2 очковых": "fg2_pct",
-  "3 очковых": "fg3_made",
-  "% 3 очковых": "fg3_pct",
-  "штрафных": "ft_made",
-  "% штрафных": "ft_pct",
+  "2 очковых": "two_points_made",
+  "% 2 очковых": "two_point_percent",
+  "3 очковых": "three_points_made",
+  "% 3 очковых": "three_point_percent",
+  "штрафных": "free_throws_made",
+  "% штрафных": "free_throw_percent",
   "Фолы": "fouls",
   "Фолы соперника": "opponent_fouls",
   "Эффектив.": "efficiency",
@@ -52,15 +51,16 @@ function fmtCell(v) {
 
 /** Приводит объект из моего JSON (русские ключи внутри stats) к плоскому виду */
 function normalizeRow(row) {
+  console.log(row);
+  
   const flat = {
     rank: row.rank ?? null,
-    team: row.name ?? "",
+    team: row?.team?.name ?? "",
     city: row.city ?? "",
-    logo: row.logo ?? null,
+    logo: row?.team?.logo?.path ?? null,
   };
-  const stats = row.stats || {};
-  for (const [ru, key] of Object.entries(RU_TO_KEY)) {
-    flat[key] = stats[ru] ?? null;
+  for (const [_, key] of Object.entries(RU_TO_KEY)) {
+    flat[key] = row[key] ?? null;
   }
   return flat;
 }

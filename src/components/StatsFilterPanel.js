@@ -6,8 +6,8 @@ const STAGES = [
 ];
 
 const GENDERS = [
-  { key: "girls", label: "Девочки" },
-  { key: "boys",  label: "Мальчики"  },
+  { key: "female", label: "Девочки" },
+  { key: "male",  label: "Мальчики"  },
 ];
 
 const COURSES = [
@@ -22,9 +22,9 @@ const REGIONS = [
 ];
 
 export default function StatsFilterPanel({
-  seasons = ["2024", "2024-2025"],
+  seasons = ["2024", "2025"],
   tournaments = null,
-  defaultSeason = "2024-2025",
+  defaultSeason = "2024",
   defaultStage = null,
   defaultGender = null,
   defaultRegion = null,
