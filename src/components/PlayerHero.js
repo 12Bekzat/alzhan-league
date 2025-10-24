@@ -74,7 +74,7 @@ function Counter({
 export default function PlayerHero({
   bg = "/images/court-bg.jpg",
   photo, // крупное PNG/JPG с прозрачным фоном — будет поверх
-  number = 34,
+  number = null,
   firstName = "GIANNIS",
   lastName = "ANTETOKOUNMPO",
   team = "MILWAUKEE BUCKS",
@@ -100,7 +100,7 @@ export default function PlayerHero({
       <div className="ph__glass" />
 
       <header className="ph__head">
-        <div className="ph__number">{number}</div>
+        {number && <div className="ph__number">{number}</div>}
         <div className="ph__name">
           <div className="ph__first">{firstName}</div>
           <div className="ph__last">{lastName}</div>
@@ -128,6 +128,7 @@ export default function PlayerHero({
             key={i}
             value={s.value}
             highlight={s.highlight}
+            suffix={s.suffix || ''}
             label="комплектов баскетбольной формы"
             trigger={seen2}
             size="xl"

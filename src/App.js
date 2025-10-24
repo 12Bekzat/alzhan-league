@@ -123,34 +123,33 @@ function App() {
           {
             title: "О лиге",
             links: [
-              { label: "Команда фонда", href: "#" },
-              { label: "Генеральный спонсор", href: "#" },
-              { label: "Партнеры ", href: "#" },
-              { label: "Статистика игр", href: "#" },
+              { label: "Команда фонда", href: "/about" },
+              { label: "Генеральный спонсор", href: "/partners" },
+              { label: "Партнеры ", href: "/partners" },
+              { label: "Статистика игр", href: "/statistics" },
             ],
           },
           {
             title: "Проекты фонда",
             links: [
-              { label: "Школьная баскетбольная лига", href: "#" },
-              { label: "Тренерские семинары", href: "#" },
-              { label: "Судейские семинары", href: "#" },
+              { label: "Школьная баскетбольная лига", href: "/about" },
+              { label: "Тренерские семинары", href: "/about" },
+              { label: "Судейские семинары", href: "/about" },
             ],
           },
           {
             title: "Медиа",
             links: [
-              { label: "Фото", href: "#" },
-              { label: "Новости", href: "#" },
-              { label: "Трансляции игр", href: "#" },
+              { label: "Фото", href: "/projects" },
+              { label: "Новости", href: "/news" },
+              { label: "Трансляции игр", href: "/projects" },
             ],
           },
           {
             title: "Контакты",
             links: [
-              { label: "Связаться с фондом", href: "#" },
-              { label: "Партнерское сотрудничество", href: "#" },
-              { label: "Сообщить об ошибке", href: "#" },
+              { label: "Связаться с фондом", href: "/" },
+              { label: "Партнерское сотрудничество", href: "/partners" },
               { label: "Политика конфиденциальности", href: Politics },
             ],
           },
@@ -165,7 +164,7 @@ function App() {
             type: "instagram",
             href: "https://www.instagram.com/alzhan.league",
           },
-          { type: "tiktok", href: "#" },
+          { type: "tiktok", href: "https://www.tiktok.com/@.alzhan1?_t=ZM-90oTWBaVYbc&_r=1" },
           { type: "whatsapp", href: "https://wa.me/77056670405" },
           {
             type: "youtube",

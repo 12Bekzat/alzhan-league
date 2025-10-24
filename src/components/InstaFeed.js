@@ -12,15 +12,10 @@ export default function InstaFeed({ posts = [] }) {
     
   }, [])
 
-  const sorted = useMemo(
-    () => [...posts],
-    [posts]
-  );
-
   const open = (idx) => setLightbox(idx);
   const close = () => setLightbox(null);
   const prev = () => setLightbox((i) => (i > 0 ? i - 1 : i));
-  const next = () => setLightbox((i) => (i < sorted.length - 1 ? i + 1 : i));
+  const next = () => setLightbox((i) => (i < posts.length - 1 ? i + 1 : i));
 
   return (
     <div className="insta">
@@ -41,8 +36,13 @@ export default function InstaFeed({ posts = [] }) {
         </div>
       </div> */}
 
+<div className="mosaic">
+          {posts.map((p, i) => (
+            <Card key={p.id || i} p={p} onClick={() => open(i)} />
+          ))}
+        </div>
       {/* layouts */}
-      {view === "mosaic" && (
+      {/* {view === "mosaic" && (
         <div className="mosaic">
           {sorted.map((p, i) => (
             <Card key={p.id || i} p={p} onClick={() => open(i)} />
@@ -73,17 +73,17 @@ export default function InstaFeed({ posts = [] }) {
             </section>
           ))}
         </div>
-      )}
+      )} */}
 
       {/* lightbox */}
       {lightbox !== null && (
         <div className="lightbox" onClick={close}>
           <button className="lightbox__nav left" onClick={(e)=>{e.stopPropagation(); prev();}}>&lsaquo;</button>
           <figure className="lightbox__body" onClick={(e)=>e.stopPropagation()}>
-            <img src={sorted[lightbox].images?.[0]} alt="" />
+            <img src={posts[lightbox].images?.[0]} alt="" />
             <figcaption>
-              <div className="cap">{sorted[lightbox].caption}</div>
-              <a className="link" href={sorted[lightbox].urk} target="_blank" rel="noreferrer">
+              <div className="cap">{posts[lightbox].caption}</div>
+              <a className="link" href={posts[lightbox].urk} target="_blank" rel="noreferrer">
                 Открыть в Instagram →
               </a>
             </figcaption>
@@ -97,14 +97,13 @@ export default function InstaFeed({ posts = [] }) {
 }
 
 function Card({ p, onClick, compact = false }) {
-    console.log('p', p)
   return (
-    <article className={`card ${compact ? "card--compact" : ""}`} onClick={onClick} role="button" tabIndex={0}>
-      <img className="card__img" src={p.images?.[0]} alt="" loading="lazy" />
-      <div className="card__grad" />
-      <div className="card__meta">
-        <div className="card__caption">{p.caption}</div>
-        <div className="card__stats">
+    <article className={`icard ${compact ? "icard--compact" : ""}`} onClick={onClick} role="button" tabIndex={0}>
+      <img className="icard__img" src={p.images?.[0]} alt="" />
+      <div className="icard__grad" />
+      <div className="icard__meta">
+        <div className="icard__caption">{p.caption}</div>
+        <div className="icard__stats">
           <span>❤ {abbr(p.likes)}</span>
           <span>💬 {abbr(p.comments)}</span>
           <span>{formatDate(p.published_at)}</span>

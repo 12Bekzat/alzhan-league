@@ -1,35 +1,40 @@
 import React, { useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import SaidenovAnvar from '../assets/anvar.jpeg'
+import ShakirovMarat from '../assets/shakirov.jpeg'
+import AhtanovErlan from '../assets/Ahtanov.jpeg'
+import BekmambetovaAlfira from '../assets/bekmambetova.jpeg'
+import DusenbinaElla from '../assets/ella.jpeg'
 
 const teamMembers = [
   {
     name: 'Сайденов Анвар Галимуллаевич',
     role: 'Председатель попечительского совета ОФ “Alzhan”',
-    image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
+    image: SaidenovAnvar,
   },
   {
     name: 'Ахтанов Ерлан Кокенаевич',
     role: 'Сооснователь ОФ “Alzhan”',
-    image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
+    image: AhtanovErlan,
   },
   {
     name: 'Шакиров Марат Сагидович',
     role: 'Директор ОФ “Alzhan”',
-    image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
+    image: ShakirovMarat,
   },
   {
     name: 'Альфира Бекмамбетова',
     role: 'Менеджер ОФ “Alzhan”',
-    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
+    image: BekmambetovaAlfira,
   },
   {
     name: 'Дюсенбина Элла',
     role: 'Менеджер ОФ “Alzhan”',
-    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
+    image: DusenbinaElla,
   },
   {
     name: 'Пыряева Наталья Васильевна',
-    role: 'Региональный менеджер г. Рудный',
+    role: 'Региональный менеджер г. Рудный', 
     image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
   },
   {

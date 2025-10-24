@@ -17,13 +17,15 @@ import Event4 from "../assets/event4.jpg";
 import Event5 from "../assets/event5.jpg";
 import ContactRibbonForm from "../components/ContactRibbon";
 import PlayerHero from "../components/PlayerHero";
-import OnePlayer from "../assets/one-person.png";
+import OnePlayer from "../assets/IMG_9341.png";
 import { useToast } from "../components/ToastProvider";
+import BannerSlider from "../components/BannerSlider";
+import FBanner from '../assets/banner_1.png'
+import SBanner from '../assets/banner_2.png'
 
 const banners = [
-  "https://nbf.kz/_images/main_banner/202_1635787648_0.jpg",
-  "https://nbf.kz/_images/main_banner/202_1636492858_0.jpg",
-  "https://nbf.kz/_images/main_banner/202_1636492858_0.jpg",
+  FBanner,
+  SBanner
 ];
 
 const items = [
@@ -48,12 +50,7 @@ export default function Home() {
         className=""
         style={{ width: "90%", marginTop: 50, marginBottom: 50 }}
       >
-        <SponsorSlider
-          images={banners}
-          aspectRatio="21 / 5" // чтобы баннеры не «слетали»
-          objectFit="cover" // или "contain", если нужно видеть всё без обрезки
-          intervalMs={3500}
-        />
+        <BannerSlider images={banners} intervalMs={3000} />
       </span>
       <BasketballNewsSection />
       <Broadcast />
@@ -62,12 +59,11 @@ export default function Home() {
       <PlayerHero
         bg="/assets/bgs/court.jpg"
         photo={OnePlayer}
-        number={15}
-        firstName="СУПЕРФИНАЛ"
-        lastName="ХРОМТАУ"
-        team="ALZHAN LEAGUE"
+        firstName="Масштаб ALZHAN League в цифрах"
+        lastName="ALZHAN LEAGUE"
+        team=""
         stats={[
-          { label: "детей", value: 2000 },
+          { label: "детей", value: 3000, suffix: '+' },
           { label: "школ", value: 100, highlight: true },
           { label: "регионов Казахстана", value: 7 },
         ]}

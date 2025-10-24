@@ -1491,6 +1491,7 @@ body {
   color: #0d1b4c;
   font-size: 0.85rem;
   font-weight: bold;
+  z-index: 5;
   padding: 0.3rem 0.6rem;
   border-radius: 0.3rem;
 }
@@ -1503,6 +1504,8 @@ body {
   font-size: 1rem;
   font-weight: 500;
   margin: 0;
+  position: relative;
+  z-index: 5;
   color: #fff;
 }
 
@@ -2266,10 +2269,13 @@ body {
   margin: 0 6px;
   font-size: 15px;
   font-weight: 500;
-  color: #e5e7eb; /* серый текст */
-  background: rgba(255, 255, 255, 0.08); /* лёгкая подложка */
+  color: #e5e7eb;
+  /* серый текст */
+  background: rgba(255, 255, 255, 0.08);
+  /* лёгкая подложка */
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 999px; /* капсула */
+  border-radius: 999px;
+  /* капсула */
   cursor: pointer;
   transition: all 0.3s ease;
   /* эффект при наведении */
@@ -2282,7 +2288,8 @@ body {
 .tab-btn-second.active {
   color: #ffffff;
   font-weight: 600;
-  background: linear-gradient(135deg, #3b82f6, #2563eb); /* красивый синий градиент */
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  /* красивый синий градиент */
   border: none;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
 }
@@ -2349,31 +2356,32 @@ body {
   }
 }
 
-.card {
+.icard {
   position: relative;
   display: inline-block;
   width: 100%;
   margin: 0 0 14px;
+  min-height: 300px;
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
   background: var(--card);
 }
-.card--compact .card__caption {
+.icard--compact .card__caption {
   -webkit-line-clamp: 2;
 }
-.card__img {
+.icard__img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
 }
-.card__grad {
+.icard__grad {
   position: absolute;
   inset: auto 0 0 0;
   height: 55%;
   background: linear-gradient(180deg, var(--grad1), var(--grad2));
 }
-.card__meta {
+.icard__meta {
   position: absolute;
   left: 12px;
   right: 12px;
@@ -2381,7 +2389,7 @@ body {
   display: grid;
   gap: 8px;
 }
-.card__caption {
+.icard__caption {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -2389,13 +2397,13 @@ body {
   font-weight: 600;
   line-height: 1.25;
 }
-.card__stats {
+.icard__stats {
   font-size: 13px;
   color: var(--muted);
   display: flex;
   gap: 12px;
 }
-.card:hover {
+.icard:hover {
   transform: translateY(-2px);
   transition: 0.25s;
 }
@@ -2681,7 +2689,6 @@ body {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  z-index: -1;
 }
 
 /* Контейнеры */
@@ -3025,7 +3032,9 @@ body {
 
 .docs-cat.is-active {
   color: white;
-} /* активная — такая же тёмная, как на скрине */
+}
+
+/* активная — такая же тёмная, как на скрине */
 .docs-cat + .docs-cat {
   background: #ffffff;
   color: #9ca3af;
@@ -3137,27 +3146,33 @@ body {
 /* SVG */
 .kzmap-svg {
   width: 100%;
-  height: 640px; /* подгони при необходимости */
+  height: 640px;
+  /* подгони при необходимости */
 }
 
 /* Регионы */
 .kzmap-geo {
-  fill: #eef2f6; /* базовая заливка карты */
-  stroke: #cfd7e3; /* границы областей */
+  fill: #eef2f6;
+  /* базовая заливка карты */
+  stroke: #cfd7e3;
+  /* границы областей */
   stroke-width: 1;
   transition: fill 0.15s ease, filter 0.15s ease, stroke-width 0.15s ease;
   cursor: pointer;
 }
 
 .kzmap-geo.is-hover {
-  fill: #ffffff; /* подсветка при наведении */
-  filter: drop-shadow(0 2px 8px rgba(11, 92, 255, 0.25)); /* мягкое свечение */
+  fill: #ffffff;
+  /* подсветка при наведении */
+  filter: drop-shadow(0 2px 8px rgba(11, 92, 255, 0.25));
+  /* мягкое свечение */
   stroke: #0b5cff;
   stroke-width: 1.8;
 }
 
 .kzmap-geo.is-selected {
-  fill: #dff0ff; /* выбранная область */
+  fill: #dff0ff;
+  /* выбранная область */
   stroke: #0b5cff;
   stroke-width: 2.2;
 }
@@ -3169,7 +3184,8 @@ body {
 }
 
 .kzmap-marker__dot {
-  fill: #ff7a21; /* оранжевый badge */
+  fill: #ff7a21;
+  /* оранжевый badge */
   stroke: #ffffff;
   stroke-width: 3;
 }
@@ -3190,7 +3206,8 @@ body {
 
 /* Тултип */
 .kzmap-tooltip {
-  position: fixed; /* чтобы не прыгал при зуме SVG */
+  position: fixed;
+  /* чтобы не прыгал при зуме SVG */
   z-index: 50;
   padding: 8px 10px;
   background: #0f172a;
@@ -3370,13 +3387,20 @@ body {
   }
 }
 :root {
-  --lf-bg: #0b1a3a; /* базовый тёмно-синий фон под фото */
-  --lf-overlay: rgba(6, 22, 56, 0.66); /* синяя вуаль поверх фото */
-  --lf-accent: #1e40af; /* основной синий */
-  --lf-accent-2: #60a5fa; /* светло-синий (hover) */
-  --lf-text: #f8fafc; /* белый текст */
-  --lf-muted: #cbd5e1; /* серо-синий вторичный */
-  --lf-line: rgba(255, 255, 255, 0.14); /* деликатные разделители */
+  --lf-bg: #0b1a3a;
+  /* базовый тёмно-синий фон под фото */
+  --lf-overlay: rgba(6, 22, 56, 0.66);
+  /* синяя вуаль поверх фото */
+  --lf-accent: #1e40af;
+  /* основной синий */
+  --lf-accent-2: #60a5fa;
+  /* светло-синий (hover) */
+  --lf-text: #f8fafc;
+  /* белый текст */
+  --lf-muted: #cbd5e1;
+  /* серо-синий вторичный */
+  --lf-line: rgba(255, 255, 255, 0.14);
+  /* деликатные разделители */
 }
 
 .lf {
@@ -3389,9 +3413,12 @@ body {
   /* описание */
   /* нижняя часть */
   /* адаптив */
-  --p-gap: 20px; /* расстояние между карточками */
-  --p-height: 120px; /* высота карточки логотипа */
-  --p-speed: 38s; /* скорость прокрутки (меньше — быстрее) */
+  --p-gap: 20px;
+  /* расстояние между карточками */
+  --p-height: 120px;
+  /* высота карточки логотипа */
+  --p-speed: 38s;
+  /* скорость прокрутки (меньше — быстрее) */
   /* Вариант 1: два файла — моно + цветной */
   /* Вариант 2: один файл — делаем «белым» через фильтр, на hover возвращаем цвет */
   --p-gap: 20px;
@@ -3644,7 +3671,8 @@ body {
   }
   to {
     transform: translateX(-50%);
-  } /* две последовательности = -50% для бесшовности */
+  }
+  /* две последовательности = -50% для бесшовности */
 }
 .lf .lf__p {
   display: block;
@@ -3683,11 +3711,13 @@ body {
   opacity: 0;
 }
 .lf .lf__img--filterWhite {
-  filter: grayscale(1) brightness(7.5) contrast(1.05) invert(1); /* белый логотип */
+  filter: grayscale(1) brightness(7.5) contrast(1.05) invert(1);
+  /* белый логотип */
   opacity: 0.92;
 }
 .lf .lf__p-img:hover .lf__img--filterWhite {
-  filter: none; /* показываем «цветной» оригинал */
+  filter: none;
+  /* показываем «цветной» оригинал */
   opacity: 1;
 }
 @media (max-width: 1100px) {
@@ -3738,13 +3768,16 @@ body {
 
 :root {
   --rr-bg: #ffffff;
-  --rr-surface: #f3f6fb; /* полосы */
+  --rr-surface: #f3f6fb;
+  /* полосы */
   --rr-header: #eef3ff;
   --rr-border: #e5edff;
   --rr-text: #0f172a;
   --rr-muted: #475569;
-  --rr-primary: #1e40af; /* синий */
-  --rr-primary-2: #60a5fa; /* hover */
+  --rr-primary: #1e40af;
+  /* синий */
+  --rr-primary-2: #60a5fa;
+  /* hover */
 }
 
 .rr-panel {
@@ -3880,7 +3913,8 @@ body {
           user-select: none;
   pointer-events: none;
   /* object-fit is set inline via prop: 'cover' or 'contain' */
-  background: #e9eef2; /* nice neutral letterbox for 'contain' */
+  background: #e9eef2;
+  /* nice neutral letterbox for 'contain' */
 }
 
 /* Dots */
@@ -3974,7 +4008,8 @@ body {
 .qh__media img {
   width: 100%;
   height: 100%;
-  aspect-ratio: 4/3; /* стабильная высота */
+  aspect-ratio: 4/3;
+  /* стабильная высота */
   display: block;
 }
 
@@ -4048,7 +4083,8 @@ body {
 .sc__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0; /* без зазоров как в примере */
+  gap: 0;
+  /* без зазоров как в примере */
 }
 
 .sc__card {
@@ -4083,7 +4119,8 @@ body {
 }
 
 .sc__icon {
-  color: #a78bfa; /* фирменный фиолетовый акцент */
+  color: #a78bfa;
+  /* фирменный фиолетовый акцент */
 }
 
 .sc__label {
@@ -4096,13 +4133,11 @@ body {
   position: absolute;
   inset: 0 0 auto 0;
   height: 64px;
-  --c: repeating-linear-gradient(
-    90deg,
-    #a78bfa 0 6px,
-    #00d4ff 6px 12px,
-    #ffd166 12px 18px,
-    #ff6b6b 18px 24px
-  );
+  --c: repeating-linear-gradient(90deg,
+      #a78bfa 0 6px,
+      #00d4ff 6px 12px,
+      #ffd166 12px 18px,
+      #ff6b6b 18px 24px);
   -webkit-mask: radial-gradient(6px 3px at 20% 50%, #000 98%, transparent) repeat-x, radial-gradient(6px 3px at 40% 30%, #000 98%, transparent) repeat-x, radial-gradient(6px 3px at 60% 70%, #000 98%, transparent) repeat-x, radial-gradient(6px 3px at 80% 40%, #000 98%, transparent) repeat-x;
   mask: radial-gradient(6px 3px at 20% 50%, #000 98%, transparent) repeat-x, radial-gradient(6px 3px at 40% 30%, #000 98%, transparent) repeat-x, radial-gradient(6px 3px at 60% 70%, #000 98%, transparent) repeat-x, radial-gradient(6px 3px at 80% 40%, #000 98%, transparent) repeat-x;
   background: var(--c);
@@ -5045,7 +5080,8 @@ body {
   max-width: 300px;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   padding: 10px 12px;
-  z-index: 100; /* всегда выше других меток */
+  z-index: 100;
+  /* всегда выше других меток */
 }
 
 .gmi__popup::after {
@@ -5114,7 +5150,9 @@ body {
 
 .gmi__pinWrap.is-open {
   z-index: 99;
-} /* и сам попап ещё выше (z-index:100) */
+}
+
+/* и сам попап ещё выше (z-index:100) */
 .st {
   --ink: #0b1b35;
   --muted: #6b7280;
@@ -5366,9 +5404,9 @@ body {
 
 .ph__player {
   position: absolute;
-  right: 13%;
+  right: 15%;
   bottom: 0;
-  height: 115%;
+  height: 100%;
   z-index: 1;
   -o-object-fit: contain;
      object-fit: contain;
@@ -5484,13 +5522,14 @@ body {
 }
 
 :root {
-  --toast-bg: #0b1b35; /* общий фон для info */
+  --toast-bg: #0b1b35;
+  /* общий фон для info */
   --toast-ink: #fff;
   --toast-success: #22c55e;
   --toast-error: #ef4444;
   --toast-warning: #f59e0b;
   --toast-info: #0ea5e9;
-  --toast-shadow: 0 12px 28px rgba(0,0,0,.18);
+  --toast-shadow: 0 12px 28px rgba(0, 0, 0, .18);
 }
 
 .toastViewport {
@@ -5648,7 +5687,7 @@ body {
 }
 .mb {
   --radius: 16px;
-  --shadow: 0 4px 20px rgba(0,0,0,.06);
+  --shadow: 0 4px 20px rgba(0, 0, 0, .06);
   --border: 1px solid rgba(20, 24, 31, 0.08);
   --accent: #5667ff;
   --text-muted: #7a7f8a;
@@ -5906,7 +5945,8 @@ body {
   margin-top: 4px;
 }
 
-.mb-card__wins, .mb-card__winner {
+.mb-card__wins,
+.mb-card__winner {
   font-size: 13px;
   color: var(--text-muted);
 }
@@ -6053,7 +6093,8 @@ body {
   min-width: 0;
 }
 
-.pb-team__logo, .pb-team__avatar {
+.pb-team__logo,
+.pb-team__avatar {
   width: 28px;
   height: 28px;
   border-radius: 999px;
@@ -6260,4 +6301,397 @@ body {
   color: #6b7280;
   padding: 1rem;
   text-align: center;
+}
+
+.ng {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+/* responsive cols modifier */
+.ng.ng--cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ng.ng--cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ng.ng--cols-1 {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 1100px) {
+  .ng {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .ng {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+.ng__empty {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  padding: 28px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.ng__empty--error {
+  color: #b91c1c;
+}
+
+.ng-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.ng-card {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ng-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.12);
+}
+
+.ng-card__media {
+  aspect-ratio: 16/9;
+  background: #f5f7fb;
+  position: relative;
+}
+
+.ng-card__media img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+
+.ng-card__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: #c7d2fe;
+  background: linear-gradient(180deg, #edf2ff, #e7ecff);
+}
+
+.ng-card__body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ng-card__title {
+  font-size: 20px;
+  line-height: 1.25;
+  color: #101828;
+  font-weight: 800;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ng-card__excerpt {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ng-card__date {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* skeleton */
+.is-skeleton {
+  pointer-events: none;
+}
+
+.ng-skel {
+  background: linear-gradient(90deg, #eef1f6, #f7f9ff, #eef1f6);
+  background-size: 200% 100%;
+  animation: skel 1.1s infinite;
+  border-radius: 8px;
+}
+
+.ng-skel--title {
+  height: 22px;
+  width: 90%;
+}
+
+.ng-skel--line {
+  height: 14px;
+  width: 75%;
+}
+
+.ng-skel--date {
+  height: 14px;
+  width: 40%;
+}
+
+@keyframes skel {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+/* PlayoffBracket.scss */
+.pb {
+  --pb-blue: #1f4fd8;
+  /* основной акцент */
+  --pb-blue-100: #eaf0ff;
+  --pb-blue-200: #cfdcff;
+  --pb-text: #0f172a;
+  /* почти чёрный */
+  --pb-muted: #6b7280;
+  /* серый текст */
+  --pb-border: rgba(17, 24, 39, .08);
+  --pb-radius: 16px;
+  --pb-shadow: 0 6px 20px rgba(17, 24, 39, .06);
+  color: var(--pb-text);
+}
+
+.pb__head {
+  background: #fff;
+  border: 1px solid var(--pb-border);
+  box-shadow: var(--pb-shadow);
+  border-radius: var(--pb-radius);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+
+.pb__title {
+  margin: 0;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.pb__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+@media (max-width: 960px) {
+  .pb__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.pb__col {
+  background: #fff;
+  border: 1px solid var(--pb-border);
+  border-radius: var(--pb-radius);
+  box-shadow: var(--pb-shadow);
+  padding: 14px;
+  justify-content: center;
+}
+
+.pb__col-title {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--pb-muted);
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px 0 10px;
+  border-bottom: 2px solid var(--pb-blue-100);
+}
+
+.pb__placeholder {
+  text-align: center;
+  color: var(--pb-muted);
+  padding: 14px 0;
+}
+
+.pb__empty {
+  text-align: center;
+  color: var(--pb-muted);
+  background: #fff;
+  border: 1px solid var(--pb-border);
+  border-radius: var(--pb-radius);
+  box-shadow: var(--pb-shadow);
+  padding: 24px;
+}
+
+/* Карточки матчей */
+.pb-card {
+  margin: 16px auto 0;
+  max-width: 520px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(0deg, #fff, #fff);
+  border: 1px solid var(--pb-border);
+  align-self: center;
+}
+
+.pb-card--big {
+  max-width: 560px;
+}
+
+.pb-card__row {
+  display: grid;
+  grid-template-columns: 1fr 64px;
+  align-items: center;
+}
+
+.pb-card__row + .pb-card__row {
+  border-top: 1px dashed var(--pb-blue-200);
+}
+
+.pb-team {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 12px;
+}
+
+.pb-team__logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 2px solid var(--pb-blue-100);
+}
+
+.pb-team__meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pb-team__name {
+  font-weight: 700;
+  font-size: 14px;
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pb-team__sub {
+  font-size: 12px;
+  color: var(--pb-muted);
+}
+
+.pb-card__score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: black;
+  height: 52px;
+  border-left: 1px solid var(--pb-border);
+  background: #f8fafc;
+}
+
+.pb-card__score--left {
+  border-top: 0;
+}
+
+.pb-card__score.is-win {
+  background: var(--pb-blue);
+  color: #fff;
+}
+
+/* Линии-акцент, как на твоём сайте */
+.pb__col-title {
+  position: relative;
+}
+
+.pb__col-title:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -2px;
+  width: 80px;
+  height: 3px;
+  background: var(--pb-blue);
+  border-radius: 999px;
+}
+
+.banner {
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(25, 44, 91, .12);
+  --blue: #1257ff; /* основной оттенок */
+  --blue-2: #0b2d6c; /* тёмный для градиента/акцентов */
+  position: relative;
+  width: 100%;
+  height: 300px;
+  margin: 0 auto;
+  max-width: 1200px;
+  aspect-ratio: 16/3; /* высокая панорама; можно поменять под нужный формат */
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #f4f7ff;
+  box-shadow: var(--shadow);
+}
+
+/* Тонкий сине-фиолетовый градиент поверх, как «фирменный фильтр» */
+.banner__gradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(18, 87, 255, 0.15), rgba(11, 45, 108, 0.05));
+  mix-blend-mode: multiply;
+  z-index: 2;
+}
+
+/* Лента слайдов */
+.banner__track {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  will-change: transform;
+}
+
+/* Один слайд = ширина контейнера */
+.banner__slide {
+  position: relative;
+  width: 100%;
+}
+
+/* Картинка всегда покрывает весь баннер */
+.banner__img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover; /* чтобы фото заполняло экран без искажений */
+  display: block;
+}
+
+/* адаптив: на очень узких экранах слегка меняем высоту */
+@media (max-width: 680px) {
+  .banner {
+    aspect-ratio: 16/5;
+  }
 }/*# sourceMappingURL=style.css.map */

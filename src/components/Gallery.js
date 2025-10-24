@@ -13,13 +13,13 @@ export const Gallery = ({ images }) => {
   return (
     <div className="project-gallery">
       <div className="main-photo">
-        <img src={getPhotoByFile(active)} alt="selected" className="main-image" />
+        <img src={active?.imageUrl} alt="selected" className="main-image" />
       </div>
       <div className="thumbnail-scroll">
-        {images.map((img, idx) => (
+        {images.filter(img => img?.imageUrl).map((img, idx) => (
           <img
             key={idx}
-            src={getPhotoByFile(img)}
+            src={img?.imageUrl}
             alt={`thumb-${idx}`}
             className={`thumbnail ${img === active ? 'active' : ''}`}
             onClick={() => setActive(img)}

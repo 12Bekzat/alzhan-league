@@ -62,23 +62,13 @@ export default function SpeakersTestimonials({
 // Example data (replace with your real speaker photos & video links)
 const defaultItems = [
   {
-    name: "Тосио Хорикири",
-    photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    name: "Роман Скрыпнюк",
+    photo: "https://i.ytimg.com/vi/IvEsbdj2A34/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgSSg-MA8=&rs=AOn4CLDY5tOAnH5_uPNnPHZRXaX8nXtxIQ",
+    videoUrl: "https://www.youtube.com/embed/IvEsbdj2A34?si=CfuZ5sIlO0GQ0YLU",
   },
   {
-    name: "Андрей Курпатов",
-    photo: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=1200&auto=format&fit=crop",
-    videoUrl: "https://www.youtube.com/embed/ysz5S6PUM-U",
-  },
-  {
-    name: "Олег Коновалов",
-    photo: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=1200&auto=format&fit=crop",
-    videoUrl: "https://www.youtube.com/embed/jNQXAC9IVRw",
-  },
-  {
-    name: "Джеффри Лайкер",
-    photo: "https://images.unsplash.com/photo-1527980965255-4c1d47f6f86a?q=80&w=1200&auto=format&fit=crop",
-    videoUrl: "https://www.youtube.com/embed/aqz-KE-bpKQ",
+    name: "Жанат Сыздыков",
+    photo: "https://i.ytimg.com/vi/TORUPPzwgT4/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gQSgnMA8=&rs=AOn4CLDNEtO5rto7t5mAcgrYeeYOviUmWQ",
+    videoUrl: "https://www.youtube.com/embed/TORUPPzwgT4?si=ef6rcXeLheV01o9U",
   },
 ];
