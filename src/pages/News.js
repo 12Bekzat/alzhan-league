@@ -254,42 +254,52 @@ export default function NewsPage() {
   const items = [
     {
       "id": "IG-1234567890",
-      "title": "MT1 обыгрывает Black Mamba",
-      "excerpt": "Жаркий матч закончился со счётом 64:36. Лучшие моменты встречи внутри поста.",
+      "title": "Партнёрство направлено на развитие школьного баскетбола в Казахстане.",
+      "excerpt": "Сегодня генеральный директор Национального научно-практического центра физической культуры МП РК Арман Ташметов и директор общественного фонда «ALZHAN» Марат Шакиров подписали меморандум о сотрудничестве.",
       "date": "2020-12-20T11:00:00.000Z",
-      "image": "https://picsum.photos/seed/mt1/640/360",
+      "image": "https://scontent.cdninstagram.com/v/t51.82787-15/546500708_18394341856185841_3449245097512790526_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=110&ig_cache_key=MzcxOTI4MjE5MjQ5Mzg5MDY3Mg%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkyMC5zZHIuQzMifQ%3D%3D&_nc_ohc=ypOItoRYk78Q7kNvwEaqtVi&_nc_oc=AdkH1Wxo39IUc_kH93WhZ3_u56fdB8eyyuWqGmR_OZoCv4SDezFFVWT5MfGhY2Fs7d4&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=SA8-OTA-qequACR4kUxfTA&oh=00_AfcwvT_oKZJ6V8darc3OIXUTY5B3Gv8_Q1EOx4BLtha8tA&oe=69013110",
       "href": "https://instagram.com/p/IG1234567890/"
     },
     {
       "id": "IG-0987654321",
-      "title": "Гимназия №5 выходит в финал",
-      "excerpt": "Команда показала отличный процент реализации и уверенно прошла соперника.",
+      "title": "Что дает участие во Всемирной гимназиаде?",
+      "excerpt": "Всемирная гимназиада – это не просто спортивное состязание. Это возможность проявить себя, прославить страну и открыть новые горизонты!",
       "date": "2020-12-19T14:30:00.000Z",
-      "image": "https://picsum.photos/seed/gym5/640/360",
+      "image": "https://scontent.cdninstagram.com/v/t51.82787-15/514633537_18329931364207713_2531655012343772903_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=MzY2ODQ3NzU5MDMxMjA2Mjg5Mw%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNTB4MTY4OC5zZHIuQzMifQ%3D%3D&_nc_ohc=y4jm1BxokMgQ7kNvwEgx67M&_nc_oc=AdmOT2cjOlGCMyP7BUi0vFWc0preKPTOOdm871I7JIbUHwy7fnCQlKBU_ZW9YDMwC00&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=SA8-OTA-qequACR4kUxfTA&oh=00_AfdZ-kvjlq_cJoz7dcqXveqF4qIv5OKnTfE0FvUyYbGwrA&oe=69012C3F",
       "href": "https://instagram.com/p/IG0987654321/"
     },
     {
       "id": "IG-1122334455",
-      "title": "Лучшие фото с площадки",
-      "excerpt": "Подборка кадров со вчерашних игр — эмоции, борьба и красивые моменты.",
+      "title": "Федерация школьного спорта совместно с общественными фондами «Alzhan» ",
+      "excerpt": "Сегодня Федерация школьного спорта совместно с общественными фондами «Alzhan» и «Дай мяч» утвердила план совместных мероприятий, направленных на развитие баскетбола среди школьников.",
       "date": "2020-12-18T09:15:00.000Z",
-      "image": "https://picsum.photos/seed/gallery1/640/360",
+      "image": "https://scontent.cdninstagram.com/v/t51.82787-15/510435687_18329259703207713_6751341689202887051_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzY2NDExMDc0OTM5NzU2NzU3NA%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNTB4MTY4OC5zZHIuQzMifQ%3D%3D&_nc_ohc=98aN-pX54-4Q7kNvwEkAI9z&_nc_oc=Adkk50kFGKvB9mr1HZ6vDKdvDeWzJfTt0ITuA5Dwq9quoZqZSJvKJLyHYb412mye72g&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=SA8-OTA-qequACR4kUxfTA&oh=00_AfdL44kby5mjBOI5KpkyppM0PgxiOZoxln-dGJOzqNyWUg&oe=69013A73",
       "href": "https://instagram.com/p/IG1122334455/"
     },
     {
       "id": "IG-5566778899",
-      "title": "Анонс игр на выходных",
-      "excerpt": "Расписание матчей и ссылки на трансляции. Поддержите свою команду!",
+      "title": "В Федерации школьного спорта состоялась рабочая встреча с представителями общественных фондов «Alzhan» и “Дай мяч!”.",
+      "excerpt": "Во время встречи обсуждались ключевые направления сотрудничества, включая развитие школьного баскетбола и участие сильнейших школьных команд в международных соревнованиях под эгидой Международной федерации школьного спорта.",
       "date": "2020-12-17T18:00:00.000Z",
-      "image": "https://picsum.photos/seed/schedule/640/360",
+      "image": "https://scontent.cdninstagram.com/v/t51.75761-15/503858060_18328007371207713_5662548251973157315_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&ig_cache_key=MzY1NjAyNjIxOTU4NzYxOTg4Mg%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNTB4MTY4OC5zZHIuQzMifQ%3D%3D&_nc_ohc=wmKlg4s6ZlkQ7kNvwEVPkzg&_nc_oc=AdkbBXE-EJl89eN0OT6ZPnqReTnPWPmTIbFV04r6T4pGErwnSOmJJ6wXVZNTxaQgVAA&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=CWvoJTDWsgSKAUz7k5bT-Q&oh=00_AfcG4iiCQen2Iw6orlMWpM8SzPYm2vgLR9AXnDfR999kyQ&oe=69010A51",
       "href": "https://instagram.com/p/IG5566778899/"
     },
     {
       "id": "IG-6677889900",
-      "title": "Закулисье Суперфинала «Alzhan»",
-      "excerpt": "Немного бекстейджа: подготовка зала, работа волонтёров и атмосфера праздника.",
+      "title": "Лучшие из лучших: MVP финального дня!",
+      "excerpt": "MVP 11 мая — это те, кто не просто играл, а вёл команду за собой. Каждый из них стал настоящим героем финала и доказал, что за таким поколением — будущее казахстанского баскетбола!",
       "date": "2020-12-16T12:05:00.000Z",
-      "image": "https://picsum.photos/seed/backstage/640/360",
+      "image": "https://scontent.cdninstagram.com/v/t51.75761-15/497938618_17909586555106234_3477888487771137013_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=MzYzMTYwMjE0MjI2NDI5NjQ3OA%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=FtiMx-cnzHIQ7kNvwGi608J&_nc_oc=AdkyfP23QqimhrYWfqSvyeM081P3byQpy6kG4jvmX7cce1LtxmJpaUhxvZNAx7VxV84&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=CWvoJTDWsgSKAUz7k5bT-Q&oh=00_AfeCDey3LZDmmKQSiZXW4xju8VIenHatsVLyiutvmXGKEw&oe=6901316D",
+      "href": "https://instagram.com/p/IG6677889900/"
+    },
+    {
+      "id": "IG-6677889900",
+      "title": "С 9 по 11 мая в городе Хромтау прошел грандиозный финал с участием 18ти команд Казахстана!",
+      "excerpt": `Масштабное событие на паркете нашего родного ФОКа не осталось незамеченным.
+
+Хотим выразить огромную благодарность Акиму Актюбинской области Шахарову Асхату Берлешевичу за внимание к баскетболу в нашем регионе!`,
+      "date": "2020-12-16T12:05:00.000Z",
+      "image": "https://scontent.cdninstagram.com/v/t51.75761-15/496950274_17878557957318853_5491216708581399655_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=MzYzMTU3MDM2MTE0OTA3MTYxMA%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjg1M3g1Njguc2RyLkMzIn0%3D&_nc_ohc=he210omCKnYQ7kNvwEZNXIz&_nc_oc=AdltSsBPS3Q_nDq0yGKf64TNNUFemsIHmevtbwb20ep692y8_CGCxMIbasMWFGfi8og&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=CWvoJTDWsgSKAUz7k5bT-Q&oh=00_Affza0m0FcEtTzZ0bC0kMAJ87WRq6YGYUMyA1lkiGNwHHw&oe=6901350F",
       "href": "https://instagram.com/p/IG6677889900/"
     }
   ];
@@ -307,7 +317,7 @@ export default function NewsPage() {
         <div className="container">
           <h1 className="main-title">Новости</h1>
 
-          <NewsGrid items={items} />
+          <NewsGrid posts={items} />
 
           {/* <div className="featured-news">
       {featured.map((item, i) => (
