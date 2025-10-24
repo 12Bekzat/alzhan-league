@@ -148,7 +148,7 @@ function App() {
           {
             title: "Контакты",
             links: [
-              { label: "Связаться с фондом", href: "/" },
+              { label: "Связаться с фондом", href: "/contacts" },
               { label: "Партнерское сотрудничество", href: "/partners" },
               { label: "Политика конфиденциальности", href: Politics },
             ],

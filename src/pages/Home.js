@@ -50,7 +50,7 @@ export default function Home() {
         className=""
         style={{ width: "90%", marginTop: 50, marginBottom: 50 }}
       >
-        <BannerSlider images={banners} intervalMs={3000} />
+        <BannerSlider images={banners} intervalMs={6000} />
       </span>
       <BasketballNewsSection />
       <Broadcast />

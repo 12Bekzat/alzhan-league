@@ -13,14 +13,14 @@ const teamMembers = [
     image: SaidenovAnvar,
   },
   {
-    name: 'Ахтанов Ерлан Кокенаевич',
-    role: 'Сооснователь ОФ “Alzhan”',
-    image: AhtanovErlan,
-  },
-  {
     name: 'Шакиров Марат Сагидович',
     role: 'Директор ОФ “Alzhan”',
     image: ShakirovMarat,
+  },
+  {
+    name: 'Ахтанов Ерлан Кокенаевич',
+    role: 'Сооснователь ОФ “Alzhan”',
+    image: AhtanovErlan,
   },
   {
     name: 'Альфира Бекмамбетова',

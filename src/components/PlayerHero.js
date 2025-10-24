@@ -129,7 +129,7 @@ export default function PlayerHero({
             value={s.value}
             highlight={s.highlight}
             suffix={s.suffix || ''}
-            label="комплектов баскетбольной формы"
+            label={s?.label ?? "комплектов баскетбольной формы"}
             trigger={seen2}
             size="xl"
           />

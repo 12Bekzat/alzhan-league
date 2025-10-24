@@ -78,7 +78,7 @@ export default function AlzhanFacts() {
         <div className="af__panelTitle">Лига «Alzhan в цифрах»</div>
         <div className="af__grid af__grid--three af__grid--loose">
           <Counter
-            value={2000}
+            value={3000}
             suffix="+"
             label="детей участников"
             trigger={seen1}
