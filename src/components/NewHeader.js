@@ -92,7 +92,7 @@ export default function SiteHeader({
           )}
         </div>
         <div className="sh__socials">
-          <span className="sh__follow">FOLLOW US:</span>
+          <span className="sh__follow">Следите за нами в соцсетях:</span>
           {Object.entries(socials).map(([k, url]) => (
             <a
               key={k}

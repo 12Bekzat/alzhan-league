@@ -112,11 +112,12 @@ export default function PlayerHero({
 
       {/* фото игрока */}
       {photo && (
-        <img
-          className="ph__player"
-          src={photo}
-          alt={`${firstName} ${lastName}`}
-        />
+        <div className="ph__player">
+          <img
+            src={photo}
+            alt={`${firstName} ${lastName}`}
+          />
+        </div>
       )}
 
       {/* панель «последний матч» */}
@@ -128,7 +129,7 @@ export default function PlayerHero({
             key={i}
             value={s.value}
             highlight={s.highlight}
-            suffix={s.suffix || ''}
+            suffix={s.suffix || ""}
             label={s?.label ?? "комплектов баскетбольной формы"}
             trigger={seen2}
             size="xl"

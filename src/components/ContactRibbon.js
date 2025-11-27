@@ -3,8 +3,8 @@ import Ball from "../assets/basketball-ball-variant.png";
 import emailjs from "emailjs-com";
 
 export default function ContactRibbonForm({
-  title = "Свяжитесь с нами",
-  subtitle = "Оставьте заявку и получите подборку со спикерами для вашего мероприятия через 10 минут",
+  title = "Хотите стать партнёром?",
+  subtitle = "Свяжитесь с нами — мы подготовим индивидуальный пакет партнёрства.",
   submitText = "Отправить заявку",
   onSubmit,
 }) {

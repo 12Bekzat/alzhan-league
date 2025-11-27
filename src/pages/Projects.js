@@ -2175,35 +2175,6 @@ export default function Projects() {
             <>
               <div className="projects-grid">
                 {filtered.map((project, i) => (
-                  // <div key={i} className="project-card">
-                  //   <img
-                  //     src={project.thumbnail}
-                  //     alt={project.title}
-                  //     className="project-image"
-                  //   />
-                  //   <div className="project-content">
-                  //     <h2 className="project-title">{project.title}</h2>
-                  //     {project.publishedDate && <p className="project-meta">
-                  //       {getYear(project).getFullYear()} • {getYear(project).getMonth()} • {getYear(project).getDate()}
-                  //     </p>}
-                  //     <p className="project-description">{project.description}</p>
-                  //     {project.embedUrl && (
-                  //       <div className="project-video">
-                  //         <WithSkeleton loading={loading} ratio={'16/9'}>
-                  //           <iframe
-                  //             src={project.embedUrl}
-                  //             title={project.title}
-                  //             loading="lazy"
-                  //             onLoad={() => setLoading(false)}
-                  //             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  //             allowFullScreen
-                  //             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0, borderRadius: 12 }}
-                  //           />
-                  //         </WithSkeleton>
-                  //       </div>
-                  //     )}
-                  //   </div>
-                  // </div>
                   <MatchCard
                     imageSrc={project.thumbnail}
                     alt={project.title}
@@ -2215,29 +2186,6 @@ export default function Projects() {
                 ))}
               </div>
               <div className="filters">
-                {/* <select
-    value={filters.year}
-    onChange={(e) => setFilters({ ...filters, year: e.target.value })}
-  >
-    <option value="">Все годы</option>
-    {years.map((y, i) => (
-      <option key={i} value={y}>
-        {y}
-      </option>
-    ))}
-  </select>
-
-  <select
-    value={filters.title}
-    onChange={(e) => setFilters({ ...filters, title: e.target.value })}
-  >
-    <option value="">Все мероприятия</option>
-    {titles.map((t, i) => (
-      <option key={i} value={t}>
-        {t}
-      </option>
-    ))}
-  </select> */}
 
                 <Pagination
                   currentPage={skip}

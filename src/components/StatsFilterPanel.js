@@ -22,7 +22,7 @@ const REGIONS = [
 ];
 
 export default function StatsFilterPanel({
-  seasons = ["2024", "2025"],
+  seasons = ["2024", "2025", '2026'],
   tournaments = null,
   defaultSeason = "2024",
   defaultStage = null,

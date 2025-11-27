@@ -10,14 +10,14 @@ import StatsCounters from "../components/StatsCount";
 import AlzhanFacts from "../components/StatsCount";
 import EventHighlight from "../components/EventHighlight";
 
-import Event1 from "../assets/event1.jpg";
-import Event2 from "../assets/event2.jpg";
-import Event3 from "../assets/event3.jpg";
-import Event4 from "../assets/event4.jpg";
-import Event5 from "../assets/event5.jpg";
+import Event1 from "../assets/events/event1.jpg";
+import Event2 from "../assets/events/event2.jpg";
+import Event3 from "../assets/events/event3.jpg";
+import Event4 from "../assets/events/event4.jpg";
+import Event5 from "../assets/events/event5.jpg";
 import ContactRibbonForm from "../components/ContactRibbon";
 import PlayerHero from "../components/PlayerHero";
-import OnePlayer from "../assets/IMG_9341.png";
+import OnePlayer from "../assets/oneplayer.PNG";
 import { useToast } from "../components/ToastProvider";
 import BannerSlider from "../components/BannerSlider";
 import FBanner from '../assets/banner_1.png'
@@ -77,7 +77,7 @@ export default function Home() {
         }}
       />
       <EventHighlight
-        title="Суперфинал Alzhan"
+        title="Суперфинал Alzhan г. Хромтау (2025 год)"
         subtitle=""
         videoId="rrCVtRid1rE"
         previews={previews}
