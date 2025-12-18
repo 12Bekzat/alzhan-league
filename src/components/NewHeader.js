@@ -1,44 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { FaFacebook, FaInstagram, FaPhone, FaTiktok, FaVk, FaWhatsapp, FaYoutube } from "react-icons/fa";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaPhone,
+  FaTiktok,
+  FaVk,
+  FaWhatsapp,
+  FaYoutube,
+} from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const SocialIcon = ({ name }) => {
-  const p = { fill: "currentColor" };
   switch (name) {
     case "facebook":
-      return (
-        <FaFacebook size={18} />
-      );
+      return <FaFacebook size={18} />;
     case "instagram":
-      return (
-        <FaInstagram size={18} />
-      );
+      return <FaInstagram size={18} />;
     case "tiktok":
-      return (
-        <FaTiktok size={18} />
-      );
+      return <FaTiktok size={18} />;
     case "x":
-      return (
-        <FaX size={18} />
-      );
+      return <FaX size={18} />;
     case "youtube":
-      return (
-        <FaYoutube size={18} />
-      );
+      return <FaYoutube size={18} />;
     case "vk":
-      return (
-        <FaVk size={18} />
-      );
+      return <FaVk size={18} />;
     case "whatsapp":
-      return (
-        <FaWhatsapp size={18} />
-      );
-
+      return <FaWhatsapp size={18} />;
     case "phone":
-      return (
-        <FaPhone size={18} />
-      );
+      return <FaPhone size={18} />;
     default:
       return null;
   }
@@ -57,6 +47,7 @@ export default function SiteHeader({
 }) {
   const [open, setOpen] = useState(false);
   const [shadow, setShadow] = useState(false);
+  const location = useLocation();
 
   function isExternal(href = "") {
     return /^https?:\/\//i.test(href);
@@ -69,15 +60,33 @@ export default function SiteHeader({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const allLinks = [...linksLeft, ...linksRight];
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  const allLinks = useMemo(() => [...linksLeft, ...linksRight], [linksLeft, linksRight]);
 
   return (
     <header
-      className={`sh ${sticky ? "sh--sticky" : ""} ${
-        shadow ? "sh--shadow" : ""
-      }`}
+      className={`sh ${sticky ? "sh--sticky" : ""} ${shadow ? "sh--shadow" : ""}`}
     >
-      {/* Top info bar */}
       <div className="sh__topbar">
         <div className="sh__contacts">
           {email && (
@@ -91,29 +100,26 @@ export default function SiteHeader({
             </a>
           )}
         </div>
+
         <div className="sh__socials">
           <span className="sh__follow">Следите за нами в соцсетях:</span>
-          {Object.entries(socials).map(([k, url]) => (
+          {Object.entries(socials).map(([key, url]) => (
             <a
-              key={k}
+              key={key}
               href={url}
               target="_blank"
               rel="noopener noreferrer"
               className="sh__social"
-              aria-label={k}
+              aria-label={key}
             >
-              <SocialIcon name={k.replace(/\d/g, "")} />
+              <SocialIcon name={key.replace(/\d/g, "")} />
             </a>
           ))}
         </div>
       </div>
 
-      {/* Main nav */}
       <div className="sh__nav">
-        <nav
-          className="sh__links sh__links--left"
-          aria-label="Главная навигация слева"
-        >
+        <nav className="sh__links sh__links--left" aria-label="Основное меню (слева)">
           {linksLeft.map((l, i) =>
             isExternal(l.href) ? (
               <a
@@ -129,10 +135,8 @@ export default function SiteHeader({
               <NavLink
                 key={i}
                 to={l.href}
-                end={l.href === "/"} // чтобы Главная активировалась только на /
-                className={({ isActive }) =>
-                  "sh__link " + (isActive ? "is-active" : "")
-                }
+                end={l.href === "/"}
+                className={({ isActive }) => "sh__link " + (isActive ? "is-active" : "")}
               >
                 {l.label}
               </NavLink>
@@ -143,24 +147,13 @@ export default function SiteHeader({
         <span />
 
         <a href={logoHref} className="sh__logo" aria-label="Home">
-          {logoSrc ? (
-            <img src={logoSrc} alt={logoAlt} />
-          ) : (
-            <div className="sh__logoPlaceholder">LOGO</div>
-          )}
+          {logoSrc ? <img src={logoSrc} alt={logoAlt} /> : <div className="sh__logoPlaceholder">LOGO</div>}
         </a>
 
-        <nav
-          className="sh__links sh__links--right"
-          aria-label="Главная навигация справа"
-        >
+        <nav className="sh__links sh__links--right" aria-label="Основное меню (справа)">
           {linksRight.map((l, i) =>
             l.click ? (
-              <button
-                key={i}
-                className="sh__link sh__link--btn"
-                onClick={l.click}
-              >
+              <button key={i} className="sh__link sh__link--btn" onClick={l.click} type="button">
                 {l.label}
               </button>
             ) : isExternal(l.href) ? (
@@ -177,9 +170,7 @@ export default function SiteHeader({
               <NavLink
                 key={i}
                 to={l.href}
-                className={({ isActive }) =>
-                  "sh__link " + (isActive ? "is-active" : "")
-                }
+                className={({ isActive }) => "sh__link " + (isActive ? "is-active" : "")}
               >
                 {l.label}
               </NavLink>
@@ -189,7 +180,10 @@ export default function SiteHeader({
 
         <button
           className="sh__burger"
-          aria-label="Открыть меню"
+          type="button"
+          aria-label="Меню"
+          aria-expanded={open}
+          aria-controls="sh-mobile"
           onClick={() => setOpen((s) => !s)}
         >
           <span />
@@ -198,20 +192,56 @@ export default function SiteHeader({
         </button>
       </div>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="sh__mobile" role="dialog" aria-label="Мобильное меню">
-          {allLinks.map((l, i) => (
-            <a
-              key={i}
-              className="sh__mLink"
-              href={l.href}
+        <>
+          <div className="sh__backdrop" aria-hidden="true" onClick={() => setOpen(false)} />
+
+          <div id="sh-mobile" className="sh__mobile" role="dialog" aria-modal="true" aria-label="Меню">
+            <button
+              className="sh__close"
+              type="button"
+              aria-label="Закрыть меню"
               onClick={() => setOpen(false)}
             >
-              {l.label}
-            </a>
-          ))}
-        </div>
+              ×
+            </button>
+            {allLinks.map((l, i) =>
+              l.click ? (
+                <button
+                  key={i}
+                  type="button"
+                  className="sh__mLink sh__mLink--btn"
+                  onClick={() => {
+                    setOpen(false);
+                    l.click();
+                  }}
+                >
+                  {l.label}
+                </button>
+              ) : isExternal(l.href) ? (
+                <a
+                  key={i}
+                  className="sh__mLink"
+                  href={l.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                >
+                  {l.label}
+                </a>
+              ) : (
+                <NavLink
+                  key={i}
+                  to={l.href}
+                  className={({ isActive }) => "sh__mLink " + (isActive ? "is-active" : "")}
+                  onClick={() => setOpen(false)}
+                >
+                  {l.label}
+                </NavLink>
+              )
+            )}
+          </div>
+        </>
       )}
     </header>
   );

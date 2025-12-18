@@ -7,7 +7,7 @@ export default function AboutBanner() {
       style={{
         position: "relative",
         width: "100%",
-        height: "600px",
+        minHeight: "clamp(360px, 60vh, 600px)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         color: "#fff",
@@ -35,13 +35,13 @@ export default function AboutBanner() {
       />
 
       {/* Контент поверх */}
-      <div style={{ zIndex: 2, maxWidth: "800px", padding: "0 20px" }}>
-        <h2 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>
+      <div style={{ zIndex: 2, maxWidth: "800px", padding: "0 16px" }}>
+        <h2 style={{ fontSize: "clamp(28px, 6vw, 40px)", marginBottom: "1rem" }}>
           Alzhan League
         </h2>
         <p
           style={{
-            fontSize: "24px",
+            fontSize: "clamp(14px, 3.8vw, 18px)",
             maxWidth: "800px",
             margin: "0 auto 3rem",
             color: "#eee",
