@@ -9,7 +9,7 @@ export default function HeroBanner() {
       style={{
         position: 'relative',
         width: '100%',
-        minHeight: 'clamp(480px, 75vh, 900px)',
+        minHeight: '900px',
         backgroundImage: 'url(./main-banner.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'top',

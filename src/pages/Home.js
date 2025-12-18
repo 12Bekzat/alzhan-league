@@ -20,12 +20,14 @@ import PlayerHero from "../components/PlayerHero";
 import OnePlayer from "../assets/oneplayer.PNG";
 import { useToast } from "../components/ToastProvider";
 import BannerSlider from "../components/BannerSlider";
-import FBanner from '../assets/banner_1.png'
-import SBanner from '../assets/banner_2.png'
+import FBanner from '../assets/banners/1.png'
+import SBanner from '../assets/banners/2.png'
+import TBanner from '../assets/banners/2.png'
 
 const banners = [
   FBanner,
-  SBanner
+  SBanner,
+  TBanner,
 ];
 
 const items = [
