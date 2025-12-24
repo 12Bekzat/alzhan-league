@@ -5,6 +5,7 @@ import ShakirovMarat from '../assets/shakirov.jpeg'
 import AhtanovErlan from '../assets/employee/Ahtanov.jpeg'
 import BekmambetovaAlfira from '../assets/employee/bekmambetova.jpeg'
 import DusenbinaElla from '../assets/employee/ella.jpeg'
+import PiryaevaNatalya from '../assets/employee/piryaeva.jpeg'
 
 const teamMembers = [
   {
@@ -35,7 +36,8 @@ const teamMembers = [
   {
     name: 'Пыряева Наталья Васильевна',
     role: 'Региональный менеджер г. Рудный', 
-    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
+    image: PiryaevaNatalya,
+    additionalStyle: { objectPosition: '0% 18%' }
   },
   {
     name: 'Константин Дмитриевич Зеленков',
@@ -94,7 +96,7 @@ export default function TeamSlider() {
           >
             {extendedMembers.map((member, index) => (
               <div className="card" key={index}>
-                <img src={member.image} alt={member.name} />
+                <img src={member.image} alt={member.name} style={member.additionalStyle} />
                 <div className="card-content">
                   <span className='h3'>{member.name}</span>
                   <span className='p'>{member.role}</span>

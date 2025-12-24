@@ -1,26 +1,5 @@
-import React from "react";
-import AboutHistory from "../components/AboutHistory";
-import MissionValues from "../components/MissionValues";
 import TeamSlider from "../components/TeamSlider";
-import Documents from "../components/Documents";
-
-import FirstDoc from "../assets/Устав_Фонда_Алжан.pdf";
-import SecondDoc from "../assets/ШЛ Алжан Рудный 24-25.pdf";
-import ThirdDoc from "../assets/ШЛ_Alzhan_2024_г._г._Актобе.pdf";
-import FourthDoc from "../assets/ШЛ_Alzhan_2024_г._г._Лисаковск,_Октябрьский.pdf";
-import FifthDoc from "../assets/ШЛ_Alzhan_2024_г._г._Рудный.pdf";
-import SixthDoc from "../assets/ШЛ_Alzhan_2024_г._г._Хромтау.pdf";
-import SeventhDoc from "../assets/ЩЛ Алжан Лисаковск 24-25.pdf";
-import EightDoc from "../assets/Положение Аксу 24г.pdf";
-import NineDoc from "../assets/Положение Актобе 24-25г.pdf";
-import TenDoc from "../assets/Положение Лисаковск 24-25г.pdf";
-import ElevenDoc from "../assets/Положение Рудный 24-25г.pdf";
-import TwelveDoc from "../assets/Положение Семей 24-25г.pdf";
-import ThirteenDoc from "../assets/Положение Хромтау 24-25г.pdf";
-
-import TabPanel from "../components/TabPanel";
 import AboutBanner from "../components/AboutBanner";
-import AlzhanTimeline from "../components/AlzhanTimeline";
 import GeoMapImage from "../components/GeoMap";
 import kzMap from "../assets/kz.svg";
 import AlzhanFacts from "../components/StatsCount";

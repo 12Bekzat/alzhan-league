@@ -13,7 +13,7 @@ export const Gallery = ({ images }) => {
   return (
     <div className="project-gallery">
       <div className="main-photo">
-        <img src={active?.imageUrl} alt="selected" className="main-image" />
+        <img src={active?.imageUrl} style={active?.additionalStyle} alt="selected" className="main-image" />
       </div>
       <div className="thumbnail-scroll">
         {images.filter(img => img?.imageUrl).map((img, idx) => (
