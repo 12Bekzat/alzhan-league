@@ -1,10 +1,8 @@
 // src/pages/ProjectsPage.jsx
 import React, { useCallback, useMemo, useState } from "react";
 import { Gallery } from "../components/Gallery";
-import WithSkeleton from "../components/WIthSkeleton";
 import MatchCard from "../components/MatchCard";
 import Pagination from "../components/Pagination";
-import StatsFilterPanel from "../components/StatsFilterPanel";
 import ProjectFilterPanel from "../components/ProjectFilterPanel";
 
 const mockProjects = [
@@ -1440,7 +1438,8 @@ export default function Projects() {
   const archivePhotos = [
     {
       "title": "Фотографии со страницы сообщества",
-      "imageUrl": "https://sun9-81.userapi.com/impg/2K9hf7TSnGKH839yAgbxuHr19EMynjAUEsew9g/rYn3KqiuRnM.jpg?size=604x604&quality=95&sign=c6f6d522f6448c5d20495b23f8a00475&type=album"
+      "imageUrl": "https://sun9-81.userapi.com/impg/2K9hf7TSnGKH839yAgbxuHr19EMynjAUEsew9g/rYn3KqiuRnM.jpg?size=604x604&quality=95&sign=c6f6d522f6448c5d20495b23f8a00475&type=album",
+      "additionalStyle": { width: '50%' },
     },
     {
       "title": "08.06.25 | Летний Кубок, Любительская лига | г. Алматы",
@@ -2122,7 +2121,6 @@ export default function Projects() {
 
   const filteredPhotos = useMemo(() => {
     if (!archivePhotos) return [];
-    console.log('filter', filters)
 
     const hasSeason = Boolean(filters?.season);
     const hasCity = Boolean(filters?.city);

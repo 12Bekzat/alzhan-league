@@ -1242,6 +1242,10 @@ iframe {
 
   .main-photo {
     margin-bottom: 1rem;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .main-image {
       width: 100%;

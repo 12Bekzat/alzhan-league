@@ -6,17 +6,13 @@ import {
   useLocation,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import { Header } from "./components/Header";
-import Footer from "./components/Footer";
 import About from "./pages/About";
 import Contacts from "./pages/Contacts";
 import Statistic from "./pages/Statistic";
 import Sponsor from "./pages/Sponsor";
 import NewsPage from "./pages/News";
 import Projects from "./pages/Projects";
-import { FaArrowDown, FaPhone } from "react-icons/fa6";
 import Partners from "./pages/Partners";
-import { FaDonate } from "react-icons/fa";
 import Popup from "./components/Popup";
 import { useState } from "react";
 import KaspiDonateSection from "./components/KaspiDonateSection";
@@ -30,7 +26,6 @@ import bg from "./assets/footer-bg.jpg";
 import ERG from "./assets/erg logo.png";
 import Kusto from "./assets/kusto png.png";
 import Zhebe from "./assets/zhebe logistics png.png";
-import Federation from "./assets/federation.png";
 import PBK from "./assets/pbk.png";
 import PBKAstana from "./assets/pbc_astana.png";
 import Politics from "./assets/politics.docx";

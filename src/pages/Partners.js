@@ -7,14 +7,10 @@ import Pbk from "../assets/pbk.png";
 import ThanksERG from "../assets/thx-image-erg.png";
 import ThanksKusto from "../assets/thx-image-kusto.png";
 import ThanksZhebe from "../assets/thanks-zhebe.png";
-import React, { useMemo, useState } from "react";
+import { useState } from "react";
 import CompanySpoiler from "../components/CompanySpoiler";
 import SeasonsAccordion from "../components/SeasonAccordion";
 import TabPanel from "../components/TabPanel";
-import KZMap from "../components/KZMap";
-import ObjectInteractive from "../components/ObjectInteractive";
-import MapKazakhstan from "../components/MapKazakhstan";
-import mapImg from "../assets/map-kz-removebg-preview.png"; // положи свой PNG/SVG
 import SpeakersTestimonials from "../components/Speakers";
 
 const partners = [
@@ -59,6 +55,17 @@ const partners = [
           "Лисаковск - 5-6 класс: 6 команд мальчиков, 6 команд девочек; 7-8 класс: 7 команд мальчиков, 6 команд девочек",
           "Рудный - 5-6 класс: 7 команд мальчиков; 7-8 класс: 7 команд мальчиков, 4 команды девочек",
           "Аксу - 5-6 класс: 6 команд мальчиков, 5 команд девочек; 7-8 класс: 9 команд мальчиков",
+        ],
+      },
+      {
+        title: "Сезон 2025-2026 ",
+        elems: [
+          "Возраст: 5-6 классы мальчики и девочки, 7-8 классы мальчики и девочки, 9-11 классы мальчики и девочки",
+          "Актобе - 5-6 классы: 7 команд мальчиков, 5 команд девочек, 7-8 классы: 11 команд мальчиков и 7 команд девочек, 9-11 классы: 10 команд мальчиков и 6 команд девочек",
+          "Хромтау - 5-6 классы: 7 команд мальчиков, 7-8 классы: 7 команд мальчиков, 9-11 классы: 6 команд мальчиков",
+          "Лисаковск - 5-6 классы: 6 команд мальчиков, 6 команд девочек, 7-8 классы: 7 команд мальчиков и 7 команд девочек, 9-11 классы: 3 команды мальчиков",
+          "Рудный - 5-6 классы: 7 команд мальчиков, 7-8 классы: 8 команд мальчиков и 5 команд девочек, 9-11 классы: 11 команд мальчиков и 3 команды девочек",
+          "Павлодар - 5-6 классы: 4 команд мальчиков, 5 команд девочек, 7-8 классы: 8 команд мальчиков и 5 команд девочек, 9-11 классы: 7 команд мальчиков"
         ],
       },
       {

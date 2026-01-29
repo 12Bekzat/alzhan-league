@@ -25,6 +25,7 @@ export default function BasketballNewsSection() {
                   <img
                     className="basketball-news-section__img"
                     src={item.previewImage}
+                    style={item?.additionStyle || {}}
                     alt={item.title || "Новость"}
                     loading="lazy"
                   />

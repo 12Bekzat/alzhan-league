@@ -22,7 +22,7 @@ import { useToast } from "../components/ToastProvider";
 import BannerSlider from "../components/BannerSlider";
 import FBanner from '../assets/banners/1.png'
 import SBanner from '../assets/banners/2.png'
-import TBanner from '../assets/banners/2.png'
+import TBanner from '../assets/banners/3.png'
 
 const banners = [
   FBanner,
@@ -67,7 +67,7 @@ export default function Home() {
         stats={[
           { label: "детей", value: 3000, suffix: '+' },
           { label: "школ", value: 100, highlight: true },
-          { label: "регионов Казахстана", value: 7 },
+          { label: "городов Казахстана", value: 7 },
         ]}
         lastGame={{
           left: { logo: "/logos/bucks.svg", pts: 119 },
