@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import SaidenovAnvar from '../assets/anvar.jpeg'
 import ShakirovMarat from '../assets/shakirov.jpeg'
@@ -56,23 +56,79 @@ const teamMembers = [
 
 export default function TeamSlider() {
   const [startIndex, setStartIndex] = useState(0);
-
-  const visibleCount = 3;
-  const cardWidth = 320; // ширина одной карточки (можно подстроить под дизайн)
+  const wrapperRef = useRef(null);
+  const trackRef = useRef(null);
+  const [cardMetrics, setCardMetrics] = useState({ width: 320, gap: 16 });
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [transitionEnabled, setTransitionEnabled] = useState(true);
 
   const nextSlide = () => {
-    setStartIndex((prev) => (prev + 1) % teamMembers.length);
+    setStartIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    setStartIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
+    setStartIndex((prev) => prev - 1);
   };
 
   // Подготавливаем дублированный массив для зацикливания
-  const extendedMembers = [...teamMembers, ...teamMembers];
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const track = trackRef.current;
+    if (!wrapper || !track) return;
 
-  // Вычисляем смещение
-  const offset = startIndex * (cardWidth + 16); // 16px — gap
+    const measure = () => {
+      const firstCard = track.querySelector('.card');
+      if (!firstCard) return;
+      const cardRect = firstCard.getBoundingClientRect();
+      const trackStyles = window.getComputedStyle(track);
+      const gap = parseFloat(trackStyles.columnGap || trackStyles.gap || '16') || 16;
+      const width = Math.round(cardRect.width) || 320;
+      const wrapperWidth = wrapper.getBoundingClientRect().width;
+      const neededForThree = width * 3 + gap * 2;
+      const count = wrapperWidth >= neededForThree ? 3 : 1;
+      setCardMetrics({ width, gap });
+      setVisibleCount(count);
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(wrapper);
+    return () => ro.disconnect();
+  }, []);
+
+  const cloneCount = visibleCount;
+  const extendedMembers = useMemo(() => {
+    const head = teamMembers.slice(-cloneCount);
+    const tail = teamMembers.slice(0, cloneCount);
+    return [...head, ...teamMembers, ...tail];
+  }, [cloneCount]);
+
+  useEffect(() => {
+    setTransitionEnabled(false);
+    setStartIndex(cloneCount);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setTransitionEnabled(true));
+    });
+  }, [cloneCount]);
+
+  const handleTrackTransitionEnd = () => {
+    const total = teamMembers.length;
+    if (startIndex >= total + cloneCount) {
+      setTransitionEnabled(false);
+      setStartIndex(cloneCount);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setTransitionEnabled(true));
+      });
+    } else if (startIndex < cloneCount) {
+      setTransitionEnabled(false);
+      setStartIndex(total + cloneCount - 1);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setTransitionEnabled(true));
+      });
+    }
+  };
+
+  const offset = startIndex * (cardMetrics.width + cardMetrics.gap);
 
   return (
     <section className="team-slider">
@@ -81,16 +137,19 @@ export default function TeamSlider() {
         Лига «Alzhan» — это команда людей, которые работают на результат. Мы отвечаем за организацию турниров, развитие проекта и создание условий, где дети растут чемпионами. 
       </p>
       <div className="slider-container">
-        <button className="nav-button" onClick={prevSlide}>
+        <button className="nav-button" onClick={prevSlide} aria-label="Previous">
           <FaArrowLeft size={16} />
         </button>
 
-        <div className="slider-wrapper">
+        <div className="slider-wrapper" ref={wrapperRef}>
           <div
             className="slider-track"
+            ref={trackRef}
             style={{
               transform: `translateX(-${offset}px)`,
+              transition: transitionEnabled ? undefined : 'none',
             }}
+            onTransitionEnd={handleTrackTransitionEnd}
           >
             {extendedMembers.map((member, index) => (
               <div className="card" key={index}>
@@ -104,10 +163,12 @@ export default function TeamSlider() {
           </div>
         </div>
 
-        <button className="nav-button" onClick={nextSlide}>
+        <button className="nav-button" onClick={nextSlide} aria-label="Next">
           <FaArrowRight size={16} />
         </button>
       </div>
     </section>
   );
 }
+
+
