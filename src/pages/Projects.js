@@ -1,9 +1,9 @@
 // src/pages/ProjectsPage.jsx
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Gallery } from "../components/Gallery";
 import MatchCard from "../components/MatchCard";
 import Pagination from "../components/Pagination";
-import ProjectFilterPanel from "../components/ProjectFilterPanel";
+import vkGalleryDemo from "../data/vkGalleryDemo.json";
 
 const mockProjects = [
   {
@@ -1403,37 +1403,56 @@ const mockProjects = [
 ];
 
 export default function Projects() {
-  const [filters, setFilters] = useState({ season: "", city: "" });
-  const [loading, setLoading] = useState(false);
-  const [skip, setSkip] = useState(0);
-  const [stage, setStage] = useState("photo");
-  const take = 10;
+  const [activeProject, setActiveProject] = useState("gallery");
+  const [galleryFilter, setGalleryFilter] = useState("all");
+  const [streamPage, setStreamPage] = useState(1);
+  const [streamFilters, setStreamFilters] = useState({
+    season: "",
+    city: "",
+    query: "",
+    sort: "newest",
+  });
+  const streamsPerPage = 8;
 
-  const getYear = (s) => {
-    const [dd, mm, yyyy] = s.publishedDate.split(".").map(Number);
-    return new Date(yyyy, mm - 1, dd);
+  const parsePublishedDate = (project) => {
+    const raw = project?.publishedDate;
+    if (!raw || typeof raw !== "string") return null;
+
+    const parts = raw.split(".").map((value) => Number(value));
+    if (parts.length !== 3 || parts.some((value) => Number.isNaN(value))) {
+      return null;
+    }
+
+    const [day, month, year] = parts;
+    const parsedDate = new Date(year, month - 1, day);
+    return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
   };
-  const years = [
-    ...new Set(
-      mockProjects
-        .filter((p) => getYear(p).getFullYear())
-        .map((p) => getYear(p).getFullYear())
-        .filter((p) => p)
-    ),
-  ];
-  const titles = [
-    ...new Set(
-      mockProjects.filter((p) => getYear(p).getFullYear()).map((p) => p.title)
-    ),
+
+  const knownCities = [
+    "Актобе",
+    "Рудный",
+    "Лисаковск",
+    "Хромтау",
+    "Павлодар",
+    "Семей",
+    "Аксу",
+    "Алматы",
   ];
 
-  const filtered = mockProjects
-    .filter((p) => {
-      return (
-        (!filters.city || p.title.includes(filters.city))
-      );
-    })
-    .slice(skip * take, (skip + 1) * take);
+  const streamSeasonOptions = [...new Set(
+    mockProjects
+      .map((project) => parsePublishedDate(project)?.getFullYear())
+      .filter(Boolean)
+  )].sort((a, b) => b - a);
+
+  const streamCityOptions = (() => {
+    const detectedCities = knownCities.filter((city) =>
+      mockProjects.some((project) =>
+        String(project?.title || "").toLowerCase().includes(city.toLowerCase())
+      )
+    );
+    return detectedCities.length ? detectedCities : knownCities;
+  })();
 
   const archivePhotos = [
     {
@@ -2119,90 +2138,247 @@ export default function Projects() {
     }
   ]
 
-  const filteredPhotos = useMemo(() => {
-    if (!archivePhotos) return [];
+  const galleryMockFilters = [
+    { key: "all", label: "Все фото" },
+    { key: "games", label: "Игры" },
+    { key: "finals", label: "Финалы" },
+    { key: "teams", label: "Команды" },
+  ];
 
-    const hasSeason = Boolean(filters?.season);
-    const hasCity = Boolean(filters?.city);
+  const filteredStreams = useMemo(() => {
+    const queryValue = streamFilters.query.trim().toLowerCase();
+    const cityValue = streamFilters.city.toLowerCase();
+    const seasonValue = String(streamFilters.season || "");
 
-    // нет ни одного фильтра — возвращаем как есть
-    if (!hasSeason && !hasCity) return archivePhotos;
+    const list = mockProjects.filter((project) => {
+      const title = String(project?.title || "").toLowerCase();
+      const projectDate = parsePublishedDate(project);
+      const projectYear = projectDate ? String(projectDate.getFullYear()) : "";
 
-    const seasonToken = hasSeason ? String(filters.season).slice(2, 5).toLowerCase() : null;
-    const cityToken = hasCity ? String(filters.city).toLowerCase() : null;
+      const seasonMatches = !seasonValue || seasonValue === projectYear;
+      const cityMatches = !cityValue || title.includes(cityValue);
+      const queryMatches = !queryValue || title.includes(queryValue);
 
-    return archivePhotos.filter((x) => {
-      const title = (x?.title || '').toLowerCase();
-
-      // применяем только те фильтры, которые заданы
-      if (hasSeason && !title.includes(seasonToken)) return false;
-      if (hasCity && !title.includes(cityToken)) return false;
-
-      return true;
+      return seasonMatches && cityMatches && queryMatches;
     });
-  }, [archivePhotos, filters]);
 
-  const handleChange = useCallback(
-    ({ stage, gender, season, city, region }) => {
-      // здесь конвертируешь выбранные значения в параметры твоих запросов
-      // и дергаешь загрузку статистики
-      // например: fetchStats({ stage, gender, season, region })
-      console.log("filters:", { stage, gender, season, city, region });
-      setFilters(() => ({ city: city, season }))
-      setStage(stage);
-    },
-    []
+    list.sort((left, right) => {
+      const leftTime = parsePublishedDate(left)?.getTime() || 0;
+      const rightTime = parsePublishedDate(right)?.getTime() || 0;
+      return streamFilters.sort === "oldest"
+        ? leftTime - rightTime
+        : rightTime - leftTime;
+    });
+
+    return list;
+  }, [streamFilters]);
+
+  const streamTotalPages = Math.max(
+    1,
+    Math.ceil(filteredStreams.length / streamsPerPage)
   );
+
+  const paginatedStreams = useMemo(() => {
+    const start = (streamPage - 1) * streamsPerPage;
+    return filteredStreams.slice(start, start + streamsPerPage);
+  }, [filteredStreams, streamPage]);
+
+  useEffect(() => {
+    setStreamPage(1);
+  }, [
+    streamFilters.season,
+    streamFilters.city,
+    streamFilters.query,
+    streamFilters.sort,
+  ]);
+
+  useEffect(() => {
+    if (streamPage > streamTotalPages) {
+      setStreamPage(streamTotalPages);
+    }
+  }, [streamPage, streamTotalPages]);
 
   return (
     <>
       <div className="docs-wrap" style={{ paddingBottom: 0 }}>
         <div className="docs-header">
           <div className="docs-breadcrumbs">
-            Главная — <span>Проекты</span>
+            Главная - <span>Проекты</span>
           </div>
         </div>
       </div>
+
       <div className="game-stats-page">
-        <div className="container">
-          <h1 className="title">Галерея</h1>
+        <div className="container projects-page">
+          <section className="projects-hero">
+            <div className="projects-hero__titleWrap">
+              <h1 className="title">Наши проекты</h1>
+              <p>Два направления: фотоархив матчей и видеотрансляции.</p>
+            </div>
 
-          <ProjectFilterPanel onChange={handleChange} years={years} />
+            <div className="project-switch">
+              <button
+                className={"project-switch__card " + (activeProject === "gallery" ? "is-active" : "")}
+                type="button"
+                onClick={() => setActiveProject("gallery")}
+              >
+                <span className="project-switch__label">Галерея</span>
+                <span className="project-switch__meta">
+                  Фото матчей и событий
+                </span>
+              </button>
 
-          {stage === "broadcast" && (
-            <>
-              <div className="projects-grid">
-                {filtered.map((project, i) => (
-                  <MatchCard
-                    imageSrc={project.thumbnail}
-                    alt={project.title}
-                    date={project.publishedDate}
-                    duration={project.lengthText}
-                    title={project.title}
-                    href={project.watchUrl}
-                  />
+              <button
+                className={"project-switch__card " + (activeProject === "broadcast" ? "is-active" : "")}
+                type="button"
+                onClick={() => setActiveProject("broadcast")}
+              >
+                <span className="project-switch__label">Трансляции</span>
+                <span className="project-switch__meta">
+                  Видеоархив с фильтрами
+                </span>
+              </button>
+            </div>
+          </section>
+
+          {activeProject === "gallery" && (
+            <section className="project-block">
+              <div className="project-block__head">
+                <h2>Галерея</h2>
+                <p>Фильтр пока в режиме муляжа, скоро подключим данные.</p>
+              </div>
+
+              <div className="project-filters project-filters--mock">
+                {galleryMockFilters.map((item) => (
+                  <button
+                    key={item.key}
+                    type="button"
+                    className={"mock-filter-chip " + (galleryFilter === item.key ? "is-active" : "")}
+                    onClick={() => setGalleryFilter(item.key)}
+                  >
+                    {item.label}
+                  </button>
                 ))}
               </div>
-              <div className="filters">
 
-                <Pagination
-                  currentPage={skip}
-                  totalPages={
-                    mockProjects.filter((p) => getYear(p).getFullYear())
-                      .length / 10
-                  }
-                  onPageChange={setSkip}
-                  siblingCount={1}
-                  boundaryCount={1}
-                  showPrevNext
-                  showFirstLast
-                  size="md" // sm | md | lg
-                />
+              <div className="project-filter-hint">
+                Текущий выбор:{" "}
+                {galleryMockFilters.find((item) => item.key === galleryFilter)
+                  ?.label || "Все фото"}
               </div>
-            </>
+
+              <Gallery images={vkGalleryDemo?.length ? vkGalleryDemo : archivePhotos} />
+            </section>
           )}
 
-          {stage === "photo" && <Gallery images={filteredPhotos} />}
+          {activeProject === "broadcast" && (
+            <section className="project-block">
+              <div className="project-block__head">
+                <h2>Трансляции</h2>
+                <p>Фильтрация и пагинация работают для удобного поиска матчей.</p>
+              </div>
+
+              <div className="project-filters project-filters--streams">
+                <select
+                  value={streamFilters.season}
+                  onChange={(event) =>
+                    setStreamFilters((prev) => ({
+                      ...prev,
+                      season: event.target.value,
+                    }))
+                  }
+                >
+                  <option value="">Все сезоны</option>
+                  {streamSeasonOptions.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={streamFilters.city}
+                  onChange={(event) =>
+                    setStreamFilters((prev) => ({
+                      ...prev,
+                      city: event.target.value,
+                    }))
+                  }
+                >
+                  <option value="">Все города</option>
+                  {streamCityOptions.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+
+                <input
+                  type="text"
+                  value={streamFilters.query}
+                  placeholder="Поиск по названию"
+                  onChange={(event) =>
+                    setStreamFilters((prev) => ({
+                      ...prev,
+                      query: event.target.value,
+                    }))
+                  }
+                />
+
+                <select
+                  value={streamFilters.sort}
+                  onChange={(event) =>
+                    setStreamFilters((prev) => ({
+                      ...prev,
+                      sort: event.target.value,
+                    }))
+                  }
+                >
+                  <option value="newest">Сначала новые</option>
+                  <option value="oldest">Сначала старые</option>
+                </select>
+              </div>
+
+              <div className="project-filter-hint">
+                Найдено трансляций: {filteredStreams.length}
+              </div>
+
+              {paginatedStreams.length > 0 ? (
+                <div className="projects-grid">
+                  {paginatedStreams.map((project) => (
+                    <MatchCard
+                      key={project.videoId}
+                      imageSrc={project.thumbnail}
+                      alt={project.title}
+                      date={project.publishedDate}
+                      duration={project.lengthText}
+                      title={project.title}
+                      href={project.watchUrl}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="projects-empty">
+                  По выбранным фильтрам трансляции не найдены.
+                </div>
+              )}
+
+              {filteredStreams.length > streamsPerPage && (
+                <div className="projects-pagination">
+                  <Pagination
+                    currentPage={streamPage}
+                    totalPages={streamTotalPages}
+                    onPageChange={setStreamPage}
+                    siblingCount={1}
+                    boundaryCount={1}
+                    showPrevNext
+                    showFirstLast
+                    size="md"
+                  />
+                </div>
+              )}
+            </section>
+          )}
         </div>
       </div>
     </>
