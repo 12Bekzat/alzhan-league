@@ -17,8 +17,36 @@ import insta4 from "../assets/news/second/season3-4.jpg";
 import instaReel from "../assets/news/second/season3-4.jpg";
 
 import mvp_chromtau from "../assets/news/insta-mvp-chromtau/588189747_17933133789106234_7714928478439564179_n.jpg";
-
+import championsKz13_1 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23.jpeg";
+import championsKz13_2 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23 (1).jpeg";
+import championsKz13_3 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23 (2).jpeg";
+import championsKz13_4 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23 (3).jpeg";
+import championsKz13_5 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.24.jpeg";
+import championsKz13_6 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.24 (1).jpeg";
 const news = [
+  {
+    id: "champions-kz-u13-3x3-2026-02-18",
+    title:
+      "Хромтау — чемпионы Республики Казахстан по баскетболу 3x3 среди юношей до 13 лет",
+    date: "18.02.2026",
+    previewImage: championsKz13_1,
+    previewText:
+      "Команда Хромтау заняла 1 место на чемпионате РК по баскетболу 3x3 (U13), подтвердив результат системной работы фонда Alzhan и поддержки ERG.",
+    fullTextParagraphs: [
+      "Общественный фонд Alzhan совместно с партнёром ERG последовательно реализует программу развития школьного баскетбола в городе Хромтау. Победа команды Хромтау на Чемпионате Республики Казахстан по баскетболу 3x3 среди юношей до 13 лет стала очередным подтверждением эффективности этой работы.",
+      "В турнире участвовали 18 сильнейших команд со всей страны. На групповом этапе Хромтау сыграл с командами Кентау, Тараза и Атырауской области и вышел в плей-офф со второго места.",
+      "В матчах на выбывание команда Хромтау обыграла Созак (14:11) в 1/8 финала, Костанайскую область (17:11) в 1/4 финала и в финале победила Атыраускую область со счётом 13:8, завоевав золото турнира.",
+      "Лучшим игроком категории U13 признан Айтжан Нурболат. Фонд Alzhan продолжает развитие школьного баскетбола в регионах Казахстана, создавая для детей устойчивую среду для тренировок и спортивного роста.",
+    ],
+    images: [
+      championsKz13_1,
+      championsKz13_2,
+      championsKz13_3,
+      championsKz13_4,
+      championsKz13_5,
+      championsKz13_6,
+    ],
+  },
   // ===== Обычная новость: меморандум =====
   {
     id: "memorandum-2025-10-23",

@@ -130,6 +130,7 @@ function App() {
               { label: "Школьная баскетбольная лига", href: "/about" },
               { label: "Тренерские семинары", href: "/about" },
               { label: "Судейские семинары", href: "/about" },
+              { label: "Документы", href: "/documents" },
             ],
           },
           {

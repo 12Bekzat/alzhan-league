@@ -6,6 +6,7 @@ import AhtanovErlan from '../assets/employee/Ahtanov.jpeg'
 import BekmambetovaAlfira from '../assets/employee/bekmambetova.jpeg'
 import DusenbinaElla from '../assets/employee/ella.jpeg'
 import PiryaevaNatalya from '../assets/employee/piryaeva.jpeg'
+import Konstantin from '../assets/employee/constantin.png'
 
 const teamMembers = [
   {
@@ -42,7 +43,8 @@ const teamMembers = [
   {
     name: 'Константин Дмитриевич Зеленков',
     role: 'Региональный менеджер г. Лисаковск',
-    image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
+    image: Konstantin,
+    additionalStyle: { objectPosition: '0 0%' }
   },
   {
     name: 'Сыздыков Жанат Куатович',
@@ -85,9 +87,8 @@ export default function TeamSlider() {
       const trackStyles = window.getComputedStyle(track);
       const gap = parseFloat(trackStyles.columnGap || trackStyles.gap || '16') || 16;
       const width = Math.round(cardRect.width) || 320;
-      const wrapperWidth = wrapper.getBoundingClientRect().width;
-      const neededForThree = width * 3 + gap * 2;
-      const count = wrapperWidth >= neededForThree ? 3 : 1;
+      const viewportWidth = window.innerWidth;
+      const count = viewportWidth < 600 ? 1 : viewportWidth < 900 ? 2 : 3;
       setCardMetrics({ width, gap });
       setVisibleCount(count);
     };
@@ -133,7 +134,7 @@ export default function TeamSlider() {
   const offset = startIndex * (cardMetrics.width + cardMetrics.gap);
 
   return (
-    <section className="team-slider">
+    <section className="team-slider" style={{ '--ts-cols': visibleCount }}>
       <h2>Наша команда</h2>
       <p className="">
         Лига «Alzhan» — это команда людей, которые работают на результат. Мы отвечаем за организацию турниров, развитие проекта и создание условий, где дети растут чемпионами. 

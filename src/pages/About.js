@@ -120,61 +120,7 @@ export default function About() {
 
       <GeoMapImage mapSrc={kzMap} points={defaultPoints} />
 
-      {/* <AboutHistory />
-      <MissionValues /> */}
       <TeamSlider />
-      {/* <TabPanel tabs={[
-        {
-          label: 'Учредительные и регистрационные документы',
-          content: <Documents
-            docs={[
-              "Устав Alzhan League",
-            ]}
-            documents={[
-              FirstDoc,
-            ]}
-          />
-        },
-        {
-          label: 'Регламенты и положения игр',
-          content: <>
-          <Documents
-            docs={[
-              "Алжан Рудный 2024-2025",
-              "Алжан Актобе 2024",
-              "Алжан Лисаковск Октябрский 2024",
-              "Алжан Рудный 2024",
-              "Алжан Хромтау 2024",
-              "Алжан Лисаковск 2024-2025",
-              "Положение Аксу 2024",
-              "Положение Актобе 2024-2025",
-              "Положение Лисаковск 2024-2025",
-              "Положение Рудный 2024-2025",
-              "Положение Семей 2024-2025",
-              "Положение Хромтау 2024-2025",
-            ]}
-            filters={[
-              '2024',
-              '2025',
-            ]}
-            documents={[
-              SecondDoc,
-              ThirdDoc,
-              FourthDoc,
-              FifthDoc,
-              SixthDoc,
-              SeventhDoc,
-              EightDoc,
-              NineDoc,
-              TenDoc,
-              ElevenDoc,
-              TwelveDoc,
-              ThirteenDoc
-            ]}
-          />
-          </>
-        }]
-      } /> */}
     </>
   );
 }
