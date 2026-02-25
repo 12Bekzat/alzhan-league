@@ -7,6 +7,7 @@ import BekmambetovaAlfira from '../assets/employee/bekmambetova.jpeg'
 import DusenbinaElla from '../assets/employee/ella.jpeg'
 import PiryaevaNatalya from '../assets/employee/piryaeva.jpeg'
 import Konstantin from '../assets/employee/constantin.png'
+import Alina from '../assets/employee/alina.png'
 
 const teamMembers = [
   {
@@ -33,18 +34,25 @@ const teamMembers = [
     name: 'Дюсенбина Элла',
     role: 'Менеджер ОФ “Alzhan”',
     image: DusenbinaElla,
+    additionalStyle: { height: '117%' }
   },
   {
     name: 'Пыряева Наталья Васильевна',
     role: 'Региональный менеджер г. Рудный', 
     image: PiryaevaNatalya,
-    additionalStyle: { objectPosition: '0% 18%' }
+    additionalStyle: { objectPosition: '0% 25%' }
   },
   {
     name: 'Константин Дмитриевич Зеленков',
     role: 'Региональный менеджер г. Лисаковск',
     image: Konstantin,
     additionalStyle: { objectPosition: '0 0%' }
+  },
+  {
+    name: 'Алина Бегаришева',
+    role: 'Региональный менеджер г. Хромтау',
+    image: Alina,
+    additionalStyle: { objectPosition: '0 18%' }
   },
   {
     name: 'Сыздыков Жанат Куатович',
@@ -156,7 +164,9 @@ export default function TeamSlider() {
           >
             {extendedMembers.map((member, index) => (
               <div className="card" key={index}>
-                <img src={member.image} alt={member.name} style={member.additionalStyle} />
+                <div className="card__img">
+                  <img src={member.image} alt={member.name} style={member.additionalStyle} />
+                </div>
                 <div className="card-content">
                   <span className='h3'>{member.name}</span>
                   <span className='p'>{member.role}</span>

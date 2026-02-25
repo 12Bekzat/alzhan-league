@@ -69,6 +69,21 @@ export default function StatsFilterPanel({
     if (stage !== "regional") setStage("regional");
   };
 
+  const toggleCourse = (nextCourse) => {
+    setCourse((prevCourse) => {
+      const shouldClear = prevCourse === nextCourse;
+      if (shouldClear) {
+        setGender(null);
+        return null;
+      }
+      return nextCourse;
+    });
+  };
+
+  const toggleGender = (nextGender) => {
+    setGender((prevGender) => (prevGender === nextGender ? null : nextGender));
+  };
+
   // Прокидываем наружу выбранные фильтры
   useEffect(() => {
     onChange?.({ stage, gender, season, region, course });
@@ -156,7 +171,7 @@ export default function StatsFilterPanel({
             <button
               key={g.key}
               className={`sf-pill ${course=== g.key ? "sf-pillActive" : ""}`}
-              onClick={() => setCourse(g.key)}
+              onClick={() => toggleCourse(g.key)}
               type="button"
             >
               {g.label}
@@ -168,7 +183,7 @@ export default function StatsFilterPanel({
             <button
               key={g.key}
               className={`sf-pill ${gender === g.key ? "sf-pillActive" : ""}`}
-              onClick={() => setGender(g.key)}
+              onClick={() => toggleGender(g.key)}
               type="button"
             >
               {g.label}

@@ -128,7 +128,7 @@ export default function Documents() {
     { id: "reports", title: "Отчеты", items: [
       {
           id: "r1",
-          title: "Фин отчет ALZHAN",
+          title: "Финансовый отчет 2025 г.",
           href: FinReport,
         },
     ] },

@@ -1,122 +1,274 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 
-export default function PlayoffBracket({ games = [], title = 'Плей-офф' }) {
-  const items = useMemo(() => games.map(fromMtgameGame).filter(Boolean), [games]);
+const STAGE_ORDER = ["quarter", "semi", "final", "third"];
 
-  // Группировка по стадиям
-  const semi = items.filter(g => g.stageKey === 'semi');
-  const final = items.filter(g => g.stageKey === 'final');
-  const third = items.filter(g => g.stageKey === 'third');
+const STAGE_META = {
+  quarter: { label: "1/4 финала" },
+  semi: { label: "1/2 финала" },
+  final: { label: "Финал" },
+  third: { label: "3 место" },
+};
 
-  const isEmpty = semi.length + final.length + third.length === 0;
+const EMPTY_TEAM = { name: "—", logo: null };
+
+const normalizeText = (value) =>
+  String(value || "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+
+const parsePlayoffNumber = (rawValue) => {
+  const raw = String(rawValue || "").trim();
+  const [roundStr, pairStr] = raw.split("_");
+
+  const roundIndex = Number(roundStr);
+  const pairIndex = Number(pairStr);
+
+  return {
+    raw,
+    roundIndex: Number.isFinite(roundIndex) ? roundIndex : null,
+    pairIndex: Number.isFinite(pairIndex) ? pairIndex : null,
+  };
+};
+
+const parseScore = (value) => {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+};
+
+const parseStageKey = (game, playoffNumber) => {
+  const stage = normalizeText(game?.playoff_stage);
+
+  const isThirdByText =
+    (stage.includes("3") && stage.includes("мест")) || stage.includes("third");
+  if (isThirdByText) return "third";
+
+  if (stage.includes("1 / 4") || stage.includes("1/4") || stage.includes("четверт")) {
+    return "quarter";
+  }
+  if (stage.includes("1 / 2") || stage.includes("1/2") || stage.includes("полуфин")) {
+    return "semi";
+  }
+  if (stage.includes("финал")) {
+    return "final";
+  }
+
+  if (playoffNumber.roundIndex === 1) return "quarter";
+  if (playoffNumber.roundIndex === 2) return "semi";
+  if (playoffNumber.roundIndex === 3 && playoffNumber.pairIndex === 2) return "third";
+  if (playoffNumber.roundIndex === 3) return "final";
+
+  const round = Number(game?.playoff_round);
+  if (round === 4) return "quarter";
+  if (round === 2) return "semi";
+  if (round === 1) return "final";
+
+  return "semi";
+};
+
+const pickTeam = (primary, fallback) => {
+  const source = primary || fallback || {};
+  const logoPath = source?.logo?.path || null;
+
+  return {
+    name: source?.name || "—",
+    logo: logoPath,
+  };
+};
+
+const toMatchView = (game) => {
+  if (!game || typeof game !== "object") return null;
+
+  const playoffNumber = parsePlayoffNumber(game.playoff_number);
+  const stageKey = parseStageKey(game, playoffNumber);
+  const dateObj = game?.datetime ? new Date(game.datetime) : null;
+  const dateValid = dateObj && !Number.isNaN(dateObj.getTime());
+
+  return {
+    id: game.id || `${playoffNumber.raw || "game"}-${game?.datetime || "0"}`,
+    stageKey,
+    playoffNumber: playoffNumber.raw,
+    pairIndex: playoffNumber.pairIndex,
+    datetime: dateValid ? dateObj : null,
+    timestamp: dateValid ? dateObj.getTime() : Number.MAX_SAFE_INTEGER,
+    location: game?.location || game?.tournament_court?.address || null,
+    homeTeam: pickTeam(game?.team, game?.tournament_team),
+    awayTeam: pickTeam(game?.competitor_team, game?.competitor_tournament_team),
+    homeScore: parseScore(game?.team_score),
+    awayScore: parseScore(game?.competitor_team_score),
+  };
+};
+
+const sortMatches = (a, b) => {
+  const pairA = a.pairIndex ?? 999;
+  const pairB = b.pairIndex ?? 999;
+  if (pairA !== pairB) return pairA - pairB;
+  if (a.timestamp !== b.timestamp) return a.timestamp - b.timestamp;
+  return String(a.id).localeCompare(String(b.id));
+};
+
+const groupStageMatches = (matches) => {
+  const groupsMap = new Map();
+
+  matches.forEach((match) => {
+    const key = Number.isFinite(match.pairIndex)
+      ? `pair-${match.pairIndex}`
+      : `match-${match.id}`;
+
+    if (!groupsMap.has(key)) {
+      groupsMap.set(key, {
+        key,
+        pairIndex: match.pairIndex,
+        matches: [],
+      });
+    }
+    groupsMap.get(key).matches.push(match);
+  });
+
+  return Array.from(groupsMap.values())
+    .map((group) => ({
+      ...group,
+      matches: [...group.matches].sort(sortMatches),
+    }))
+    .sort((a, b) => (a.pairIndex ?? 999) - (b.pairIndex ?? 999));
+};
+
+const formatDate = (date) =>
+  date
+    ? date.toLocaleDateString("ru-RU", {
+        day: "2-digit",
+        month: "short",
+      })
+    : "Дата уточняется";
+
+const formatTime = (date) =>
+  date
+    ? date.toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : "";
+
+function TeamRow({ team, score, isWinner }) {
+  const scoreLabel = Number.isFinite(score) ? score : "—";
 
   return (
-    <section className="pb">
-      {isEmpty ? (
-        <div className="pb__empty">Матчей плей‑офф пока нет</div>
-      ) : (
-        <div className="pb__grid">
-          <div className="pb__col">
-            <div className="pb__col-title">ПОЛУФИНАЛ</div>
-            {semi.length === 0 && <div className="pb__placeholder">—</div>}
-            {semi.map(m => <MatchCard key={m.id} match={m} />)}
-          </div>
-
-          <div className="pb__col">
-            <div className="pb__col-title">ФИНАЛ</div>
-            {final.length === 0 && <div className="pb__placeholder">—</div>}
-            {final.map(m => <MatchCard key={m.id} match={m} big />)}
-          </div>
-
-          <div className="pb__col">
-            <div className="pb__col-title">3 МЕСТО</div>
-            {third.length === 0 && <div className="pb__placeholder">—</div>}
-            {third.map(m => <MatchCard key={m.id} match={m} />)}
-          </div>
+    <div className={`clb-match__team ${isWinner ? "is-winner" : ""}`}>
+      <div className="clb-match__teamMeta">
+        {team?.logo ? (
+          <img className="clb-match__logo" src={team.logo} alt={team?.name || "Team"} />
+        ) : (
+          <div className="clb-match__logo clb-match__logo--empty" />
+        )}
+        <div className="clb-match__name" title={team?.name || "—"}>
+          {team?.name || "—"}
         </div>
-      )}
-    </section>
-  );
-}
-
-function MatchCard({ match, big = false }) {
-  const {
-    id,
-    dateStr,
-    timeStr,
-    leftTeam,
-    rightTeam,
-    scoreLeft,
-    scoreRight,
-  } = match;
-
-  const leftWins = Number(scoreLeft) > Number(scoreRight);
-  const rightWins = Number(scoreRight) > Number(scoreLeft);
-
-  return (
-    <article className={"pb-card" + (big ? ' pb-card--big' : '')} data-id={id}>
-      <div className="pb-card__row">
-        <Team name={leftTeam.name} logo={leftTeam.logo} subtitle={dateStr + (timeStr ? ', ' + timeStr : '')} />
-        <div className={"pb-card__score pb-card__score--left" + (leftWins ? ' is-win' : '')}>{scoreLeft ?? '—'}</div>
       </div>
-
-      <div className="pb-card__row">
-        <Team name={rightTeam.name} logo={rightTeam.logo} />
-        <div className={"pb-card__score" + (rightWins ? ' is-win' : '')}>{scoreRight ?? '—'}</div>
-      </div>
-    </article>
-  );
-}
-
-function Team({ name, logo, subtitle }) {
-  return (
-    <div className="pb-team">
-      {logo && <img className="pb-team__logo" src={logo} alt="logo" />}
-      <div className="pb-team__meta">
-        <div className="pb-team__name" title={name}>{name || '—'}</div>
-        {subtitle && <div className="pb-team__sub">{subtitle}</div>}
-      </div>
+      <div className={`clb-match__score ${isWinner ? "is-winner" : ""}`}>{scoreLabel}</div>
     </div>
   );
 }
 
-// =========================
-// ADAPTER: MTGame payload -> внутренний формат
-// =========================
-export function fromMtgameGame(game) {
-  if (!game) return null;
+function MatchCard({ match }) {
+  const homeWins =
+    Number.isFinite(match.homeScore) &&
+    Number.isFinite(match.awayScore) &&
+    match.homeScore > match.awayScore;
+  const awayWins =
+    Number.isFinite(match.homeScore) &&
+    Number.isFinite(match.awayScore) &&
+    match.awayScore > match.homeScore;
 
-  const leftTeam = {
-    name: game?.team?.name || '—',
-    logo: game?.team?.logo?.path,
-  };
-  const rightTeam = {
-    name: game?.competitor_team?.name || '—',
-    logo: game?.competitor_team?.logo?.path,
-  };
+  return (
+    <article className="clb-match">
+      <header className="clb-match__meta">
+        <span>{formatDate(match.datetime)}</span>
+        {formatTime(match.datetime) ? <span>{formatTime(match.datetime)}</span> : null}
+        {match.playoffNumber ? <span>Матч {match.playoffNumber}</span> : null}
+      </header>
 
-  const dt = game?.datetime ? new Date(game.datetime) : null;
-  const dateStr = dt ? dt.toLocaleDateString('ru-RU', { day: '2-digit', month: 'short' }) : undefined;
-  const timeStr = dt ? dt.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) : undefined;
+      <TeamRow team={match.homeTeam || EMPTY_TEAM} score={match.homeScore} isWinner={homeWins} />
+      <TeamRow team={match.awayTeam || EMPTY_TEAM} score={match.awayScore} isWinner={awayWins} />
+    </article>
+  );
+}
 
-  // Определяем стадию: полуфинал / финал / матч за 3-е место
-  const stageText = String(game?.playoff_stage || '').toLowerCase();
-  const numberText = String(game?.playoff_number || '').toLowerCase();
+export default function PlayoffBracket({
+  games = [],
+  isLoading = false,
+  playoffName = "",
+}) {
+  const stageColumns = useMemo(() => {
+    const mapped = (Array.isArray(games) ? games : []).map(toMatchView).filter(Boolean);
+    const byStage = {
+      quarter: [],
+      semi: [],
+      final: [],
+      third: [],
+    };
 
-  let stageKey = 'semi';
-  if (stageText.includes('финал') || /(^|\b)1\s*\/\s*1(\b|$)/.test(stageText)) stageKey = 'final';
-  if (stageText.includes('3') && (stageText.includes('мест') || stageText.includes('place'))) stageKey = 'third';
-  // fallback: иногда в number пишут 3rd
-  if (/third|3-?place|3мест|3_mesto/i.test(numberText)) stageKey = 'third';
+    mapped.forEach((match) => {
+      if (!byStage[match.stageKey]) return;
+      byStage[match.stageKey].push(match);
+    });
 
-  return {
-    id: game.id,
-    stageKey,
-    dateStr,
-    timeStr,
-    leftTeam,
-    rightTeam,
-    scoreLeft: game?.team_score,
-    scoreRight: game?.competitor_team_score,
-  };
+    return STAGE_ORDER.map((stageKey) => {
+      const matches = [...byStage[stageKey]].sort(sortMatches);
+      return {
+        key: stageKey,
+        label: STAGE_META[stageKey].label,
+        groups: groupStageMatches(matches),
+        count: matches.length,
+      };
+    });
+  }, [games]);
+
+  const hasGames = stageColumns.some((column) => column.count > 0);
+
+  return (
+    <section className="clb">
+      <header className="clb__header">
+        <h3 className="clb__title">Сетка плей-офф</h3>
+        {playoffName ? <p className="clb__subtitle">{playoffName}</p> : null}
+      </header>
+
+      {isLoading ? (
+        <div className="clb__empty">Загружаем матчи плей-офф...</div>
+      ) : !hasGames ? (
+        <div className="clb__empty">Матчей плей-офф пока нет</div>
+      ) : (
+        <div className="clb__grid">
+          {stageColumns.map((stage) => (
+            <section className="clb-stage" key={stage.key}>
+              <div className="clb-stage__head">
+                <span className="clb-stage__label">{stage.label}</span>
+                <span className="clb-stage__count">{stage.count}</span>
+              </div>
+
+              <div className="clb-stage__body">
+                {stage.groups.length ? (
+                  stage.groups.map((group) => (
+                    <div className="clb-series" key={group.key}>
+                      {Number.isFinite(group.pairIndex) &&
+                      stage.key !== "final" &&
+                      stage.key !== "third" ? (
+                        <div className="clb-series__title">Пара {group.pairIndex}</div>
+                      ) : null}
+                      <div className="clb-series__matches">
+                        {group.matches.map((match) => (
+                          <MatchCard key={match.id} match={match} />
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="clb-stage__empty">Нет матчей на этой стадии</div>
+                )}
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
+    </section>
+  );
 }
