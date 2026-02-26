@@ -10,12 +10,6 @@ import season3_2 from "../assets/news/second/season3-2.jpg";
 import season3_3 from "../assets/news/second/season3-3.jpg";
 import season3_4 from "../assets/news/second/season3-4.jpg";
 
-import insta1 from "../assets/news/second/season3-1.jpg";
-import insta2 from "../assets/news/second/season3-2.jpg";
-import insta3 from "../assets/news/second/season3-3.jpg";
-import insta4 from "../assets/news/second/season3-4.jpg";
-import instaReel from "../assets/news/second/season3-4.jpg";
-
 import mvp_chromtau from "../assets/news/insta-mvp-chromtau/588189747_17933133789106234_7714928478439564179_n.jpg";
 import championsKz13_1 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23.jpeg";
 import championsKz13_2 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23 (1).jpeg";
