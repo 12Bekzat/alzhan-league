@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.e06c9ba0.css",
-    "main.js": "/static/js/main.00004fc2.js",
+    "main.js": "/static/js/main.d6d7c670.js",
     "static/media/oneplayer.PNG": "/static/media/oneplayer.e45d9d57f658219f2ae5.PNG",
     "static/media/alina.png": "/static/media/alina.93f0bc08904bf3c13358.png",
     "static/media/Положение Лисаковск 24-25г.pdf": "/static/media/Положение Лисаковск 24-25г.571ced1be9873ff15f96.pdf",
@@ -70,10 +70,10 @@
     "static/media/КОНЦЕПЦИЯ ДЕЯТЕЛЬНОСТИ ОБЩЕСТВЕННОГО ФОНДА (1).docx": "/static/media/КОНЦЕПЦИЯ ДЕЯТЕЛЬНОСТИ ОБЩЕСТВЕННОГО ФОНДА (1).bb98e5847c1c3adeef5c.docx",
     "index.html": "/index.html",
     "main.e06c9ba0.css.map": "/static/css/main.e06c9ba0.css.map",
-    "main.00004fc2.js.map": "/static/js/main.00004fc2.js.map"
+    "main.d6d7c670.js.map": "/static/js/main.d6d7c670.js.map"
   },
   "entrypoints": [
     "static/css/main.e06c9ba0.css",
-    "static/js/main.00004fc2.js"
+    "static/js/main.d6d7c670.js"
   ]
 }

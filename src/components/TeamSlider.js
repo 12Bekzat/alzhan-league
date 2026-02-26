@@ -48,21 +48,16 @@ const teamMembers = [
     image: Konstantin,
     additionalStyle: { objectPosition: '0 0%' }
   },
-  {
-    name: 'Алина Бегаришева',
-    role: 'Региональный менеджер г. Хромтау',
-    image: Alina,
-    additionalStyle: { objectPosition: '0 18%' }
-  },
-  {
-    name: 'Сыздыков Жанат Куатович',
-    role: 'Региональный менеджер г. Павлодар',
-    image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
-  },
+  // {
+  //   name: 'Сыздыков Жанат Куатович',
+  //   role: 'Региональный менеджер г. Павлодар',
+  //   image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
+  // },
   {
     name: 'Бегаришева Алина Дисемалиевна ',
     role: 'Региональный менеджер г. Хромтау',
-    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=80',
+    image: Alina,
+    additionalStyle: { objectPosition: '0 18%' }
   },
 ];
 

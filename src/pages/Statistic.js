@@ -44,6 +44,51 @@ const formatDate = (date) => {
   });
 };
 
+const toDate = (value) => {
+  if (!value) return null;
+
+  const fromNative = new Date(value);
+  if (!Number.isNaN(fromNative.getTime())) return fromNative;
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(String(value))) {
+    const fromDateOnly = new Date(`${value}T00:00:00`);
+    if (!Number.isNaN(fromDateOnly.getTime())) return fromDateOnly;
+  }
+
+  return null;
+};
+
+const getSeasonRange = (seasonValue) => {
+  const yearMatch = String(seasonValue || "").match(/\d{4}/);
+  const startYear = Number(yearMatch?.[0]);
+  if (!Number.isFinite(startYear)) return null;
+
+  const start = new Date(startYear, 9, 1, 0, 0, 0, 0); // 1 Oct YYYY
+  const end = new Date(startYear + 1, 4, 31, 23, 59, 59, 999); // 31 May YYYY+1
+
+  return { start, end };
+};
+
+const isTournamentInSeason = (tournament, seasonValue) => {
+  if (!seasonValue) return true;
+
+  const seasonRange = getSeasonRange(seasonValue);
+  if (!seasonRange) return true;
+
+  const tournamentStart = toDate(tournament?.date);
+  const tournamentEnd = toDate(tournament?.date_end) || tournamentStart;
+  if (!tournamentStart && !tournamentEnd) return false;
+
+  const effectiveStart = tournamentStart || tournamentEnd;
+  const effectiveEnd = tournamentEnd || tournamentStart;
+
+  // Пересечение диапазонов турнира и сезона.
+  return (
+    effectiveStart <= seasonRange.end &&
+    effectiveEnd >= seasonRange.start
+  );
+};
+
 const getMissingFilters = (filters) => {
   const missing = ["stage"].filter((key) => !filters?.[key]);
 
@@ -110,8 +155,7 @@ export default function GameStats() {
         tournament?.settings?.gender,
         filters.gender
       );
-      const seasonMatches =
-        !selectedSeason || String(tournament?.date || "").includes(selectedSeason);
+      const seasonMatches = isTournamentInSeason(tournament, selectedSeason);
 
       return stageMatches && courseMatches && genderMatches && seasonMatches;
     });

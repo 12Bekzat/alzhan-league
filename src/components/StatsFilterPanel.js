@@ -21,6 +21,13 @@ const REGIONS = [
   "Актобе","Рудный","Лисаковск","Хромтау", "Павлодар",
 ];
 
+const formatSeasonLabel = (season) => {
+  const year = Number(String(season || "").match(/\d{4}/)?.[0]);
+  if (!Number.isFinite(year)) return String(season);
+  const nextShort = String(year + 1).slice(-2);
+  return `${year}/${nextShort}`;
+};
+
 export default function StatsFilterPanel({
   seasons = ["2024", "2025", '2026'],
   tournaments = null,
@@ -103,7 +110,7 @@ export default function StatsFilterPanel({
               aria-label="Выбор сезона"
             >
               {seasons.map((s) => (
-                <option key={s} value={s}>{s}</option>
+                <option key={s} value={s}>{formatSeasonLabel(s)}</option>
               ))}
             </select>
             <span className="sf-caret" style={{ opacity: 0 }}/>
