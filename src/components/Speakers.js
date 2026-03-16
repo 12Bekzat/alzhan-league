@@ -71,4 +71,14 @@ const defaultItems = [
     photo: "https://i.ytimg.com/vi/TORUPPzwgT4/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGH8gQSgnMA8=&rs=AOn4CLDNEtO5rto7t5mAcgrYeeYOviUmWQ",
     videoUrl: "https://www.youtube.com/embed/TORUPPzwgT4?si=ef6rcXeLheV01o9U",
   },
+  {
+    name: "Данияр Рахматуллаев",
+    photo: "https://i.ytimg.com/vi/AvxgrMTe8_o/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGFIgTyhlMA8=&rs=AOn4CLANl06lmelnx9-K6f6kszhrf2toMw",
+    videoUrl: "https://youtu.be/AvxgrMTe8_o",
+  },
+  {
+    name: "Олжас Оразбаев",
+    photo: "https://i.ytimg.com/vi/PrXbWNzkA3w/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGHIgTSgxMA8=&rs=AOn4CLADA-aaFBakii_aGJ03a7SSy2_yRQ",
+    videoUrl: "https://youtu.be/PrXbWNzkA3w",
+  },
 ];

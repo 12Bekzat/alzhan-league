@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -11,6 +10,7 @@ import Contacts from "./pages/Contacts";
 import Statistic from "./pages/Statistic";
 import Sponsor from "./pages/Sponsor";
 import NewsPage from "./pages/News";
+import NewsArticle from "./pages/NewsArticle";
 import Projects from "./pages/Projects";
 import Partners from "./pages/Partners";
 import Popup from "./components/Popup";
@@ -75,6 +75,7 @@ function App() {
           <Route path="/statistics" element={<Statistic />} />
           <Route path="/sponsor" element={<Sponsor />} />
           <Route path="/news" element={<NewsPage />} />
+          <Route path="/news/:newsId" element={<NewsArticle />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/partners" element={<Partners />} />
           <Route path="/documents" element={<Documents />} />

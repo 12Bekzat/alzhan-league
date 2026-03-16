@@ -10,14 +10,45 @@ import season3_2 from "../assets/news/second/season3-2.jpg";
 import season3_3 from "../assets/news/second/season3-3.jpg";
 import season3_4 from "../assets/news/second/season3-4.jpg";
 
-import mvp_chromtau from "../assets/news/insta-mvp-chromtau/588189747_17933133789106234_7714928478439564179_n.jpg";
 import championsKz13_1 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23.jpeg";
 import championsKz13_2 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23 (1).jpeg";
 import championsKz13_3 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23 (2).jpeg";
 import championsKz13_4 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.23 (3).jpeg";
 import championsKz13_5 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.24.jpeg";
 import championsKz13_6 from "../assets/news/champions_of_kz_13/WhatsApp Image 2026-02-18 at 15.23.24 (1).jpeg";
+import zhitikaraNews1 from "../assets/news/zhitikara-news/IMG_6204.jpg";
+import zhitikaraNews2 from "../assets/news/zhitikara-news/IMG_6212.jpg";
+import zhitikaraNews3 from "../assets/news/zhitikara-news/IMG_6213.jpg";
+import zhitikaraNews4 from "../assets/news/zhitikara-news/IMG_6214.jpg";
+import zhitikaraNews5 from "../assets/news/zhitikara-news/IMG_6218.jpg";
+import zhitikaraNews6 from "../assets/news/zhitikara-news/IMG_6220.jpg";
 const news = [
+  {
+    id: "zhitikara-season-start-2026-03-16",
+    title: "В Житикаре стартовал сезон школьной баскетбольной лиги",
+    date: "16.03.2026",
+    previewImage: zhitikaraNews1,
+    previewText:
+      "В спортивном комплексе «Батыр Арена» открыт новый сезон школьной баскетбольной лиги среди учащихся 7-8 классов: 18 команд, новая форма и сильный состав участников.",
+    fullTextParagraphs: [
+      "В спортивном комплексе «Батыр Арена» состоялось открытие нового сезона школьной баскетбольной лиги среди учащихся 7-8 классов.",
+      "В этом сезоне на площадку выходят 18 команд: 7 команд девушек и 11 команд юношей.",
+      "Все команды получили новую игровую форму, а значит впереди яркие матчи, командный дух и настоящая спортивная борьба.",
+      "Почетными гостями открытия стали председатель правления АО «Костанайские минералы» Ербол Сапарбаевич Нурхожаев и руководитель отдела образования Житикаринского района Майра Ильясовна Бимагамбетова.",
+      "Также мероприятие посетил технический директор АО «Костанайские минералы» Айбол Рахимгалиевич Смагулов.",
+      "Перед стартом сезона был проведен семинар для судейской бригады и медиа-команды, чтобы обеспечить высокий уровень организации и освещения турнира.",
+      "Турнир проходит при поддержке Kusto Group и АО «Костанайские минералы», которые вносят большой вклад в развитие школьного спорта.",
+      "Желаем всем командам ярких игр, честной борьбы и красивого баскетбола!",
+    ],
+    images: [
+      zhitikaraNews1,
+      zhitikaraNews2,
+      zhitikaraNews3,
+      zhitikaraNews4,
+      zhitikaraNews5,
+      zhitikaraNews6,
+    ],
+  },
   {
     id: "champions-kz-u13-3x3-2026-02-18",
     title:

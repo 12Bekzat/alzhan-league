@@ -1,8 +1,34 @@
 import React, { useMemo, useState } from "react";
 
+function extractSeasonTokens(seasonValue) {
+  if (Array.isArray(seasonValue)) {
+    return seasonValue.flatMap(extractSeasonTokens);
+  }
+
+  if (seasonValue === null || seasonValue === undefined) {
+    return [];
+  }
+
+  if (typeof seasonValue === "number") {
+    return [String(seasonValue)];
+  }
+
+  if (typeof seasonValue === "string") {
+    const years = seasonValue.match(/\d{4}/g);
+    if (years?.length) {
+      return years;
+    }
+
+    const normalized = seasonValue.trim();
+    return normalized ? [normalized] : [];
+  }
+
+  return [];
+}
+
 export default function DocumentsPanel({
-  seasons = ["2025-2026", "2024-2025", "2023-2024"],
-  defaultSeason = "2025-2026",
+  seasons = ["2024", "2025", "2026"],
+  defaultSeason = "2025",
   categories = [], // [{ id, title, items:[{ id, title, href }] }]
   defaultCategoryId = null,
   onOpen, // (docItem) => void (если нужно перехватить клики)
@@ -17,6 +43,20 @@ export default function DocumentsPanel({
   const activeItems = useMemo(
     () => categories.find((c) => c.id === activeCat)?.items ?? [],
     [categories, activeCat]
+  );
+  const filteredItems = useMemo(
+    () =>
+      activeItems.filter(
+        (item) => {
+          if (season === "Все" || !item?.season) {
+            return true;
+          }
+
+          const itemSeasons = extractSeasonTokens(item.season);
+          return itemSeasons.includes(season);
+        }
+      ),
+    [activeItems, season]
   );
 
   const handleOpen = (item) => {
@@ -88,7 +128,7 @@ export default function DocumentsPanel({
           {/* ПРАВАЯ КОЛОНКА — ДОКУМЕНТЫ */}
           <div className="docs-right">
             <ul className="docs-docList">
-              {activeItems.filter(x => (x?.season && x?.season === season) || season === 'Все' || !x?.season).map((it, i) => (
+              {filteredItems.map((it, i) => (
                 <li key={it.id ?? i}>
                   <button
                     type="button"
@@ -98,12 +138,12 @@ export default function DocumentsPanel({
                   >
                     <span className="docs-doc__title">{it.title}</span>
                   </button>
-                  {i !== activeItems.length - 1 && (
+                  {i !== filteredItems.length - 1 && (
                     <div className="docs-divider" />
                   )}
                 </li>
               ))}
-              {!activeItems.length && (
+              {!filteredItems.length && (
                 <li className="docs-empty">Нет документов в этой категории</li>
               )}
             </ul>

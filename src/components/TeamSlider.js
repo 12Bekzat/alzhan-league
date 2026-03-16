@@ -8,6 +8,7 @@ import DusenbinaElla from '../assets/employee/ella.jpeg'
 import PiryaevaNatalya from '../assets/employee/piryaeva.jpeg'
 import Konstantin from '../assets/employee/constantin.png'
 import Alina from '../assets/employee/alina.png'
+import Zhanat from '../assets/employee/zhanat.png'
 
 const teamMembers = [
   {
@@ -48,11 +49,12 @@ const teamMembers = [
     image: Konstantin,
     additionalStyle: { objectPosition: '0 0%' }
   },
-  // {
-  //   name: 'Сыздыков Жанат Куатович',
-  //   role: 'Региональный менеджер г. Павлодар',
-  //   image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=500&q=80',
-  // },
+  {
+    name: 'Сыздыков Жанат Куатович',
+    role: 'Региональный менеджер г. Павлодар',
+    image: Zhanat,
+    additionalStyle: { objectPosition: '0 72%' }
+  },
   {
     name: 'Бегаришева Алина Дисемалиевна ',
     role: 'Региональный менеджер г. Хромтау',
