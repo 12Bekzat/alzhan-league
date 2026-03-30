@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.83625f7d.css",
-    "main.js": "/static/js/main.1de6e66b.js",
+    "main.css": "/static/css/main.767d0b01.css",
+    "main.js": "/static/js/main.e9b514a1.js",
     "static/media/Положение Школьной Лиги по баскетболу Alzhan г. Хромтау.pdf": "/static/media/Положение Школьной Лиги по баскетболу Alzhan г. Хромтау.6ca65b4a15e8a8a8b536.pdf",
     "static/media/oneplayer.PNG": "/static/media/oneplayer.e45d9d57f658219f2ae5.PNG",
     "static/media/alina.png": "/static/media/alina.93f0bc08904bf3c13358.png",
@@ -39,6 +39,7 @@
     "static/media/season3-3.jpg": "/static/media/season3-3.73355596067ad84456c7.jpg",
     "static/media/season3-2.jpg": "/static/media/season3-2.9d1120f6ab63489bde72.jpg",
     "static/media/ШЛ_Alzhan_2024_г._г._Актобе.pdf": "/static/media/ШЛ_Alzhan_2024_г._г._Актобе.d0405404f1c0462fff65.pdf",
+    "static/media/Положение Лисаковск 25-26г. 2.pdf": "/static/media/Положение Лисаковск 25-26г. 2.f2d45f03db959df42b4d.pdf",
     "static/media/Регламент Школьной Лиги по баскетболу Alzhan  2025-2026.pdf": "/static/media/Регламент Школьной Лиги по баскетболу Alzhan  2025-2026.59e532a7961cd04f9881.pdf",
     "static/media/ШЛ_Alzhan_2024_г._г._Хромтау.pdf": "/static/media/ШЛ_Alzhan_2024_г._г._Хромтау.1e1b1c82f69de1895af7.pdf",
     "static/media/thanks-zhebe.png": "/static/media/thanks-zhebe.72faf45f614082ee32ea.png",
@@ -78,11 +79,11 @@
     "static/media/zhebe logistics png.jpg": "/static/media/zhebe logistics png.8740dbf0559c2cdda6f2.jpg",
     "static/media/КОНЦЕПЦИЯ ДЕЯТЕЛЬНОСТИ ОБЩЕСТВЕННОГО ФОНДА (1).docx": "/static/media/КОНЦЕПЦИЯ ДЕЯТЕЛЬНОСТИ ОБЩЕСТВЕННОГО ФОНДА (1).bb98e5847c1c3adeef5c.docx",
     "index.html": "/index.html",
-    "main.83625f7d.css.map": "/static/css/main.83625f7d.css.map",
-    "main.1de6e66b.js.map": "/static/js/main.1de6e66b.js.map"
+    "main.767d0b01.css.map": "/static/css/main.767d0b01.css.map",
+    "main.e9b514a1.js.map": "/static/js/main.e9b514a1.js.map"
   },
   "entrypoints": [
-    "static/css/main.83625f7d.css",
-    "static/js/main.1de6e66b.js"
+    "static/css/main.767d0b01.css",
+    "static/js/main.e9b514a1.js"
   ]
 }

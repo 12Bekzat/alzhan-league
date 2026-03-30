@@ -16,6 +16,7 @@ import RulesAktobe2026 from "../assets/documents/rules/Положение Шко
 import RulesHromtau2026 from "../assets/documents/rules/Положение Школьной Лиги по баскетболу Alzhan г. Хромтау.pdf";
 import RulesZhitikara2026 from "../assets/documents/rules/Положение_0001.pdf";
 import RulesRudnyi2026 from "../assets/documents/rules/Положение Школьная Баскетбольная Лига «Alzhan» г. Рудный.pdf";
+import RulesLisakovsk2026 from "../assets/documents/rules/Положение Лисаковск 25-26г. 2.pdf";
 import Logotype from "../assets/documents/judges/Logotype.rar";
 
 export const DOCUMENT_SEASONS = ["Все", "2024", "2025", "2026"];
@@ -137,6 +138,12 @@ export const DOCUMENT_CATEGORIES = [
         title: "Положение Школьная Баскетбольная Лига «Alzhan» г. Рудный",
         season: "2025-2026",
         href: RulesRudnyi2026,
+      },
+      {
+        id: "rules-18",
+        title: "Положение Школьная Баскетбольная Лига «Alzhan» г. Лисаковск",
+        season: "2025-2026",
+        href: RulesLisakovsk2026,
       },
     ],
   },

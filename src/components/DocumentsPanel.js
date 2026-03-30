@@ -136,7 +136,7 @@ export default function DocumentsPanel({
                     onClick={() => handleOpen(it)}
                     title={it.title}
                   >
-                    <span className="docs-doc__title">{it.title}</span>
+                    <span className="docs-doc__title">{it.title} {it.season}</span>
                   </button>
                   {i !== filteredItems.length - 1 && (
                     <div className="docs-divider" />

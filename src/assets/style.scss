@@ -2432,6 +2432,13 @@ iframe {
     }
   }
 
+  &__card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+  }
+
   &__card {
     background: #ffffff;
     border-radius: 16px;
@@ -2458,6 +2465,10 @@ iframe {
 
   &__card:hover &__img {
     transform: scale(1.03);
+  }
+
+  &__card-link:hover &__title {
+    color: #2446c8;
   }
 
   &__body {
@@ -9004,6 +9015,27 @@ $radius: 18px;
 .news__head { display:flex; align-items:center; gap:12px; margin-bottom: 12px; }
 .news__title { margin:0; font-size:22px; font-weight:800; color:$ink; }
 .news__count { color:$muted; font-weight:700; background:#eef3ff; border:1px solid #e1e9ff; padding:4px 10px; border-radius: 999px; }
+.news__filters { display:flex; flex-wrap:wrap; gap:10px; margin: 0 0 12px; }
+.news__filter-btn {
+  border: 1px solid #d8e1ff;
+  background: #fff;
+  color: $ink;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.news__filter-btn:hover {
+  border-color: #9ab2ff;
+  background: #f6f9ff;
+}
+.news__filter-btn.is-active {
+  border-color: transparent;
+  background: $blue;
+  color: #fff;
+}
 
 .news__empty { background:$card; border:1px solid #e7ebff; border-radius:$radius; padding:24px; text-align:center; color:$muted; box-shadow:$shadow; }
 
