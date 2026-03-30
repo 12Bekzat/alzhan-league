@@ -81,4 +81,9 @@ const defaultItems = [
     photo: "https://i.ytimg.com/vi/PrXbWNzkA3w/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGHIgTSgxMA8=&rs=AOn4CLADA-aaFBakii_aGJ03a7SSy2_yRQ",
     videoUrl: "https://youtu.be/PrXbWNzkA3w",
   },
+  {
+    name: "Митрофанова Елена",
+    photo: "https://i.ytimg.com/vi/APaPgd4_mY4/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGF4gXiheMA8=&rs=AOn4CLAaNIrFgs4mjZQTSm1vUiG40a-G1g",
+    videoUrl: "https://youtu.be/APaPgd4_mY4?si=O90H3yy3Khl900xu",
+  },
 ];

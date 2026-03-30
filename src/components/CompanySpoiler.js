@@ -15,6 +15,7 @@ export default function CompanySpoiler({
   summary,
   socials,
   children,
+  logoStyle = {},
   defaultOpen = false,
 }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -84,6 +85,7 @@ export default function CompanySpoiler({
             <img
               className="spoiler__logo"
               src={logo}
+              style={logoStyle}
               alt={`${name || "Компания"} — логотип`}
               loading="lazy"
             />

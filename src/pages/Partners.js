@@ -1,12 +1,14 @@
 // src/pages/PartnersPage.jsx
-import ERG from "../assets/erg logo.webp";
-import Kusto from "../assets/kusto png.png";
-import Zhebe from "../assets/zhebe logistics png.jpg";
-import Federation from "../assets/federation.png";
-import Pbk from "../assets/pbk.png";
-import ThanksERG from "../assets/thx-image-erg.png";
-import ThanksKusto from "../assets/thx-image-kusto.png";
-import ThanksZhebe from "../assets/thanks-zhebe.png";
+import ERG from "../assets/partners/erg logo.webp";
+import Kusto from "../assets/partners/kusto png.png";
+import Km from "../assets/partners/km logotype.svg";
+import Zhebe from "../assets/partners/zhebe logistics png.jpg";
+import Federation from "../assets/partners/federation.png";
+import Bcc from "../assets/partners/bcc.png";
+import Pbk from "../assets/partners/pbk.png";
+import ThanksERG from "../assets/partners/thx-image-erg.png";
+import ThanksKusto from "../assets/partners/thx-image-kusto.png";
+import ThanksZhebe from "../assets/partners/thanks-zhebe.png";
 import { useState } from "react";
 import CompanySpoiler from "../components/CompanySpoiler";
 import SeasonsAccordion from "../components/SeasonAccordion";
@@ -104,6 +106,28 @@ const partners = [
     ],
   },
   {
+    name: "АО Костанайские минералы",
+    logo: Km,
+    description: `Горно-добывающая компания, специализирующаяся на добыче хризотил-асбеста и выработке хризотилового волокна.`,
+    style: {
+      transform: "scale(1.0)",
+    },
+    socials: [
+      {
+        social: "instagram",
+        link: "https://www.instagram.com/kostanay_minerals?igsh=MTEwd21ybTM4MDFwag==",
+      },
+      {
+        social: "web",
+        link: "https://km.kz/",
+      },
+      {
+        social: "instagram",
+        link: "https://www.instagram.com/gazetakm?igsh=ODhhZWhkd3dtY2R0",
+      },
+    ],
+  },
+  {
     name: "Zhebe logistics",
     description:
       'Логистическая компания предоставляющая услуги по железнодорожным, авиа‑фрахт, морским, автомобильным перевозкам и 3PL логистике. Является спонсором "Alzhan league" c 2025 года.',
@@ -163,6 +187,23 @@ const friends = [
       },
     ],
   },
+  {
+    name: "Банк ЦентрКредит",
+    logo: Bcc,
+    style: {
+      transform: "scale(0.7)",
+    },
+    socials: [
+      {
+        social: "instagram",
+        link: "https://www.instagram.com/centercreditkz",
+      },
+      {
+        social: "web",
+        link: "https://www.bcc.kz/kz/",
+      },
+    ],
+  },
 ];
 
 const regions = [
@@ -206,14 +247,15 @@ export default function Partners() {
                       <CompanySpoiler
                         logo={sponsor.logo}
                         name={sponsor.name}
+                        logoStyle={sponsor?.style || {}}
                         summary={sponsor.description}
                         socials={sponsor.socials}
                         defaultOpen={false}
                       >
-                        <SeasonsAccordion
+                        {sponsor?.seasons?.length > 0 && <SeasonsAccordion
                           seasons={sponsor.seasons}
                           sponsor={sponsor}
-                          setActiveImage={(img) => setActiveImage(img)} />
+                          setActiveImage={(img) => setActiveImage(img)} />}
                         {/* {sponsor.pdf ? (
                                   <img
                                     src={sponsor.pdf}
@@ -240,6 +282,7 @@ export default function Partners() {
                         logo={sponsor.logo}
                         name={sponsor.name}
                         socials={sponsor.socials}
+                        logoStyle={sponsor?.style || {}}
                         defaultOpen={false}
                       ></CompanySpoiler>
                     ))}

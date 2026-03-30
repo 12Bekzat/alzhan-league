@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.767d0b01.css",
-    "main.js": "/static/js/main.e9b514a1.js",
+    "main.css": "/static/css/main.3f9bfe5a.css",
+    "main.js": "/static/js/main.488270ec.js",
     "static/media/Положение Школьной Лиги по баскетболу Alzhan г. Хромтау.pdf": "/static/media/Положение Школьной Лиги по баскетболу Alzhan г. Хромтау.6ca65b4a15e8a8a8b536.pdf",
     "static/media/oneplayer.PNG": "/static/media/oneplayer.e45d9d57f658219f2ae5.PNG",
     "static/media/alina.png": "/static/media/alina.93f0bc08904bf3c13358.png",
@@ -78,12 +78,14 @@
     "static/media/politics.docx": "/static/media/politics.379dc2340d415b1c727e.docx",
     "static/media/zhebe logistics png.jpg": "/static/media/zhebe logistics png.8740dbf0559c2cdda6f2.jpg",
     "static/media/КОНЦЕПЦИЯ ДЕЯТЕЛЬНОСТИ ОБЩЕСТВЕННОГО ФОНДА (1).docx": "/static/media/КОНЦЕПЦИЯ ДЕЯТЕЛЬНОСТИ ОБЩЕСТВЕННОГО ФОНДА (1).bb98e5847c1c3adeef5c.docx",
+    "static/media/bcc.png": "/static/media/bcc.ddfac14180b230ab570f.png",
+    "static/media/km logotype.svg": "/static/media/km logotype.468ecddbdd2a9ff2cd35ca60267a9943.svg",
     "index.html": "/index.html",
-    "main.767d0b01.css.map": "/static/css/main.767d0b01.css.map",
-    "main.e9b514a1.js.map": "/static/js/main.e9b514a1.js.map"
+    "main.3f9bfe5a.css.map": "/static/css/main.3f9bfe5a.css.map",
+    "main.488270ec.js.map": "/static/js/main.488270ec.js.map"
   },
   "entrypoints": [
-    "static/css/main.767d0b01.css",
-    "static/js/main.e9b514a1.js"
+    "static/css/main.3f9bfe5a.css",
+    "static/js/main.488270ec.js"
   ]
 }

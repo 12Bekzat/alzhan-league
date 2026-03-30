@@ -23,11 +23,11 @@ import NewFooter from "./components/NewFooter";
 import Logo from "./assets/Aljan1-3_9R5tx.png";
 import LogoColor from "./assets/Logo.png";
 import bg from "./assets/footer-bg.jpg";
-import ERG from "./assets/erg logo.png";
-import Kusto from "./assets/kusto png.png";
-import Zhebe from "./assets/zhebe logistics png.png";
-import PBK from "./assets/pbk.png";
-import PBKAstana from "./assets/pbc_astana.png";
+import ERG from "./assets/partners/erg logo.png";
+import Kusto from "./assets/partners/kusto png.png";
+import Zhebe from "./assets/partners/zhebe logistics png.png";
+import PBK from "./assets/partners/pbk.png";
+import PBKAstana from "./assets/partners/pbc_astana.png";
 import Politics from "./assets/politics.docx";
 import SiteHeader from "./components/NewHeader";
 
